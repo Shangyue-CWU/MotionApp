@@ -23,7 +23,7 @@ class MainActivity : AppCompatActivity() {
                 R.id.nav_home -> HomeFragment()
                 R.id.nav_sessions -> CollectFragment()
                 R.id.nav_analytics -> HistoryFragment()
-                R.id.nav_settings -> SettingsFragment() // OR SettingsFragment (see below)
+                R.id.nav_settings -> SettingsFragment()
                 else -> null
             }
 
