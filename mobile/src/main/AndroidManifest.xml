@@ -20,6 +20,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MotionWatch"
         tools:targetApi="31">
+        <activity android:name=".SignInActivity" />
+        <activity android:name=".SignUpActivity" />
+
 
         <activity
             android:name=".MainActivity"
