@@ -1,3 +1,15 @@
 <resources>
     <string name="app_name">MotionWatch</string>
+    <string name="dashboard">Dashboard</string>
+    <string name="session">Session</string>
+    <string name="settings">Settings</string>
+    <string name="profile">Profile</string>
+    <string name="login">Login</string>
+    <string name="logout">Logout</string>
+    <string name="heartland_computing">Heartland Computing</string>
+    <string name="www_heartlandcomputing_com">www.heartlandcomputing.com</string>
+    <string name="home_main_activity">Home Main Activity</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="analytics">Analytics</string>
 </resources>
