@@ -17,6 +17,7 @@ INJECTED from C:\Users\kobep\AndroidStudioProjects\CS480_FitnessApp\mobile\src\m
 INJECTED from C:\Users\kobep\AndroidStudioProjects\CS480_FitnessApp\mobile\src\main\AndroidManifest.xml:2:1-82:12
 MERGED from [com.google.android.material:material:1.13.0] C:\Users\kobep\.gradle\caches\8.13\transforms\d1c59ec6772cea5ad4010109adeba250\transformed\material-1.13.0\AndroidManifest.xml:17:1-24:12
 MERGED from [com.google.firebase:firebase-auth:22.3.0] C:\Users\kobep\.gradle\caches\8.13\transforms\84e80c846535d07dbc9c3567bc98fb2d\transformed\firebase-auth-22.3.0\AndroidManifest.xml:17:1-75:12
+MERGED from [com.google.firebase:firebase-firestore:24.10.3] C:\Users\kobep\.gradle\caches\8.13\transforms\ad12561044309cf56da9476f347cd1f4\transformed\firebase-firestore-24.10.3\AndroidManifest.xml:2:1-26:12
 MERGED from [com.google.firebase:firebase-common-ktx:20.4.2] C:\Users\kobep\.gradle\caches\8.13\transforms\cc60f731b591904aa231b7aae8de628a\transformed\firebase-common-ktx-20.4.2\AndroidManifest.xml:2:1-18:12
 MERGED from [com.google.android.recaptcha:recaptcha:18.1.2] C:\Users\kobep\.gradle\caches\8.13\transforms\4bd1143167a91e37438e5704d9f74906\transformed\recaptcha-18.1.2\AndroidManifest.xml:2:1-10:12
 MERGED from [com.google.firebase:firebase-auth-interop:20.0.0] C:\Users\kobep\.gradle\caches\8.13\transforms\d05131244b00d1613f4a2c33e1a7e58c\transformed\firebase-auth-interop-20.0.0\AndroidManifest.xml:2:1-10:12
@@ -27,6 +28,7 @@ MERGED from [androidx.appcompat:appcompat:1.7.1] C:\Users\kobep\.gradle\caches\8
 MERGED from [com.google.android.gms:play-services-wearable:18.2.0] C:\Users\kobep\.gradle\caches\8.13\transforms\d583d5fcae0a5da7bbc3fff5bcdc6e23\transformed\play-services-wearable-18.2.0\AndroidManifest.xml:2:1-8:12
 MERGED from [com.google.android.gms:play-services-auth-api-phone:17.4.0] C:\Users\kobep\.gradle\caches\8.13\transforms\9cbef6dbc620a5e0783d789b0d74a45e\transformed\play-services-auth-api-phone-17.4.0\AndroidManifest.xml:2:1-7:12
 MERGED from [com.google.firebase:firebase-appcheck-interop:17.0.0] C:\Users\kobep\.gradle\caches\8.13\transforms\4a6e93390e24e39ccd543cbaded4646e\transformed\firebase-appcheck-interop-17.0.0\AndroidManifest.xml:15:1-25:12
+MERGED from [com.google.firebase:firebase-database-collection:18.0.1] C:\Users\kobep\.gradle\caches\8.13\transforms\34d4d9d9669fd3272618f0d96d4b776f\transformed\firebase-database-collection-18.0.1\AndroidManifest.xml:2:1-9:12
 MERGED from [com.google.android.gms:play-services-base:18.5.0] C:\Users\kobep\.gradle\caches\8.13\transforms\f774975ac9739f4fcba64828efdc6630\transformed\play-services-base-18.5.0\AndroidManifest.xml:2:1-7:12
 MERGED from [com.google.android.play:integrity:1.1.0] C:\Users\kobep\.gradle\caches\8.13\transforms\4000c1d93ae2e92322fdb464f7ac3b87\transformed\integrity-1.1.0\AndroidManifest.xml:2:1-7:12
 MERGED from [com.google.android.gms:play-services-tasks:18.2.0] C:\Users\kobep\.gradle\caches\8.13\transforms\6e844ee942cb130d494c3f7fe7c1348d\transformed\play-services-tasks-18.2.0\AndroidManifest.xml:2:1-5:12
@@ -68,6 +70,8 @@ MERGED from [androidx.localbroadcastmanager:localbroadcastmanager:1.0.0] C:\User
 MERGED from [com.google.firebase:firebase-components:17.1.5] C:\Users\kobep\.gradle\caches\8.13\transforms\24a6780163e70aaa2a45b3a7bea01f26\transformed\firebase-components-17.1.5\AndroidManifest.xml:15:1-20:12
 MERGED from [androidx.interpolator:interpolator:1.0.0] C:\Users\kobep\.gradle\caches\8.13\transforms\1723b65b99a4acb8268da50ec61dc6e9\transformed\interpolator-1.0.0\AndroidManifest.xml:17:1-22:12
 MERGED from [androidx.arch.core:core-runtime:2.2.0] C:\Users\kobep\.gradle\caches\8.13\transforms\4034dccad4c1f609b49a6d136e737372\transformed\core-runtime-2.2.0\AndroidManifest.xml:17:1-22:12
+MERGED from [io.grpc:grpc-android:1.57.2] C:\Users\kobep\.gradle\caches\8.13\transforms\90b02d71db095361f542edf46c42b0da\transformed\grpc-android-1.57.2\AndroidManifest.xml:2:1-9:12
+MERGED from [com.google.firebase:protolite-well-known-types:18.0.0] C:\Users\kobep\.gradle\caches\8.13\transforms\ff020922ded8011c53a21af5981f1a5e\transformed\protolite-well-known-types-18.0.0\AndroidManifest.xml:2:1-11:12
 	package
 		INJECTED from C:\Users\kobep\AndroidStudioProjects\CS480_FitnessApp\mobile\src\main\AndroidManifest.xml
 	android:versionName
@@ -101,6 +105,8 @@ MERGED from [com.google.android.material:material:1.13.0] C:\Users\kobep\.gradle
 MERGED from [com.google.android.material:material:1.13.0] C:\Users\kobep\.gradle\caches\8.13\transforms\d1c59ec6772cea5ad4010109adeba250\transformed\material-1.13.0\AndroidManifest.xml:22:5-20
 MERGED from [com.google.firebase:firebase-auth:22.3.0] C:\Users\kobep\.gradle\caches\8.13\transforms\84e80c846535d07dbc9c3567bc98fb2d\transformed\firebase-auth-22.3.0\AndroidManifest.xml:28:5-73:19
 MERGED from [com.google.firebase:firebase-auth:22.3.0] C:\Users\kobep\.gradle\caches\8.13\transforms\84e80c846535d07dbc9c3567bc98fb2d\transformed\firebase-auth-22.3.0\AndroidManifest.xml:28:5-73:19
+MERGED from [com.google.firebase:firebase-firestore:24.10.3] C:\Users\kobep\.gradle\caches\8.13\transforms\ad12561044309cf56da9476f347cd1f4\transformed\firebase-firestore-24.10.3\AndroidManifest.xml:13:5-24:19
+MERGED from [com.google.firebase:firebase-firestore:24.10.3] C:\Users\kobep\.gradle\caches\8.13\transforms\ad12561044309cf56da9476f347cd1f4\transformed\firebase-firestore-24.10.3\AndroidManifest.xml:13:5-24:19
 MERGED from [com.google.firebase:firebase-common-ktx:20.4.2] C:\Users\kobep\.gradle\caches\8.13\transforms\cc60f731b591904aa231b7aae8de628a\transformed\firebase-common-ktx-20.4.2\AndroidManifest.xml:8:5-16:19
 MERGED from [com.google.firebase:firebase-common-ktx:20.4.2] C:\Users\kobep\.gradle\caches\8.13\transforms\cc60f731b591904aa231b7aae8de628a\transformed\firebase-common-ktx-20.4.2\AndroidManifest.xml:8:5-16:19
 MERGED from [com.google.firebase:firebase-auth-interop:20.0.0] C:\Users\kobep\.gradle\caches\8.13\transforms\d05131244b00d1613f4a2c33e1a7e58c\transformed\firebase-auth-interop-20.0.0\AndroidManifest.xml:7:5-8:19
@@ -229,6 +235,8 @@ MERGED from [com.google.android.material:material:1.13.0] C:\Users\kobep\.gradle
 MERGED from [com.google.android.material:material:1.13.0] C:\Users\kobep\.gradle\caches\8.13\transforms\d1c59ec6772cea5ad4010109adeba250\transformed\material-1.13.0\AndroidManifest.xml:20:5-44
 MERGED from [com.google.firebase:firebase-auth:22.3.0] C:\Users\kobep\.gradle\caches\8.13\transforms\84e80c846535d07dbc9c3567bc98fb2d\transformed\firebase-auth-22.3.0\AndroidManifest.xml:21:5-23:64
 MERGED from [com.google.firebase:firebase-auth:22.3.0] C:\Users\kobep\.gradle\caches\8.13\transforms\84e80c846535d07dbc9c3567bc98fb2d\transformed\firebase-auth-22.3.0\AndroidManifest.xml:21:5-23:64
+MERGED from [com.google.firebase:firebase-firestore:24.10.3] C:\Users\kobep\.gradle\caches\8.13\transforms\ad12561044309cf56da9476f347cd1f4\transformed\firebase-firestore-24.10.3\AndroidManifest.xml:6:5-44
+MERGED from [com.google.firebase:firebase-firestore:24.10.3] C:\Users\kobep\.gradle\caches\8.13\transforms\ad12561044309cf56da9476f347cd1f4\transformed\firebase-firestore-24.10.3\AndroidManifest.xml:6:5-44
 MERGED from [com.google.firebase:firebase-common-ktx:20.4.2] C:\Users\kobep\.gradle\caches\8.13\transforms\cc60f731b591904aa231b7aae8de628a\transformed\firebase-common-ktx-20.4.2\AndroidManifest.xml:5:5-44
 MERGED from [com.google.firebase:firebase-common-ktx:20.4.2] C:\Users\kobep\.gradle\caches\8.13\transforms\cc60f731b591904aa231b7aae8de628a\transformed\firebase-common-ktx-20.4.2\AndroidManifest.xml:5:5-44
 MERGED from [com.google.android.recaptcha:recaptcha:18.1.2] C:\Users\kobep\.gradle\caches\8.13\transforms\4bd1143167a91e37438e5704d9f74906\transformed\recaptcha-18.1.2\AndroidManifest.xml:5:5-44
@@ -249,6 +257,8 @@ MERGED from [com.google.android.gms:play-services-auth-api-phone:17.4.0] C:\User
 MERGED from [com.google.android.gms:play-services-auth-api-phone:17.4.0] C:\Users\kobep\.gradle\caches\8.13\transforms\9cbef6dbc620a5e0783d789b0d74a45e\transformed\play-services-auth-api-phone-17.4.0\AndroidManifest.xml:5:5-44
 MERGED from [com.google.firebase:firebase-appcheck-interop:17.0.0] C:\Users\kobep\.gradle\caches\8.13\transforms\4a6e93390e24e39ccd543cbaded4646e\transformed\firebase-appcheck-interop-17.0.0\AndroidManifest.xml:18:5-20:41
 MERGED from [com.google.firebase:firebase-appcheck-interop:17.0.0] C:\Users\kobep\.gradle\caches\8.13\transforms\4a6e93390e24e39ccd543cbaded4646e\transformed\firebase-appcheck-interop-17.0.0\AndroidManifest.xml:18:5-20:41
+MERGED from [com.google.firebase:firebase-database-collection:18.0.1] C:\Users\kobep\.gradle\caches\8.13\transforms\34d4d9d9669fd3272618f0d96d4b776f\transformed\firebase-database-collection-18.0.1\AndroidManifest.xml:5:5-7:41
+MERGED from [com.google.firebase:firebase-database-collection:18.0.1] C:\Users\kobep\.gradle\caches\8.13\transforms\34d4d9d9669fd3272618f0d96d4b776f\transformed\firebase-database-collection-18.0.1\AndroidManifest.xml:5:5-7:41
 MERGED from [com.google.android.gms:play-services-base:18.5.0] C:\Users\kobep\.gradle\caches\8.13\transforms\f774975ac9739f4fcba64828efdc6630\transformed\play-services-base-18.5.0\AndroidManifest.xml:3:5-44
 MERGED from [com.google.android.gms:play-services-base:18.5.0] C:\Users\kobep\.gradle\caches\8.13\transforms\f774975ac9739f4fcba64828efdc6630\transformed\play-services-base-18.5.0\AndroidManifest.xml:3:5-44
 MERGED from [com.google.android.play:integrity:1.1.0] C:\Users\kobep\.gradle\caches\8.13\transforms\4000c1d93ae2e92322fdb464f7ac3b87\transformed\integrity-1.1.0\AndroidManifest.xml:4:5-44
@@ -331,6 +341,10 @@ MERGED from [androidx.interpolator:interpolator:1.0.0] C:\Users\kobep\.gradle\ca
 MERGED from [androidx.interpolator:interpolator:1.0.0] C:\Users\kobep\.gradle\caches\8.13\transforms\1723b65b99a4acb8268da50ec61dc6e9\transformed\interpolator-1.0.0\AndroidManifest.xml:20:5-44
 MERGED from [androidx.arch.core:core-runtime:2.2.0] C:\Users\kobep\.gradle\caches\8.13\transforms\4034dccad4c1f609b49a6d136e737372\transformed\core-runtime-2.2.0\AndroidManifest.xml:20:5-44
 MERGED from [androidx.arch.core:core-runtime:2.2.0] C:\Users\kobep\.gradle\caches\8.13\transforms\4034dccad4c1f609b49a6d136e737372\transformed\core-runtime-2.2.0\AndroidManifest.xml:20:5-44
+MERGED from [io.grpc:grpc-android:1.57.2] C:\Users\kobep\.gradle\caches\8.13\transforms\90b02d71db095361f542edf46c42b0da\transformed\grpc-android-1.57.2\AndroidManifest.xml:5:5-44
+MERGED from [io.grpc:grpc-android:1.57.2] C:\Users\kobep\.gradle\caches\8.13\transforms\90b02d71db095361f542edf46c42b0da\transformed\grpc-android-1.57.2\AndroidManifest.xml:5:5-44
+MERGED from [com.google.firebase:protolite-well-known-types:18.0.0] C:\Users\kobep\.gradle\caches\8.13\transforms\ff020922ded8011c53a21af5981f1a5e\transformed\protolite-well-known-types-18.0.0\AndroidManifest.xml:7:5-9:41
+MERGED from [com.google.firebase:protolite-well-known-types:18.0.0] C:\Users\kobep\.gradle\caches\8.13\transforms\ff020922ded8011c53a21af5981f1a5e\transformed\protolite-well-known-types-18.0.0\AndroidManifest.xml:7:5-9:41
 	tools:overrideLibrary
 		ADDED from [com.google.firebase:firebase-auth:22.3.0] C:\Users\kobep\.gradle\caches\8.13\transforms\84e80c846535d07dbc9c3567bc98fb2d\transformed\firebase-auth-22.3.0\AndroidManifest.xml:23:9-61
 	android:targetSdkVersion
@@ -339,14 +353,20 @@ MERGED from [androidx.arch.core:core-runtime:2.2.0] C:\Users\kobep\.gradle\cache
 		INJECTED from C:\Users\kobep\AndroidStudioProjects\CS480_FitnessApp\mobile\src\main\AndroidManifest.xml
 uses-permission#android.permission.INTERNET
 ADDED from [com.google.firebase:firebase-auth:22.3.0] C:\Users\kobep\.gradle\caches\8.13\transforms\84e80c846535d07dbc9c3567bc98fb2d\transformed\firebase-auth-22.3.0\AndroidManifest.xml:25:5-67
+MERGED from [com.google.firebase:firebase-firestore:24.10.3] C:\Users\kobep\.gradle\caches\8.13\transforms\ad12561044309cf56da9476f347cd1f4\transformed\firebase-firestore-24.10.3\AndroidManifest.xml:11:5-67
+MERGED from [com.google.firebase:firebase-firestore:24.10.3] C:\Users\kobep\.gradle\caches\8.13\transforms\ad12561044309cf56da9476f347cd1f4\transformed\firebase-firestore-24.10.3\AndroidManifest.xml:11:5-67
 MERGED from [com.google.android.recaptcha:recaptcha:18.1.2] C:\Users\kobep\.gradle\caches\8.13\transforms\4bd1143167a91e37438e5704d9f74906\transformed\recaptcha-18.1.2\AndroidManifest.xml:7:5-67
 MERGED from [com.google.android.recaptcha:recaptcha:18.1.2] C:\Users\kobep\.gradle\caches\8.13\transforms\4bd1143167a91e37438e5704d9f74906\transformed\recaptcha-18.1.2\AndroidManifest.xml:7:5-67
 	android:name
 		ADDED from [com.google.firebase:firebase-auth:22.3.0] C:\Users\kobep\.gradle\caches\8.13\transforms\84e80c846535d07dbc9c3567bc98fb2d\transformed\firebase-auth-22.3.0\AndroidManifest.xml:25:22-64
 uses-permission#android.permission.ACCESS_NETWORK_STATE
 ADDED from [com.google.firebase:firebase-auth:22.3.0] C:\Users\kobep\.gradle\caches\8.13\transforms\84e80c846535d07dbc9c3567bc98fb2d\transformed\firebase-auth-22.3.0\AndroidManifest.xml:26:5-79
+MERGED from [com.google.firebase:firebase-firestore:24.10.3] C:\Users\kobep\.gradle\caches\8.13\transforms\ad12561044309cf56da9476f347cd1f4\transformed\firebase-firestore-24.10.3\AndroidManifest.xml:10:5-79
+MERGED from [com.google.firebase:firebase-firestore:24.10.3] C:\Users\kobep\.gradle\caches\8.13\transforms\ad12561044309cf56da9476f347cd1f4\transformed\firebase-firestore-24.10.3\AndroidManifest.xml:10:5-79
 MERGED from [com.google.android.recaptcha:recaptcha:18.1.2] C:\Users\kobep\.gradle\caches\8.13\transforms\4bd1143167a91e37438e5704d9f74906\transformed\recaptcha-18.1.2\AndroidManifest.xml:8:5-79
 MERGED from [com.google.android.recaptcha:recaptcha:18.1.2] C:\Users\kobep\.gradle\caches\8.13\transforms\4bd1143167a91e37438e5704d9f74906\transformed\recaptcha-18.1.2\AndroidManifest.xml:8:5-79
+MERGED from [io.grpc:grpc-android:1.57.2] C:\Users\kobep\.gradle\caches\8.13\transforms\90b02d71db095361f542edf46c42b0da\transformed\grpc-android-1.57.2\AndroidManifest.xml:7:5-79
+MERGED from [io.grpc:grpc-android:1.57.2] C:\Users\kobep\.gradle\caches\8.13\transforms\90b02d71db095361f542edf46c42b0da\transformed\grpc-android-1.57.2\AndroidManifest.xml:7:5-79
 	android:name
 		ADDED from [com.google.firebase:firebase-auth:22.3.0] C:\Users\kobep\.gradle\caches\8.13\transforms\84e80c846535d07dbc9c3567bc98fb2d\transformed\firebase-auth-22.3.0\AndroidManifest.xml:26:22-76
 activity#com.google.firebase.auth.internal.GenericIdpActivity
@@ -399,6 +419,8 @@ intent-filter#action:name:android.intent.action.VIEW+category:name:android.inten
 ADDED from [com.google.firebase:firebase-auth:22.3.0] C:\Users\kobep\.gradle\caches\8.13\transforms\84e80c846535d07dbc9c3567bc98fb2d\transformed\firebase-auth-22.3.0\AndroidManifest.xml:53:13-63:29
 service#com.google.firebase.components.ComponentDiscoveryService
 ADDED from [com.google.firebase:firebase-auth:22.3.0] C:\Users\kobep\.gradle\caches\8.13\transforms\84e80c846535d07dbc9c3567bc98fb2d\transformed\firebase-auth-22.3.0\AndroidManifest.xml:66:9-72:19
+MERGED from [com.google.firebase:firebase-firestore:24.10.3] C:\Users\kobep\.gradle\caches\8.13\transforms\ad12561044309cf56da9476f347cd1f4\transformed\firebase-firestore-24.10.3\AndroidManifest.xml:14:9-23:19
+MERGED from [com.google.firebase:firebase-firestore:24.10.3] C:\Users\kobep\.gradle\caches\8.13\transforms\ad12561044309cf56da9476f347cd1f4\transformed\firebase-firestore-24.10.3\AndroidManifest.xml:14:9-23:19
 MERGED from [com.google.firebase:firebase-common-ktx:20.4.2] C:\Users\kobep\.gradle\caches\8.13\transforms\cc60f731b591904aa231b7aae8de628a\transformed\firebase-common-ktx-20.4.2\AndroidManifest.xml:9:9-15:19
 MERGED from [com.google.firebase:firebase-common-ktx:20.4.2] C:\Users\kobep\.gradle\caches\8.13\transforms\cc60f731b591904aa231b7aae8de628a\transformed\firebase-common-ktx-20.4.2\AndroidManifest.xml:9:9-15:19
 MERGED from [com.google.firebase:firebase-common:20.4.2] C:\Users\kobep\.gradle\caches\8.13\transforms\2f090d301506fc01338c213a379769b5\transformed\firebase-common-20.4.2\AndroidManifest.xml:30:9-38:19
@@ -417,6 +439,18 @@ ADDED from [com.google.firebase:firebase-auth:22.3.0] C:\Users\kobep\.gradle\cac
 		ADDED from [com.google.firebase:firebase-auth:22.3.0] C:\Users\kobep\.gradle\caches\8.13\transforms\84e80c846535d07dbc9c3567bc98fb2d\transformed\firebase-auth-22.3.0\AndroidManifest.xml:71:17-82
 	android:name
 		ADDED from [com.google.firebase:firebase-auth:22.3.0] C:\Users\kobep\.gradle\caches\8.13\transforms\84e80c846535d07dbc9c3567bc98fb2d\transformed\firebase-auth-22.3.0\AndroidManifest.xml:70:17-109
+meta-data#com.google.firebase.components:com.google.firebase.firestore.FirebaseFirestoreKtxRegistrar
+ADDED from [com.google.firebase:firebase-firestore:24.10.3] C:\Users\kobep\.gradle\caches\8.13\transforms\ad12561044309cf56da9476f347cd1f4\transformed\firebase-firestore-24.10.3\AndroidManifest.xml:17:13-19:85
+	android:value
+		ADDED from [com.google.firebase:firebase-firestore:24.10.3] C:\Users\kobep\.gradle\caches\8.13\transforms\ad12561044309cf56da9476f347cd1f4\transformed\firebase-firestore-24.10.3\AndroidManifest.xml:19:17-82
+	android:name
+		ADDED from [com.google.firebase:firebase-firestore:24.10.3] C:\Users\kobep\.gradle\caches\8.13\transforms\ad12561044309cf56da9476f347cd1f4\transformed\firebase-firestore-24.10.3\AndroidManifest.xml:18:17-122
+meta-data#com.google.firebase.components:com.google.firebase.firestore.FirestoreRegistrar
+ADDED from [com.google.firebase:firebase-firestore:24.10.3] C:\Users\kobep\.gradle\caches\8.13\transforms\ad12561044309cf56da9476f347cd1f4\transformed\firebase-firestore-24.10.3\AndroidManifest.xml:20:13-22:85
+	android:value
+		ADDED from [com.google.firebase:firebase-firestore:24.10.3] C:\Users\kobep\.gradle\caches\8.13\transforms\ad12561044309cf56da9476f347cd1f4\transformed\firebase-firestore-24.10.3\AndroidManifest.xml:22:17-82
+	android:name
+		ADDED from [com.google.firebase:firebase-firestore:24.10.3] C:\Users\kobep\.gradle\caches\8.13\transforms\ad12561044309cf56da9476f347cd1f4\transformed\firebase-firestore-24.10.3\AndroidManifest.xml:21:17-111
 meta-data#com.google.firebase.components:com.google.firebase.ktx.FirebaseCommonLegacyRegistrar
 ADDED from [com.google.firebase:firebase-common-ktx:20.4.2] C:\Users\kobep\.gradle\caches\8.13\transforms\cc60f731b591904aa231b7aae8de628a\transformed\firebase-common-ktx-20.4.2\AndroidManifest.xml:12:13-14:85
 	android:value

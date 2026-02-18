@@ -79,6 +79,7 @@ id tvActiveMinutes
 id tvAge
 id tvBloodType
 id tvDailyProgressLabel
+id tvEmail
 id tvGoalLabel
 id tvGoalPercent
 id tvGyroX
@@ -88,6 +89,7 @@ id tvHeight
 id tvHello
 id tvKcal
 id tvKcalLabel
+id tvName
 id tvPassword
 id tvPrivacyStatus
 id tvSettingsTitle

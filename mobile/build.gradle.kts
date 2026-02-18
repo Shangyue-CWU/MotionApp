@@ -49,5 +49,7 @@ dependencies {
     androidTestImplementation(libs.androidx.espresso.core)
     wearApp(project(":wear"))
     implementation("com.google.firebase:firebase-auth:22.3.0")
+    implementation("com.google.firebase:firebase-firestore:24.10.3")
+
 
 }
