@@ -28,6 +28,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        supportActionBar?.hide()
 
         // Hooks
         drawerLayout = findViewById(R.id.drawer_layout)
@@ -101,9 +102,9 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     private fun navigateTo(itemId: Int, fromDrawer: Boolean) {
         val fragment = when (itemId) {
-            R.id.nav_home, R.id.nav_dashboard -> HomeFragment()
-            R.id.nav_sessions, R.id.nav_session -> CollectFragment()
-            R.id.nav_analytics, R.id.nav_analysis -> HistoryFragment()
+            R.id.nav_home -> HomeFragment()
+            R.id.nav_sessions -> SessionsFragment()
+            R.id.nav_analytics -> HistoryFragment()   // if your existing analytics screen is named HistoryFragment
             R.id.nav_settings -> SettingsFragment()
             else -> null
         }
