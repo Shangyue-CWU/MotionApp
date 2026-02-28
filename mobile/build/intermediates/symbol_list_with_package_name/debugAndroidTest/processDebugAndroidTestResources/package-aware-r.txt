@@ -1,3 +1,0 @@
-com.example.motionwatch.test
-style WhiteBackgroundDialogTheme
-style WhiteBackgroundTheme
