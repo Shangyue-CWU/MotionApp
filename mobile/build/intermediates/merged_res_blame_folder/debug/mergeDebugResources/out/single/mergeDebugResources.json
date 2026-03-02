@@ -1,0 +1,246 @@
+[
+    {
+        "merged": "com.example.motionwatch.mobile-debug-35:/mipmap-anydpi-v26_ic_launcher.xml.flat",
+        "source": "com.example.motionwatch.mobile-main-37:/mipmap-anydpi-v26/ic_launcher.xml"
+    },
+    {
+        "merged": "com.example.motionwatch.mobile-debug-35:/drawable_ic_account_circle.xml.flat",
+        "source": "com.example.motionwatch.mobile-main-37:/drawable/ic_account_circle.xml"
+    },
+    {
+        "merged": "com.example.motionwatch.mobile-debug-35:/drawable_ic_sessions.xml.flat",
+        "source": "com.example.motionwatch.mobile-main-37:/drawable/ic_sessions.xml"
+    },
+    {
+        "merged": "com.example.motionwatch.mobile-debug-35:/drawable_dashboard_icon.xml.flat",
+        "source": "com.example.motionwatch.mobile-main-37:/drawable/dashboard_icon.xml"
+    },
+    {
+        "merged": "com.example.motionwatch.mobile-debug-35:/drawable_bg_chip_dark.xml.flat",
+        "source": "com.example.motionwatch.mobile-main-37:/drawable/bg_chip_dark.xml"
+    },
+    {
+        "merged": "com.example.motionwatch.mobile-debug-35:/drawable_ic_settings.xml.flat",
+        "source": "com.example.motionwatch.mobile-main-37:/drawable/ic_settings.xml"
+    },
+    {
+        "merged": "com.example.motionwatch.mobile-debug-35:/drawable_profile_icon.xml.flat",
+        "source": "com.example.motionwatch.mobile-main-37:/drawable/profile_icon.xml"
+    },
+    {
+        "merged": "com.example.motionwatch.mobile-debug-35:/drawable_heartland_logo.png.flat",
+        "source": "com.example.motionwatch.mobile-main-37:/drawable/heartland_logo.png"
+    },
+    {
+        "merged": "com.example.motionwatch.mobile-debug-35:/layout_fragment_collect.xml.flat",
+        "source": "com.example.motionwatch.mobile-main-37:/layout/fragment_collect.xml"
+    },
+    {
+        "merged": "com.example.motionwatch.mobile-debug-35:/layout_file_item.xml.flat",
+        "source": "com.example.motionwatch.mobile-main-37:/layout/file_item.xml"
+    },
+    {
+        "merged": "com.example.motionwatch.mobile-debug-35:/mipmap-mdpi_ic_launcher.webp.flat",
+        "source": "com.example.motionwatch.mobile-main-37:/mipmap-mdpi/ic_launcher.webp"
+    },
+    {
+        "merged": "com.example.motionwatch.mobile-debug-35:/layout_activity_wear.xml.flat",
+        "source": "com.example.motionwatch.mobile-main-37:/layout/activity_wear.xml"
+    },
+    {
+        "merged": "com.example.motionwatch.mobile-debug-35:/layout_activity_main.xml.flat",
+        "source": "com.example.motionwatch.mobile-main-37:/layout/activity_main.xml"
+    },
+    {
+        "merged": "com.example.motionwatch.mobile-debug-35:/drawable_rate_icon.xml.flat",
+        "source": "com.example.motionwatch.mobile-main-37:/drawable/rate_icon.xml"
+    },
+    {
+        "merged": "com.example.motionwatch.mobile-debug-35:/layout_fragment_settings.xml.flat",
+        "source": "com.example.motionwatch.mobile-main-37:/layout/fragment_settings.xml"
+    },
+    {
+        "merged": "com.example.motionwatch.mobile-debug-35:/layout_fragment_history.xml.flat",
+        "source": "com.example.motionwatch.mobile-main-37:/layout/fragment_history.xml"
+    },
+    {
+        "merged": "com.example.motionwatch.mobile-debug-35:/drawable_ic_menu.xml.flat",
+        "source": "com.example.motionwatch.mobile-main-37:/drawable/ic_menu.xml"
+    },
+    {
+        "merged": "com.example.motionwatch.mobile-debug-35:/drawable_settings_icon.xml.flat",
+        "source": "com.example.motionwatch.mobile-main-37:/drawable/settings_icon.xml"
+    },
+    {
+        "merged": "com.example.motionwatch.mobile-debug-35:/drawable_ic_back.xml.flat",
+        "source": "com.example.motionwatch.mobile-main-37:/drawable/ic_back.xml"
+    },
+    {
+        "merged": "com.example.motionwatch.mobile-debug-35:/drawable_ic_notifications.xml.flat",
+        "source": "com.example.motionwatch.mobile-main-37:/drawable/ic_notifications.xml"
+    },
+    {
+        "merged": "com.example.motionwatch.mobile-debug-35:/mipmap-mdpi_ic_launcher_round.webp.flat",
+        "source": "com.example.motionwatch.mobile-main-37:/mipmap-mdpi/ic_launcher_round.webp"
+    },
+    {
+        "merged": "com.example.motionwatch.mobile-debug-35:/layout_fragment_faq.xml.flat",
+        "source": "com.example.motionwatch.mobile-main-37:/layout/fragment_faq.xml"
+    },
+    {
+        "merged": "com.example.motionwatch.mobile-debug-35:/mipmap-xxxhdpi_ic_launcher_round.webp.flat",
+        "source": "com.example.motionwatch.mobile-main-37:/mipmap-xxxhdpi/ic_launcher_round.webp"
+    },
+    {
+        "merged": "com.example.motionwatch.mobile-debug-35:/mipmap-hdpi_ic_launcher.webp.flat",
+        "source": "com.example.motionwatch.mobile-main-37:/mipmap-hdpi/ic_launcher.webp"
+    },
+    {
+        "merged": "com.example.motionwatch.mobile-debug-35:/layout_fragment_sessions.xml.flat",
+        "source": "com.example.motionwatch.mobile-main-37:/layout/fragment_sessions.xml"
+    },
+    {
+        "merged": "com.example.motionwatch.mobile-debug-35:/menu_bottom_nav.xml.flat",
+        "source": "com.example.motionwatch.mobile-main-37:/menu/bottom_nav.xml"
+    },
+    {
+        "merged": "com.example.motionwatch.mobile-debug-35:/drawable_session_icon.xml.flat",
+        "source": "com.example.motionwatch.mobile-main-37:/drawable/session_icon.xml"
+    },
+    {
+        "merged": "com.example.motionwatch.mobile-debug-35:/drawable_ic_launcher_foreground.xml.flat",
+        "source": "com.example.motionwatch.mobile-main-37:/drawable/ic_launcher_foreground.xml"
+    },
+    {
+        "merged": "com.example.motionwatch.mobile-debug-35:/drawable_login_icon.xml.flat",
+        "source": "com.example.motionwatch.mobile-main-37:/drawable/login_icon.xml"
+    },
+    {
+        "merged": "com.example.motionwatch.mobile-debug-35:/mipmap-mdpi_ic_launcher_foreground.webp.flat",
+        "source": "com.example.motionwatch.mobile-main-37:/mipmap-mdpi/ic_launcher_foreground.webp"
+    },
+    {
+        "merged": "com.example.motionwatch.mobile-debug-35:/drawable_ic_walk.xml.flat",
+        "source": "com.example.motionwatch.mobile-main-37:/drawable/ic_walk.xml"
+    },
+    {
+        "merged": "com.example.motionwatch.mobile-debug-35:/drawable_background_input.xml.flat",
+        "source": "com.example.motionwatch.mobile-main-37:/drawable/background_input.xml"
+    },
+    {
+        "merged": "com.example.motionwatch.mobile-debug-35:/mipmap-hdpi_ic_launcher_foreground.webp.flat",
+        "source": "com.example.motionwatch.mobile-main-37:/mipmap-hdpi/ic_launcher_foreground.webp"
+    },
+    {
+        "merged": "com.example.motionwatch.mobile-debug-35:/layout_item_history_file.xml.flat",
+        "source": "com.example.motionwatch.mobile-main-37:/layout/item_history_file.xml"
+    },
+    {
+        "merged": "com.example.motionwatch.mobile-debug-35:/mipmap-xxxhdpi_ic_launcher_foreground.webp.flat",
+        "source": "com.example.motionwatch.mobile-main-37:/mipmap-xxxhdpi/ic_launcher_foreground.webp"
+    },
+    {
+        "merged": "com.example.motionwatch.mobile-debug-35:/mipmap-xxhdpi_ic_launcher_round.webp.flat",
+        "source": "com.example.motionwatch.mobile-main-37:/mipmap-xxhdpi/ic_launcher_round.webp"
+    },
+    {
+        "merged": "com.example.motionwatch.mobile-debug-35:/layout_fragment_history_page.xml.flat",
+        "source": "com.example.motionwatch.mobile-main-37:/layout/fragment_history_page.xml"
+    },
+    {
+        "merged": "com.example.motionwatch.mobile-debug-35:/layout_fragment_contact_about.xml.flat",
+        "source": "com.example.motionwatch.mobile-main-37:/layout/fragment_contact_about.xml"
+    },
+    {
+        "merged": "com.example.motionwatch.mobile-debug-35:/mipmap-xxhdpi_ic_launcher_foreground.webp.flat",
+        "source": "com.example.motionwatch.mobile-main-37:/mipmap-xxhdpi/ic_launcher_foreground.webp"
+    },
+    {
+        "merged": "com.example.motionwatch.mobile-debug-35:/drawable_ic_home.xml.flat",
+        "source": "com.example.motionwatch.mobile-main-37:/drawable/ic_home.xml"
+    },
+    {
+        "merged": "com.example.motionwatch.mobile-debug-35:/layout_fragment_account_info.xml.flat",
+        "source": "com.example.motionwatch.mobile-main-37:/layout/fragment_account_info.xml"
+    },
+    {
+        "merged": "com.example.motionwatch.mobile-debug-35:/mipmap-xhdpi_ic_launcher_foreground.webp.flat",
+        "source": "com.example.motionwatch.mobile-main-37:/mipmap-xhdpi/ic_launcher_foreground.webp"
+    },
+    {
+        "merged": "com.example.motionwatch.mobile-debug-35:/menu_bottom_nav_menu.xml.flat",
+        "source": "com.example.motionwatch.mobile-main-37:/menu/bottom_nav_menu.xml"
+    },
+    {
+        "merged": "com.example.motionwatch.mobile-debug-35:/mipmap-hdpi_ic_launcher_round.webp.flat",
+        "source": "com.example.motionwatch.mobile-main-37:/mipmap-hdpi/ic_launcher_round.webp"
+    },
+    {
+        "merged": "com.example.motionwatch.mobile-debug-35:/layout_header.xml.flat",
+        "source": "com.example.motionwatch.mobile-main-37:/layout/header.xml"
+    },
+    {
+        "merged": "com.example.motionwatch.mobile-debug-35:/xml_file_paths.xml.flat",
+        "source": "com.example.motionwatch.mobile-main-37:/xml/file_paths.xml"
+    },
+    {
+        "merged": "com.example.motionwatch.mobile-debug-35:/drawable_logout_icon.xml.flat",
+        "source": "com.example.motionwatch.mobile-main-37:/drawable/logout_icon.xml"
+    },
+    {
+        "merged": "com.example.motionwatch.mobile-debug-35:/drawable_share_icon.xml.flat",
+        "source": "com.example.motionwatch.mobile-main-37:/drawable/share_icon.xml"
+    },
+    {
+        "merged": "com.example.motionwatch.mobile-debug-35:/mipmap-xhdpi_ic_launcher.webp.flat",
+        "source": "com.example.motionwatch.mobile-main-37:/mipmap-xhdpi/ic_launcher.webp"
+    },
+    {
+        "merged": "com.example.motionwatch.mobile-debug-35:/layout_fragment_home.xml.flat",
+        "source": "com.example.motionwatch.mobile-main-37:/layout/fragment_home.xml"
+    },
+    {
+        "merged": "com.example.motionwatch.mobile-debug-35:/drawable_ic_launcher_background.xml.flat",
+        "source": "com.example.motionwatch.mobile-main-37:/drawable/ic_launcher_background.xml"
+    },
+    {
+        "merged": "com.example.motionwatch.mobile-debug-35:/mipmap-xxhdpi_ic_launcher.webp.flat",
+        "source": "com.example.motionwatch.mobile-main-37:/mipmap-xxhdpi/ic_launcher.webp"
+    },
+    {
+        "merged": "com.example.motionwatch.mobile-debug-35:/mipmap-xxxhdpi_ic_launcher.webp.flat",
+        "source": "com.example.motionwatch.mobile-main-37:/mipmap-xxxhdpi/ic_launcher.webp"
+    },
+    {
+        "merged": "com.example.motionwatch.mobile-debug-35:/layout_main_menu.xml.flat",
+        "source": "com.example.motionwatch.mobile-main-37:/layout/main_menu.xml"
+    },
+    {
+        "merged": "com.example.motionwatch.mobile-debug-35:/xml_backup_rules.xml.flat",
+        "source": "com.example.motionwatch.mobile-main-37:/xml/backup_rules.xml"
+    },
+    {
+        "merged": "com.example.motionwatch.mobile-debug-35:/xml_data_extraction_rules.xml.flat",
+        "source": "com.example.motionwatch.mobile-main-37:/xml/data_extraction_rules.xml"
+    },
+    {
+        "merged": "com.example.motionwatch.mobile-debug-35:/mipmap-anydpi-v26_ic_launcher_round.xml.flat",
+        "source": "com.example.motionwatch.mobile-main-37:/mipmap-anydpi-v26/ic_launcher_round.xml"
+    },
+    {
+        "merged": "com.example.motionwatch.mobile-debug-35:/mipmap-xhdpi_ic_launcher_round.webp.flat",
+        "source": "com.example.motionwatch.mobile-main-37:/mipmap-xhdpi/ic_launcher_round.webp"
+    },
+    {
+        "merged": "com.example.motionwatch.mobile-debug-35:/drawable_analytics_icon.xml.flat",
+        "source": "com.example.motionwatch.mobile-main-37:/drawable/analytics_icon.xml"
+    },
+    {
+        "merged": "com.example.motionwatch.mobile-debug-35:/menu_main_menu.xml.flat",
+        "source": "com.example.motionwatch.mobile-main-37:/menu/main_menu.xml"
+    },
+    {
+        "merged": "com.example.motionwatch.mobile-debug-35:/drawable_ic_analytics.xml.flat",
+        "source": "com.example.motionwatch.mobile-main-37:/drawable/ic_analytics.xml"
+    }
+]

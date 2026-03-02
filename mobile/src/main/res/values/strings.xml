@@ -12,48 +12,4 @@
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="analytics">Analytics</string>
-    <string name="settings1">Settings</string>
-    <string name="account">Account</string>
-
-    <string name="name">NAME</string>
-    <string name="age">AGE</string>
-    <string name="height_in">HEIGHT (IN)</string>
-    <string name="weight_lb">WEIGHT (LB)</string>
-    <string name="sex">SEX</string>
-    <string name="blood_type">BLOOD TYPE</string>
-    <string name="measurement_units">MEASUREMENT UNITS</string>
-    <string name="share_data_no">Share data: No</string>
-    <string name="support_information"><![CDATA[SUPPORT & INFORMATION]]></string>
-    <string name="faq">FAQ</string>
-    <string name="allow_data_sharing">Allow data sharing</string>
-    <string name="version_1_0">Version: 1.0</string>
-    <string name="contact_about" />
-    <string name="about">About</string>
-    <string name="units">UNITS</string>
-    <string name="profile1">PROFILE</string>
-
-    <string-array name="sex_options">
-        <item>Select sex</item>
-        <item>Female</item>
-        <item>Male</item>
-        <item>Non-binary</item>
-        <item>Prefer not to say</item>
-    </string-array>
-
-    <string-array name="blood_type_options">
-        <item>Select blood type</item>
-        <item>A+</item>
-        <item>A-</item>
-        <item>B+</item>
-        <item>B-</item>
-        <item>AB+</item>
-        <item>AB-</item>
-        <item>O+</item>
-        <item>O-</item>
-    </string-array>
-
-    <string-array name="unit_options">
-        <item>Metric</item>
-        <item>Imperial</item>
-    </string-array>
 </resources>

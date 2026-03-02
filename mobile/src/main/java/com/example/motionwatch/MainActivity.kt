@@ -1,48 +1,50 @@
 package com.example.motionwatch
 
-import android.content.Intent
 import android.os.Bundle
-import android.view.MenuItem
-import android.widget.Toast
-import androidx.activity.OnBackPressedCallback
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.Toolbar
-import androidx.core.view.GravityCompat
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
+import com.google.android.material.appbar.MaterialToolbar
 import androidx.drawerlayout.widget.DrawerLayout
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.navigation.NavigationView
+import androidx.activity.OnBackPressedCallback
+import androidx.core.view.GravityCompat
+import android.view.MenuItem
+import android.graphics.Color
+
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
+    //    Initialize Variables for DrawerLayout, NavigationView, and Toolbar
     private lateinit var drawerLayout: DrawerLayout
     private lateinit var navigationView: NavigationView
-    private lateinit var toolbar: Toolbar
+    private lateinit var toolbar: MaterialToolbar
     private lateinit var toggle: ActionBarDrawerToggle
+    private lateinit var bottomNav: BottomNavigationView
+    private var isProgrammaticNavChange = false
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
-
-       // Drawer Layout
         setContentView(R.layout.activity_main)
+        supportActionBar?.hide()
 
         // Hooks
         drawerLayout = findViewById(R.id.drawer_layout)
         navigationView = findViewById(R.id.nav_view)
         toolbar = findViewById(R.id.toolbar)
+        bottomNav = findViewById(R.id.bottomNav)
+
 
         // Toolbar
         setSupportActionBar(toolbar)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setHomeButtonEnabled(true)
 
-        // Hide or show items in the drawer
-        //navigationView.menu.findItem(R.id.nav_login)?.isVisible = false
 
         // Drawer toggle (hamburger)
-        val toggle = ActionBarDrawerToggle(
+        toggle = ActionBarDrawerToggle(
             this,
             drawerLayout,
             toolbar,
@@ -51,10 +53,19 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         )
         drawerLayout.addDrawerListener(toggle)
         toggle.syncState()
+        toggle.drawerArrowDrawable.color = android.graphics.Color.BLACK
 
+        //Drawer Listener
         navigationView.bringToFront()
         navigationView.setNavigationItemSelectedListener(this)
-        navigationView.setCheckedItem(R.id.nav_session)
+
+        //Bottom Nav Listener
+        bottomNav.setOnItemSelectedListener { item ->
+            if (isProgrammaticNavChange) return@setOnItemSelectedListener true
+            navigateTo(item.itemId, fromDrawer = false)
+            true
+        }
+
 
         // Back button: close drawer first
         onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
@@ -67,91 +78,60 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             }
         })
 
-        // Insets
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
+        //Start at home fragment
+        if (savedInstanceState == null) {
+            //Load Home Fragment
+            navigateTo(R.id.nav_home, fromDrawer = false)
+            //Highlight Home in Bottom Nav
+            isProgrammaticNavChange = true
+            bottomNav.selectedItemId = R.id.nav_home
+            isProgrammaticNavChange = false
+        }
+    }
+
+    override fun onNavigationItemSelected(item: MenuItem): Boolean {
+        navigateTo(item.itemId, fromDrawer = true)
+        drawerLayout.closeDrawer(GravityCompat.START)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (toggle.onOptionsItemSelected(item)) return true
+        return super.onOptionsItemSelected(item)
+    }
+
+    private fun navigateTo(itemId: Int, fromDrawer: Boolean) {
+        val fragment = when (itemId) {
+            R.id.nav_home -> HomeFragment()
+            R.id.nav_sessions -> SessionsFragment()
+            R.id.nav_analytics -> HistoryFragment()   // if your existing analytics screen is named HistoryFragment
+            R.id.nav_settings -> SettingsFragment()
+            else -> null
         }
 
-        // Bottom nav + fragments
-        val bottom = findViewById<BottomNavigationView>(R.id.bottom_nav)
-
-        if (savedInstanceState == null) {
+        fragment?.let {
             supportFragmentManager.beginTransaction()
-                .replace(R.id.nav_host, CollectFragment())
+                .replace(R.id.nav_host, it)
                 .commit()
         }
 
-        bottom.setOnItemSelectedListener { item ->
-            when (item.itemId) {
-                R.id.nav_collect -> {
-                    supportFragmentManager.beginTransaction()
-                        .replace(R.id.nav_host, CollectFragment())
-                        .commit()
-                    true
-                }
-                R.id.nav_history -> {
-                    supportFragmentManager.beginTransaction()
-                        .replace(R.id.nav_host, HistoryFragment())
-                        .commit()
-                    true
-                }
-                else -> false
+        // Only sync bottom nav highlight when drawer initiated the nav
+        if (fromDrawer) {
+            val bottomItemToSelect = when (itemId) {
+                R.id.nav_dashboard -> R.id.nav_home
+                R.id.nav_session -> R.id.nav_sessions
+                R.id.nav_analysis -> R.id.nav_analytics
+                else -> itemId
+            }
+
+            if (bottomNav.menu.findItem(bottomItemToSelect) != null &&
+                bottomNav.selectedItemId != bottomItemToSelect
+            ) {
+                isProgrammaticNavChange = true
+                bottomNav.selectedItemId = bottomItemToSelect
+                isProgrammaticNavChange = false
             }
         }
     }
 
-
-    // Drawer item clicks
-    override fun onNavigationItemSelected(item: MenuItem): Boolean {
-        val id = item.itemId
-        drawerLayout.closeDrawer(GravityCompat.START)
-
-        drawerLayout.post {
-            when (id) {
-                R.id.nav_session -> {
-                    startActivity(Intent(this, MainActivity::class.java))
-                }
-
-
-                 R.id.nav_dashboard -> startActivity(Intent(this, DashBoard::class.java))
-                 R.id.nav_analysis -> startActivity(Intent(this, Analysis::class.java))
-                 R.id.nav_settings -> startActivity(Intent(this, Settings::class.java))
-
-
-                R.id.nav_share -> {
-                    Toast.makeText(this, "Share", Toast.LENGTH_SHORT).show()
-                }
-
-                R.id.nav_rate -> {
-                    Toast.makeText(this, "Rate", Toast.LENGTH_SHORT).show()
-                }
-
-                R.id.nav_login -> {
-                    startActivity(Intent(this, SignInActivity::class.java))
-                }
-
-                R.id.nav_logout -> {
-                    startActivity(Intent(this, SignInActivity::class.java))
-                }
-
-                else -> {
-                    Toast.makeText(
-                        this,
-                        "Unhandled: ${resources.getResourceEntryName(id)}",
-                        Toast.LENGTH_SHORT
-                    ).show()
-                }
-            }
-        }
-
-        return true
-    }
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (toggle.onOptionsItemSelected(item)) {
-            return true
-        }
-        return super.onOptionsItemSelected(item)
-    }
 }
