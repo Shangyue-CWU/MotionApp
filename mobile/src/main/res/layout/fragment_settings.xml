@@ -241,6 +241,7 @@
                         android:textColor="#6B7280"
                         android:textSize="12sp" />
 
+                    <!-- FIX: keep this row ONLY for label + switch -->
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -262,17 +263,20 @@
                             android:layout_height="wrap_content"
                             app:thumbTint="#FFFFFF"
                             app:trackTint="#CBD5E1" />
-
-                        <Button
-                            android:id="@+id/btnSaveProfile"
-                            android:layout_width="match_parent"
-                            android:layout_height="48dp"
-                            android:layout_marginTop="20dp"
-                            android:backgroundTint="#10B981"
-                            android:text="Save Profile"
-                            android:textAllCaps="false"
-                            android:textColor="#FFFFFF" />
                     </LinearLayout>
+
+                    <!-- FIX: button moved OUTSIDE the horizontal row so it stops fighting the switch -->
+                    <Button
+                        android:id="@+id/btnSaveProfile"
+                        android:layout_width="260dp"
+                        android:layout_height="48dp"
+                        android:layout_marginTop="24dp"
+                        android:layout_gravity="center_horizontal"
+                        android:background="@drawable/bg_save_button"
+                        android:text="Save Profile"
+                        android:textAllCaps="false"
+                        android:textColor="@android:color/white"
+                        android:textSize="15sp" />
 
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
