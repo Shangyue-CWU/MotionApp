@@ -1,246 +1,354 @@
 [
     {
-        "merged": "com.example.motionwatch.mobile-debug-35:/mipmap-anydpi-v26_ic_launcher.xml.flat",
-        "source": "com.example.motionwatch.mobile-main-37:/mipmap-anydpi-v26/ic_launcher.xml"
+        "merged": "/Users/gamuchitsuwa/.gradle/daemon/8.13/com.example.motionwatch.mobile-debug-35:/drawable_ic_filter.xml.flat",
+        "source": "/Users/gamuchitsuwa/.gradle/daemon/8.13/com.example.motionwatch.mobile-main-37:/drawable/ic_filter.xml"
     },
     {
-        "merged": "com.example.motionwatch.mobile-debug-35:/drawable_ic_account_circle.xml.flat",
-        "source": "com.example.motionwatch.mobile-main-37:/drawable/ic_account_circle.xml"
+        "merged": "/Users/gamuchitsuwa/.gradle/daemon/8.13/com.example.motionwatch.mobile-debug-35:/layout_activity_wear.xml.flat",
+        "source": "/Users/gamuchitsuwa/.gradle/daemon/8.13/com.example.motionwatch.mobile-main-37:/layout/activity_wear.xml"
     },
     {
-        "merged": "com.example.motionwatch.mobile-debug-35:/drawable_ic_sessions.xml.flat",
-        "source": "com.example.motionwatch.mobile-main-37:/drawable/ic_sessions.xml"
+        "merged": "/Users/gamuchitsuwa/.gradle/daemon/8.13/com.example.motionwatch.mobile-debug-35:/menu_bottom_nav.xml.flat",
+        "source": "/Users/gamuchitsuwa/.gradle/daemon/8.13/com.example.motionwatch.mobile-main-37:/menu/bottom_nav.xml"
     },
     {
-        "merged": "com.example.motionwatch.mobile-debug-35:/drawable_dashboard_icon.xml.flat",
-        "source": "com.example.motionwatch.mobile-main-37:/drawable/dashboard_icon.xml"
+        "merged": "/Users/gamuchitsuwa/.gradle/daemon/8.13/com.example.motionwatch.mobile-debug-35:/layout_fragment_blank.xml.flat",
+        "source": "/Users/gamuchitsuwa/.gradle/daemon/8.13/com.example.motionwatch.mobile-main-37:/layout/fragment_blank.xml"
     },
     {
-        "merged": "com.example.motionwatch.mobile-debug-35:/drawable_bg_chip_dark.xml.flat",
-        "source": "com.example.motionwatch.mobile-main-37:/drawable/bg_chip_dark.xml"
+        "merged": "/Users/gamuchitsuwa/.gradle/daemon/8.13/com.example.motionwatch.mobile-debug-35:/mipmap-hdpi_ic_launcher.webp.flat",
+        "source": "/Users/gamuchitsuwa/.gradle/daemon/8.13/com.example.motionwatch.mobile-main-37:/mipmap-hdpi/ic_launcher.webp"
     },
     {
-        "merged": "com.example.motionwatch.mobile-debug-35:/drawable_ic_settings.xml.flat",
-        "source": "com.example.motionwatch.mobile-main-37:/drawable/ic_settings.xml"
+        "merged": "/Users/gamuchitsuwa/.gradle/daemon/8.13/com.example.motionwatch.mobile-debug-35:/drawable_ic_launcher_background.xml.flat",
+        "source": "/Users/gamuchitsuwa/.gradle/daemon/8.13/com.example.motionwatch.mobile-main-37:/drawable/ic_launcher_background.xml"
     },
     {
-        "merged": "com.example.motionwatch.mobile-debug-35:/drawable_profile_icon.xml.flat",
-        "source": "com.example.motionwatch.mobile-main-37:/drawable/profile_icon.xml"
+        "merged": "/Users/gamuchitsuwa/.gradle/daemon/8.13/com.example.motionwatch.mobile-debug-35:/layout_fragment_history_page.xml.flat",
+        "source": "/Users/gamuchitsuwa/.gradle/daemon/8.13/com.example.motionwatch.mobile-main-37:/layout/fragment_history_page.xml"
     },
     {
-        "merged": "com.example.motionwatch.mobile-debug-35:/drawable_heartland_logo.png.flat",
-        "source": "com.example.motionwatch.mobile-main-37:/drawable/heartland_logo.png"
+        "merged": "/Users/gamuchitsuwa/.gradle/daemon/8.13/com.example.motionwatch.mobile-debug-35:/mipmap-xxhdpi_ic_launcher_round.webp.flat",
+        "source": "/Users/gamuchitsuwa/.gradle/daemon/8.13/com.example.motionwatch.mobile-main-37:/mipmap-xxhdpi/ic_launcher_round.webp"
     },
     {
-        "merged": "com.example.motionwatch.mobile-debug-35:/layout_fragment_collect.xml.flat",
-        "source": "com.example.motionwatch.mobile-main-37:/layout/fragment_collect.xml"
+        "merged": "/Users/gamuchitsuwa/.gradle/daemon/8.13/com.example.motionwatch.mobile-debug-35:/mipmap-xxhdpi_ic_launcher.webp.flat",
+        "source": "/Users/gamuchitsuwa/.gradle/daemon/8.13/com.example.motionwatch.mobile-main-37:/mipmap-xxhdpi/ic_launcher.webp"
     },
     {
-        "merged": "com.example.motionwatch.mobile-debug-35:/layout_file_item.xml.flat",
-        "source": "com.example.motionwatch.mobile-main-37:/layout/file_item.xml"
+        "merged": "/Users/gamuchitsuwa/.gradle/daemon/8.13/com.example.motionwatch.mobile-debug-35:/drawable_ic_analytics.xml.flat",
+        "source": "/Users/gamuchitsuwa/.gradle/daemon/8.13/com.example.motionwatch.mobile-main-37:/drawable/ic_analytics.xml"
     },
     {
-        "merged": "com.example.motionwatch.mobile-debug-35:/mipmap-mdpi_ic_launcher.webp.flat",
-        "source": "com.example.motionwatch.mobile-main-37:/mipmap-mdpi/ic_launcher.webp"
+        "merged": "/Users/gamuchitsuwa/.gradle/daemon/8.13/com.example.motionwatch.mobile-debug-35:/mipmap-anydpi-v26_ic_launcher.xml.flat",
+        "source": "/Users/gamuchitsuwa/.gradle/daemon/8.13/com.example.motionwatch.mobile-main-37:/mipmap-anydpi-v26/ic_launcher.xml"
     },
     {
-        "merged": "com.example.motionwatch.mobile-debug-35:/layout_activity_wear.xml.flat",
-        "source": "com.example.motionwatch.mobile-main-37:/layout/activity_wear.xml"
+        "merged": "/Users/gamuchitsuwa/.gradle/daemon/8.13/com.example.motionwatch.mobile-debug-35:/mipmap-anydpi-v26_ic_launcher_round.xml.flat",
+        "source": "/Users/gamuchitsuwa/.gradle/daemon/8.13/com.example.motionwatch.mobile-main-37:/mipmap-anydpi-v26/ic_launcher_round.xml"
     },
     {
-        "merged": "com.example.motionwatch.mobile-debug-35:/layout_activity_main.xml.flat",
-        "source": "com.example.motionwatch.mobile-main-37:/layout/activity_main.xml"
+        "merged": "/Users/gamuchitsuwa/.gradle/daemon/8.13/com.example.motionwatch.mobile-debug-35:/layout_activity_main.xml.flat",
+        "source": "/Users/gamuchitsuwa/.gradle/daemon/8.13/com.example.motionwatch.mobile-main-37:/layout/activity_main.xml"
     },
     {
-        "merged": "com.example.motionwatch.mobile-debug-35:/drawable_rate_icon.xml.flat",
-        "source": "com.example.motionwatch.mobile-main-37:/drawable/rate_icon.xml"
+        "merged": "/Users/gamuchitsuwa/.gradle/daemon/8.13/com.example.motionwatch.mobile-debug-35:/drawable_share_icon.xml.flat",
+        "source": "/Users/gamuchitsuwa/.gradle/daemon/8.13/com.example.motionwatch.mobile-main-37:/drawable/share_icon.xml"
+    },
+    {
+        "merged": "/Users/gamuchitsuwa/.gradle/daemon/8.13/com.example.motionwatch.mobile-debug-35:/drawable_bg_badge_watch.xml.flat",
+        "source": "/Users/gamuchitsuwa/.gradle/daemon/8.13/com.example.motionwatch.mobile-main-37:/drawable/bg_badge_watch.xml"
+    },
+    {
+        "merged": "/Users/gamuchitsuwa/.gradle/daemon/8.13/com.example.motionwatch.mobile-debug-35:/layout_fragment_sessions.xml.flat",
+        "source": "/Users/gamuchitsuwa/.gradle/daemon/8.13/com.example.motionwatch.mobile-main-37:/layout/fragment_sessions.xml"
+    },
+    {
+        "merged": "/Users/gamuchitsuwa/.gradle/daemon/8.13/com.example.motionwatch.mobile-debug-35:/layout_fragment_collect.xml.flat",
+        "source": "/Users/gamuchitsuwa/.gradle/daemon/8.13/com.example.motionwatch.mobile-main-37:/layout/fragment_collect.xml"
+    },
+    {
+        "merged": "/Users/gamuchitsuwa/.gradle/daemon/8.13/com.example.motionwatch.mobile-debug-35:/drawable_dashboard_icon.xml.flat",
+        "source": "/Users/gamuchitsuwa/.gradle/daemon/8.13/com.example.motionwatch.mobile-main-37:/drawable/dashboard_icon.xml"
+    },
+    {
+        "merged": "/Users/gamuchitsuwa/.gradle/daemon/8.13/com.example.motionwatch.mobile-debug-35:/layout_activity_sign_in.xml.flat",
+        "source": "/Users/gamuchitsuwa/.gradle/daemon/8.13/com.example.motionwatch.mobile-main-37:/layout/activity_sign_in.xml"
+    },
+    {
+        "merged": "/Users/gamuchitsuwa/.gradle/daemon/8.13/com.example.motionwatch.mobile-debug-35:/drawable_ic_profile.xml.flat",
+        "source": "/Users/gamuchitsuwa/.gradle/daemon/8.13/com.example.motionwatch.mobile-main-37:/drawable/ic_profile.xml"
+    },
+    {
+        "merged": "/Users/gamuchitsuwa/.gradle/daemon/8.13/com.example.motionwatch.mobile-debug-35:/drawable_bg_badge_phone.xml.flat",
+        "source": "/Users/gamuchitsuwa/.gradle/daemon/8.13/com.example.motionwatch.mobile-main-37:/drawable/bg_badge_phone.xml"
+    },
+    {
+        "merged": "/Users/gamuchitsuwa/.gradle/daemon/8.13/com.example.motionwatch.mobile-debug-35:/layout_fragment_account_info.xml.flat",
+        "source": "/Users/gamuchitsuwa/.gradle/daemon/8.13/com.example.motionwatch.mobile-main-37:/layout/fragment_account_info.xml"
     },
     {
         "merged": "com.example.motionwatch.mobile-debug-35:/layout_fragment_settings.xml.flat",
         "source": "com.example.motionwatch.mobile-main-37:/layout/fragment_settings.xml"
     },
     {
-        "merged": "com.example.motionwatch.mobile-debug-35:/layout_fragment_history.xml.flat",
-        "source": "com.example.motionwatch.mobile-main-37:/layout/fragment_history.xml"
+        "merged": "/Users/gamuchitsuwa/.gradle/daemon/8.13/com.example.motionwatch.mobile-debug-35:/drawable_heartland_logo.png.flat",
+        "source": "/Users/gamuchitsuwa/.gradle/daemon/8.13/com.example.motionwatch.mobile-main-37:/drawable/heartland_logo.png"
     },
     {
-        "merged": "com.example.motionwatch.mobile-debug-35:/drawable_ic_menu.xml.flat",
-        "source": "com.example.motionwatch.mobile-main-37:/drawable/ic_menu.xml"
+        "merged": "/Users/gamuchitsuwa/.gradle/daemon/8.13/com.example.motionwatch.mobile-debug-35:/mipmap-hdpi_ic_launcher_foreground.webp.flat",
+        "source": "/Users/gamuchitsuwa/.gradle/daemon/8.13/com.example.motionwatch.mobile-main-37:/mipmap-hdpi/ic_launcher_foreground.webp"
     },
     {
-        "merged": "com.example.motionwatch.mobile-debug-35:/drawable_settings_icon.xml.flat",
-        "source": "com.example.motionwatch.mobile-main-37:/drawable/settings_icon.xml"
+        "merged": "/Users/gamuchitsuwa/.gradle/daemon/8.13/com.example.motionwatch.mobile-debug-35:/drawable_ic_home.xml.flat",
+        "source": "/Users/gamuchitsuwa/.gradle/daemon/8.13/com.example.motionwatch.mobile-main-37:/drawable/ic_home.xml"
     },
     {
-        "merged": "com.example.motionwatch.mobile-debug-35:/drawable_ic_back.xml.flat",
-        "source": "com.example.motionwatch.mobile-main-37:/drawable/ic_back.xml"
+        "merged": "/Users/gamuchitsuwa/.gradle/daemon/8.13/com.example.motionwatch.mobile-debug-35:/mipmap-hdpi_ic_launcher_round.webp.flat",
+        "source": "/Users/gamuchitsuwa/.gradle/daemon/8.13/com.example.motionwatch.mobile-main-37:/mipmap-hdpi/ic_launcher_round.webp"
     },
     {
-        "merged": "com.example.motionwatch.mobile-debug-35:/drawable_ic_notifications.xml.flat",
-        "source": "com.example.motionwatch.mobile-main-37:/drawable/ic_notifications.xml"
+        "merged": "/Users/gamuchitsuwa/.gradle/daemon/8.13/com.example.motionwatch.mobile-debug-35:/drawable_ic_launcher_foreground.xml.flat",
+        "source": "/Users/gamuchitsuwa/.gradle/daemon/8.13/com.example.motionwatch.mobile-main-37:/drawable/ic_launcher_foreground.xml"
     },
     {
-        "merged": "com.example.motionwatch.mobile-debug-35:/mipmap-mdpi_ic_launcher_round.webp.flat",
-        "source": "com.example.motionwatch.mobile-main-37:/mipmap-mdpi/ic_launcher_round.webp"
+        "merged": "/Users/gamuchitsuwa/.gradle/daemon/8.13/com.example.motionwatch.mobile-debug-35:/drawable_session_icon.xml.flat",
+        "source": "/Users/gamuchitsuwa/.gradle/daemon/8.13/com.example.motionwatch.mobile-main-37:/drawable/session_icon.xml"
     },
     {
-        "merged": "com.example.motionwatch.mobile-debug-35:/layout_fragment_faq.xml.flat",
-        "source": "com.example.motionwatch.mobile-main-37:/layout/fragment_faq.xml"
+        "merged": "/Users/gamuchitsuwa/.gradle/daemon/8.13/com.example.motionwatch.mobile-debug-35:/xml_file_paths.xml.flat",
+        "source": "/Users/gamuchitsuwa/.gradle/daemon/8.13/com.example.motionwatch.mobile-main-37:/xml/file_paths.xml"
     },
     {
-        "merged": "com.example.motionwatch.mobile-debug-35:/mipmap-xxxhdpi_ic_launcher_round.webp.flat",
-        "source": "com.example.motionwatch.mobile-main-37:/mipmap-xxxhdpi/ic_launcher_round.webp"
+        "merged": "/Users/gamuchitsuwa/.gradle/daemon/8.13/com.example.motionwatch.mobile-debug-35:/layout_activity_dashboard.xml.flat",
+        "source": "/Users/gamuchitsuwa/.gradle/daemon/8.13/com.example.motionwatch.mobile-main-37:/layout/activity_dashboard.xml"
     },
     {
-        "merged": "com.example.motionwatch.mobile-debug-35:/mipmap-hdpi_ic_launcher.webp.flat",
-        "source": "com.example.motionwatch.mobile-main-37:/mipmap-hdpi/ic_launcher.webp"
+        "merged": "/Users/gamuchitsuwa/.gradle/daemon/8.13/com.example.motionwatch.mobile-debug-35:/mipmap-xhdpi_ic_launcher.webp.flat",
+        "source": "/Users/gamuchitsuwa/.gradle/daemon/8.13/com.example.motionwatch.mobile-main-37:/mipmap-xhdpi/ic_launcher.webp"
     },
     {
-        "merged": "com.example.motionwatch.mobile-debug-35:/layout_fragment_sessions.xml.flat",
-        "source": "com.example.motionwatch.mobile-main-37:/layout/fragment_sessions.xml"
+        "merged": "/Users/gamuchitsuwa/.gradle/daemon/8.13/com.example.motionwatch.mobile-debug-35:/xml_backup_rules.xml.flat",
+        "source": "/Users/gamuchitsuwa/.gradle/daemon/8.13/com.example.motionwatch.mobile-main-37:/xml/backup_rules.xml"
     },
     {
-        "merged": "com.example.motionwatch.mobile-debug-35:/menu_bottom_nav.xml.flat",
-        "source": "com.example.motionwatch.mobile-main-37:/menu/bottom_nav.xml"
+        "merged": "/Users/gamuchitsuwa/.gradle/daemon/8.13/com.example.motionwatch.mobile-debug-35:/drawable_analytics_icon.xml.flat",
+        "source": "/Users/gamuchitsuwa/.gradle/daemon/8.13/com.example.motionwatch.mobile-main-37:/drawable/analytics_icon.xml"
     },
     {
-        "merged": "com.example.motionwatch.mobile-debug-35:/drawable_session_icon.xml.flat",
-        "source": "com.example.motionwatch.mobile-main-37:/drawable/session_icon.xml"
+        "merged": "/Users/gamuchitsuwa/.gradle/daemon/8.13/com.example.motionwatch.mobile-debug-35:/drawable_background_image.xml.flat",
+        "source": "/Users/gamuchitsuwa/.gradle/daemon/8.13/com.example.motionwatch.mobile-main-37:/drawable/background_image.xml"
     },
     {
-        "merged": "com.example.motionwatch.mobile-debug-35:/drawable_ic_launcher_foreground.xml.flat",
-        "source": "com.example.motionwatch.mobile-main-37:/drawable/ic_launcher_foreground.xml"
+        "merged": "/Users/gamuchitsuwa/.gradle/daemon/8.13/com.example.motionwatch.mobile-debug-35:/mipmap-xhdpi_ic_launcher_icon.webp.flat",
+        "source": "/Users/gamuchitsuwa/.gradle/daemon/8.13/com.example.motionwatch.mobile-main-37:/mipmap-xhdpi/ic_launcher_icon.webp"
     },
     {
-        "merged": "com.example.motionwatch.mobile-debug-35:/drawable_login_icon.xml.flat",
-        "source": "com.example.motionwatch.mobile-main-37:/drawable/login_icon.xml"
+        "merged": "/Users/gamuchitsuwa/.gradle/daemon/8.13/com.example.motionwatch.mobile-debug-35:/xml_data_extraction_rules.xml.flat",
+        "source": "/Users/gamuchitsuwa/.gradle/daemon/8.13/com.example.motionwatch.mobile-main-37:/xml/data_extraction_rules.xml"
     },
     {
-        "merged": "com.example.motionwatch.mobile-debug-35:/mipmap-mdpi_ic_launcher_foreground.webp.flat",
-        "source": "com.example.motionwatch.mobile-main-37:/mipmap-mdpi/ic_launcher_foreground.webp"
+        "merged": "/Users/gamuchitsuwa/.gradle/daemon/8.13/com.example.motionwatch.mobile-debug-35:/layout_activity_sign_up.xml.flat",
+        "source": "/Users/gamuchitsuwa/.gradle/daemon/8.13/com.example.motionwatch.mobile-main-37:/layout/activity_sign_up.xml"
     },
     {
-        "merged": "com.example.motionwatch.mobile-debug-35:/drawable_ic_walk.xml.flat",
-        "source": "com.example.motionwatch.mobile-main-37:/drawable/ic_walk.xml"
+        "merged": "/Users/gamuchitsuwa/.gradle/daemon/8.13/com.example.motionwatch.mobile-debug-35:/layout_header.xml.flat",
+        "source": "/Users/gamuchitsuwa/.gradle/daemon/8.13/com.example.motionwatch.mobile-main-37:/layout/header.xml"
     },
     {
-        "merged": "com.example.motionwatch.mobile-debug-35:/drawable_background_input.xml.flat",
-        "source": "com.example.motionwatch.mobile-main-37:/drawable/background_input.xml"
+        "merged": "/Users/gamuchitsuwa/.gradle/daemon/8.13/com.example.motionwatch.mobile-debug-35:/layout_fragment_settings.xml.flat",
+        "source": "/Users/gamuchitsuwa/.gradle/daemon/8.13/com.example.motionwatch.mobile-main-37:/layout/fragment_settings.xml"
     },
     {
-        "merged": "com.example.motionwatch.mobile-debug-35:/mipmap-hdpi_ic_launcher_foreground.webp.flat",
-        "source": "com.example.motionwatch.mobile-main-37:/mipmap-hdpi/ic_launcher_foreground.webp"
+        "merged": "/Users/gamuchitsuwa/.gradle/daemon/8.13/com.example.motionwatch.mobile-debug-35:/layout_settings.xml.flat",
+        "source": "/Users/gamuchitsuwa/.gradle/daemon/8.13/com.example.motionwatch.mobile-main-37:/layout/settings.xml"
     },
     {
-        "merged": "com.example.motionwatch.mobile-debug-35:/layout_item_history_file.xml.flat",
-        "source": "com.example.motionwatch.mobile-main-37:/layout/item_history_file.xml"
+        "merged": "/Users/gamuchitsuwa/.gradle/daemon/8.13/com.example.motionwatch.mobile-debug-35:/drawable_ic_walk.xml.flat",
+        "source": "/Users/gamuchitsuwa/.gradle/daemon/8.13/com.example.motionwatch.mobile-main-37:/drawable/ic_walk.xml"
     },
     {
-        "merged": "com.example.motionwatch.mobile-debug-35:/mipmap-xxxhdpi_ic_launcher_foreground.webp.flat",
-        "source": "com.example.motionwatch.mobile-main-37:/mipmap-xxxhdpi/ic_launcher_foreground.webp"
+        "merged": "/Users/gamuchitsuwa/.gradle/daemon/8.13/com.example.motionwatch.mobile-debug-35:/drawable_ic_chevron_right.xml.flat",
+        "source": "/Users/gamuchitsuwa/.gradle/daemon/8.13/com.example.motionwatch.mobile-main-37:/drawable/ic_chevron_right.xml"
     },
     {
-        "merged": "com.example.motionwatch.mobile-debug-35:/mipmap-xxhdpi_ic_launcher_round.webp.flat",
-        "source": "com.example.motionwatch.mobile-main-37:/mipmap-xxhdpi/ic_launcher_round.webp"
+        "merged": "/Users/gamuchitsuwa/.gradle/daemon/8.13/com.example.motionwatch.mobile-debug-35:/drawable_profile_icon.xml.flat",
+        "source": "/Users/gamuchitsuwa/.gradle/daemon/8.13/com.example.motionwatch.mobile-main-37:/drawable/profile_icon.xml"
     },
     {
-        "merged": "com.example.motionwatch.mobile-debug-35:/layout_fragment_history_page.xml.flat",
-        "source": "com.example.motionwatch.mobile-main-37:/layout/fragment_history_page.xml"
+        "merged": "/Users/gamuchitsuwa/.gradle/daemon/8.13/com.example.motionwatch.mobile-debug-35:/drawable_bg_chip_dark.xml.flat",
+        "source": "/Users/gamuchitsuwa/.gradle/daemon/8.13/com.example.motionwatch.mobile-main-37:/drawable/bg_chip_dark.xml"
     },
     {
-        "merged": "com.example.motionwatch.mobile-debug-35:/layout_fragment_contact_about.xml.flat",
-        "source": "com.example.motionwatch.mobile-main-37:/layout/fragment_contact_about.xml"
+        "merged": "/Users/gamuchitsuwa/.gradle/daemon/8.13/com.example.motionwatch.mobile-debug-35:/layout_main_menu.xml.flat",
+        "source": "/Users/gamuchitsuwa/.gradle/daemon/8.13/com.example.motionwatch.mobile-main-37:/layout/main_menu.xml"
     },
     {
-        "merged": "com.example.motionwatch.mobile-debug-35:/mipmap-xxhdpi_ic_launcher_foreground.webp.flat",
-        "source": "com.example.motionwatch.mobile-main-37:/mipmap-xxhdpi/ic_launcher_foreground.webp"
+        "merged": "/Users/gamuchitsuwa/.gradle/daemon/8.13/com.example.motionwatch.mobile-debug-35:/drawable_bg_icon_container.xml.flat",
+        "source": "/Users/gamuchitsuwa/.gradle/daemon/8.13/com.example.motionwatch.mobile-main-37:/drawable/bg_icon_container.xml"
     },
     {
-        "merged": "com.example.motionwatch.mobile-debug-35:/drawable_ic_home.xml.flat",
-        "source": "com.example.motionwatch.mobile-main-37:/drawable/ic_home.xml"
+        "merged": "/Users/gamuchitsuwa/.gradle/daemon/8.13/com.example.motionwatch.mobile-debug-35:/menu_main_menu.xml.flat",
+        "source": "/Users/gamuchitsuwa/.gradle/daemon/8.13/com.example.motionwatch.mobile-main-37:/menu/main_menu.xml"
     },
     {
-        "merged": "com.example.motionwatch.mobile-debug-35:/layout_fragment_account_info.xml.flat",
-        "source": "com.example.motionwatch.mobile-main-37:/layout/fragment_account_info.xml"
+        "merged": "/Users/gamuchitsuwa/.gradle/daemon/8.13/com.example.motionwatch.mobile-debug-35:/drawable_rate_icon.xml.flat",
+        "source": "/Users/gamuchitsuwa/.gradle/daemon/8.13/com.example.motionwatch.mobile-main-37:/drawable/rate_icon.xml"
     },
     {
-        "merged": "com.example.motionwatch.mobile-debug-35:/mipmap-xhdpi_ic_launcher_foreground.webp.flat",
-        "source": "com.example.motionwatch.mobile-main-37:/mipmap-xhdpi/ic_launcher_foreground.webp"
+        "merged": "/Users/gamuchitsuwa/.gradle/daemon/8.13/com.example.motionwatch.mobile-debug-35:/mipmap-xhdpi_ic_launcher_foreground.webp.flat",
+        "source": "/Users/gamuchitsuwa/.gradle/daemon/8.13/com.example.motionwatch.mobile-main-37:/mipmap-xhdpi/ic_launcher_foreground.webp"
     },
     {
-        "merged": "com.example.motionwatch.mobile-debug-35:/menu_bottom_nav_menu.xml.flat",
-        "source": "com.example.motionwatch.mobile-main-37:/menu/bottom_nav_menu.xml"
+        "merged": "/Users/gamuchitsuwa/.gradle/daemon/8.13/com.example.motionwatch.mobile-debug-35:/drawable_ic_notifications.xml.flat",
+        "source": "/Users/gamuchitsuwa/.gradle/daemon/8.13/com.example.motionwatch.mobile-main-37:/drawable/ic_notifications.xml"
     },
     {
-        "merged": "com.example.motionwatch.mobile-debug-35:/mipmap-hdpi_ic_launcher_round.webp.flat",
-        "source": "com.example.motionwatch.mobile-main-37:/mipmap-hdpi/ic_launcher_round.webp"
+        "merged": "/Users/gamuchitsuwa/.gradle/daemon/8.13/com.example.motionwatch.mobile-debug-35:/drawable_help_icon.xml.flat",
+        "source": "/Users/gamuchitsuwa/.gradle/daemon/8.13/com.example.motionwatch.mobile-main-37:/drawable/help_icon.xml"
     },
     {
-        "merged": "com.example.motionwatch.mobile-debug-35:/layout_header.xml.flat",
-        "source": "com.example.motionwatch.mobile-main-37:/layout/header.xml"
+        "merged": "/Users/gamuchitsuwa/.gradle/daemon/8.13/com.example.motionwatch.mobile-debug-35:/layout_file_item.xml.flat",
+        "source": "/Users/gamuchitsuwa/.gradle/daemon/8.13/com.example.motionwatch.mobile-main-37:/layout/file_item.xml"
     },
     {
-        "merged": "com.example.motionwatch.mobile-debug-35:/xml_file_paths.xml.flat",
-        "source": "com.example.motionwatch.mobile-main-37:/xml/file_paths.xml"
+        "merged": "/Users/gamuchitsuwa/.gradle/daemon/8.13/com.example.motionwatch.mobile-debug-35:/mipmap-xxxhdpi_ic_launcher_round.webp.flat",
+        "source": "/Users/gamuchitsuwa/.gradle/daemon/8.13/com.example.motionwatch.mobile-main-37:/mipmap-xxxhdpi/ic_launcher_round.webp"
     },
     {
-        "merged": "com.example.motionwatch.mobile-debug-35:/drawable_logout_icon.xml.flat",
-        "source": "com.example.motionwatch.mobile-main-37:/drawable/logout_icon.xml"
+        "merged": "/Users/gamuchitsuwa/.gradle/daemon/8.13/com.example.motionwatch.mobile-debug-35:/layout_fragment_analytics.xml.flat",
+        "source": "/Users/gamuchitsuwa/.gradle/daemon/8.13/com.example.motionwatch.mobile-main-37:/layout/fragment_analytics.xml"
     },
     {
-        "merged": "com.example.motionwatch.mobile-debug-35:/drawable_share_icon.xml.flat",
-        "source": "com.example.motionwatch.mobile-main-37:/drawable/share_icon.xml"
+        "merged": "/Users/gamuchitsuwa/.gradle/daemon/8.13/com.example.motionwatch.mobile-debug-35:/mipmap-mdpi_ic_launcher_icon.webp.flat",
+        "source": "/Users/gamuchitsuwa/.gradle/daemon/8.13/com.example.motionwatch.mobile-main-37:/mipmap-mdpi/ic_launcher_icon.webp"
     },
     {
-        "merged": "com.example.motionwatch.mobile-debug-35:/mipmap-xhdpi_ic_launcher.webp.flat",
-        "source": "com.example.motionwatch.mobile-main-37:/mipmap-xhdpi/ic_launcher.webp"
+        "merged": "/Users/gamuchitsuwa/.gradle/daemon/8.13/com.example.motionwatch.mobile-debug-35:/layout_fragment_faq.xml.flat",
+        "source": "/Users/gamuchitsuwa/.gradle/daemon/8.13/com.example.motionwatch.mobile-main-37:/layout/fragment_faq.xml"
     },
     {
-        "merged": "com.example.motionwatch.mobile-debug-35:/layout_fragment_home.xml.flat",
-        "source": "com.example.motionwatch.mobile-main-37:/layout/fragment_home.xml"
+        "merged": "/Users/gamuchitsuwa/.gradle/daemon/8.13/com.example.motionwatch.mobile-debug-35:/layout_session.xml.flat",
+        "source": "/Users/gamuchitsuwa/.gradle/daemon/8.13/com.example.motionwatch.mobile-main-37:/layout/session.xml"
     },
     {
-        "merged": "com.example.motionwatch.mobile-debug-35:/drawable_ic_launcher_background.xml.flat",
-        "source": "com.example.motionwatch.mobile-main-37:/drawable/ic_launcher_background.xml"
+        "merged": "/Users/gamuchitsuwa/.gradle/daemon/8.13/com.example.motionwatch.mobile-debug-35:/mipmap-xxxhdpi_ic_launcher_foreground.webp.flat",
+        "source": "/Users/gamuchitsuwa/.gradle/daemon/8.13/com.example.motionwatch.mobile-main-37:/mipmap-xxxhdpi/ic_launcher_foreground.webp"
     },
     {
-        "merged": "com.example.motionwatch.mobile-debug-35:/mipmap-xxhdpi_ic_launcher.webp.flat",
-        "source": "com.example.motionwatch.mobile-main-37:/mipmap-xxhdpi/ic_launcher.webp"
+        "merged": "/Users/gamuchitsuwa/.gradle/daemon/8.13/com.example.motionwatch.mobile-debug-35:/mipmap-xxxhdpi_ic_launcher_icon.webp.flat",
+        "source": "/Users/gamuchitsuwa/.gradle/daemon/8.13/com.example.motionwatch.mobile-main-37:/mipmap-xxxhdpi/ic_launcher_icon.webp"
     },
     {
-        "merged": "com.example.motionwatch.mobile-debug-35:/mipmap-xxxhdpi_ic_launcher.webp.flat",
-        "source": "com.example.motionwatch.mobile-main-37:/mipmap-xxxhdpi/ic_launcher.webp"
+        "merged": "/Users/gamuchitsuwa/.gradle/daemon/8.13/com.example.motionwatch.mobile-debug-35:/drawable_background_input.xml.flat",
+        "source": "/Users/gamuchitsuwa/.gradle/daemon/8.13/com.example.motionwatch.mobile-main-37:/drawable/background_input.xml"
     },
     {
-        "merged": "com.example.motionwatch.mobile-debug-35:/layout_main_menu.xml.flat",
-        "source": "com.example.motionwatch.mobile-main-37:/layout/main_menu.xml"
+        "merged": "/Users/gamuchitsuwa/.gradle/daemon/8.13/com.example.motionwatch.mobile-debug-35:/layout_fragment_history.xml.flat",
+        "source": "/Users/gamuchitsuwa/.gradle/daemon/8.13/com.example.motionwatch.mobile-main-37:/layout/fragment_history.xml"
     },
     {
-        "merged": "com.example.motionwatch.mobile-debug-35:/xml_backup_rules.xml.flat",
-        "source": "com.example.motionwatch.mobile-main-37:/xml/backup_rules.xml"
+        "merged": "/Users/gamuchitsuwa/.gradle/daemon/8.13/com.example.motionwatch.mobile-debug-35:/drawable_login_icon.xml.flat",
+        "source": "/Users/gamuchitsuwa/.gradle/daemon/8.13/com.example.motionwatch.mobile-main-37:/drawable/login_icon.xml"
     },
     {
-        "merged": "com.example.motionwatch.mobile-debug-35:/xml_data_extraction_rules.xml.flat",
-        "source": "com.example.motionwatch.mobile-main-37:/xml/data_extraction_rules.xml"
+        "merged": "/Users/gamuchitsuwa/.gradle/daemon/8.13/com.example.motionwatch.mobile-debug-35:/layout_item_history_file.xml.flat",
+        "source": "/Users/gamuchitsuwa/.gradle/daemon/8.13/com.example.motionwatch.mobile-main-37:/layout/item_history_file.xml"
     },
     {
-        "merged": "com.example.motionwatch.mobile-debug-35:/mipmap-anydpi-v26_ic_launcher_round.xml.flat",
-        "source": "com.example.motionwatch.mobile-main-37:/mipmap-anydpi-v26/ic_launcher_round.xml"
+        "merged": "/Users/gamuchitsuwa/.gradle/daemon/8.13/com.example.motionwatch.mobile-debug-35:/mipmap-mdpi_ic_launcher_foreground.webp.flat",
+        "source": "/Users/gamuchitsuwa/.gradle/daemon/8.13/com.example.motionwatch.mobile-main-37:/mipmap-mdpi/ic_launcher_foreground.webp"
     },
     {
-        "merged": "com.example.motionwatch.mobile-debug-35:/mipmap-xhdpi_ic_launcher_round.webp.flat",
-        "source": "com.example.motionwatch.mobile-main-37:/mipmap-xhdpi/ic_launcher_round.webp"
+        "merged": "/Users/gamuchitsuwa/.gradle/daemon/8.13/com.example.motionwatch.mobile-debug-35:/mipmap-hdpi_ic_launcher_icon.webp.flat",
+        "source": "/Users/gamuchitsuwa/.gradle/daemon/8.13/com.example.motionwatch.mobile-main-37:/mipmap-hdpi/ic_launcher_icon.webp"
     },
     {
-        "merged": "com.example.motionwatch.mobile-debug-35:/drawable_analytics_icon.xml.flat",
-        "source": "com.example.motionwatch.mobile-main-37:/drawable/analytics_icon.xml"
+        "merged": "/Users/gamuchitsuwa/.gradle/daemon/8.13/com.example.motionwatch.mobile-debug-35:/drawable_ic_account_circle.xml.flat",
+        "source": "/Users/gamuchitsuwa/.gradle/daemon/8.13/com.example.motionwatch.mobile-main-37:/drawable/ic_account_circle.xml"
     },
     {
-        "merged": "com.example.motionwatch.mobile-debug-35:/menu_main_menu.xml.flat",
-        "source": "com.example.motionwatch.mobile-main-37:/menu/main_menu.xml"
+        "merged": "/Users/gamuchitsuwa/.gradle/daemon/8.13/com.example.motionwatch.mobile-debug-35:/drawable_ic_about.xml.flat",
+        "source": "/Users/gamuchitsuwa/.gradle/daemon/8.13/com.example.motionwatch.mobile-main-37:/drawable/ic_about.xml"
     },
     {
-        "merged": "com.example.motionwatch.mobile-debug-35:/drawable_ic_analytics.xml.flat",
-        "source": "com.example.motionwatch.mobile-main-37:/drawable/ic_analytics.xml"
+        "merged": "/Users/gamuchitsuwa/.gradle/daemon/8.13/com.example.motionwatch.mobile-debug-35:/mipmap-xxhdpi_ic_launcher_icon.webp.flat",
+        "source": "/Users/gamuchitsuwa/.gradle/daemon/8.13/com.example.motionwatch.mobile-main-37:/mipmap-xxhdpi/ic_launcher_icon.webp"
+    },
+    {
+        "merged": "/Users/gamuchitsuwa/.gradle/daemon/8.13/com.example.motionwatch.mobile-debug-35:/layout_analysis.xml.flat",
+        "source": "/Users/gamuchitsuwa/.gradle/daemon/8.13/com.example.motionwatch.mobile-main-37:/layout/analysis.xml"
+    },
+    {
+        "merged": "/Users/gamuchitsuwa/.gradle/daemon/8.13/com.example.motionwatch.mobile-debug-35:/drawable_ic_history_clock.xml.flat",
+        "source": "/Users/gamuchitsuwa/.gradle/daemon/8.13/com.example.motionwatch.mobile-main-37:/drawable/ic_history_clock.xml"
+    },
+    {
+        "merged": "/Users/gamuchitsuwa/.gradle/daemon/8.13/com.example.motionwatch.mobile-debug-35:/drawable_ic_menu.xml.flat",
+        "source": "/Users/gamuchitsuwa/.gradle/daemon/8.13/com.example.motionwatch.mobile-main-37:/drawable/ic_menu.xml"
+    },
+    {
+        "merged": "/Users/gamuchitsuwa/.gradle/daemon/8.13/com.example.motionwatch.mobile-debug-35:/menu_bottom_nav_menu.xml.flat",
+        "source": "/Users/gamuchitsuwa/.gradle/daemon/8.13/com.example.motionwatch.mobile-main-37:/menu/bottom_nav_menu.xml"
+    },
+    {
+        "merged": "/Users/gamuchitsuwa/.gradle/daemon/8.13/com.example.motionwatch.mobile-debug-35:/drawable_logout_icon.xml.flat",
+        "source": "/Users/gamuchitsuwa/.gradle/daemon/8.13/com.example.motionwatch.mobile-main-37:/drawable/logout_icon.xml"
+    },
+    {
+        "merged": "/Users/gamuchitsuwa/.gradle/daemon/8.13/com.example.motionwatch.mobile-debug-35:/mipmap-xxhdpi_ic_launcher_foreground.webp.flat",
+        "source": "/Users/gamuchitsuwa/.gradle/daemon/8.13/com.example.motionwatch.mobile-main-37:/mipmap-xxhdpi/ic_launcher_foreground.webp"
+    },
+    {
+        "merged": "/Users/gamuchitsuwa/.gradle/daemon/8.13/com.example.motionwatch.mobile-debug-35:/layout_fragment_home.xml.flat",
+        "source": "/Users/gamuchitsuwa/.gradle/daemon/8.13/com.example.motionwatch.mobile-main-37:/layout/fragment_home.xml"
+    },
+    {
+        "merged": "/Users/gamuchitsuwa/.gradle/daemon/8.13/com.example.motionwatch.mobile-debug-35:/mipmap-mdpi_ic_launcher.webp.flat",
+        "source": "/Users/gamuchitsuwa/.gradle/daemon/8.13/com.example.motionwatch.mobile-main-37:/mipmap-mdpi/ic_launcher.webp"
+    },
+    {
+        "merged": "/Users/gamuchitsuwa/.gradle/daemon/8.13/com.example.motionwatch.mobile-debug-35:/mipmap-mdpi_ic_launcher_round.webp.flat",
+        "source": "/Users/gamuchitsuwa/.gradle/daemon/8.13/com.example.motionwatch.mobile-main-37:/mipmap-mdpi/ic_launcher_round.webp"
+    },
+    {
+        "merged": "/Users/gamuchitsuwa/.gradle/daemon/8.13/com.example.motionwatch.mobile-debug-35:/drawable_ic_back.xml.flat",
+        "source": "/Users/gamuchitsuwa/.gradle/daemon/8.13/com.example.motionwatch.mobile-main-37:/drawable/ic_back.xml"
+    },
+    {
+        "merged": "/Users/gamuchitsuwa/.gradle/daemon/8.13/com.example.motionwatch.mobile-debug-35:/drawable_ic_settings.xml.flat",
+        "source": "/Users/gamuchitsuwa/.gradle/daemon/8.13/com.example.motionwatch.mobile-main-37:/drawable/ic_settings.xml"
+    },
+    {
+        "merged": "/Users/gamuchitsuwa/.gradle/daemon/8.13/com.example.motionwatch.mobile-debug-35:/mipmap-xhdpi_ic_launcher_round.webp.flat",
+        "source": "/Users/gamuchitsuwa/.gradle/daemon/8.13/com.example.motionwatch.mobile-main-37:/mipmap-xhdpi/ic_launcher_round.webp"
+    },
+    {
+        "merged": "/Users/gamuchitsuwa/.gradle/daemon/8.13/com.example.motionwatch.mobile-debug-35:/mipmap-xxxhdpi_ic_launcher.webp.flat",
+        "source": "/Users/gamuchitsuwa/.gradle/daemon/8.13/com.example.motionwatch.mobile-main-37:/mipmap-xxxhdpi/ic_launcher.webp"
+    },
+    {
+        "merged": "/Users/gamuchitsuwa/.gradle/daemon/8.13/com.example.motionwatch.mobile-debug-35:/layout_item_history_card.xml.flat",
+        "source": "/Users/gamuchitsuwa/.gradle/daemon/8.13/com.example.motionwatch.mobile-main-37:/layout/item_history_card.xml"
+    },
+    {
+        "merged": "/Users/gamuchitsuwa/.gradle/daemon/8.13/com.example.motionwatch.mobile-debug-35:/drawable_ic_measurement.xml.flat",
+        "source": "/Users/gamuchitsuwa/.gradle/daemon/8.13/com.example.motionwatch.mobile-main-37:/drawable/ic_measurement.xml"
+    },
+    {
+        "merged": "/Users/gamuchitsuwa/.gradle/daemon/8.13/com.example.motionwatch.mobile-debug-35:/drawable_settings_icon.xml.flat",
+        "source": "/Users/gamuchitsuwa/.gradle/daemon/8.13/com.example.motionwatch.mobile-main-37:/drawable/settings_icon.xml"
+    },
+    {
+        "merged": "/Users/gamuchitsuwa/.gradle/daemon/8.13/com.example.motionwatch.mobile-debug-35:/drawable_ic_sessions.xml.flat",
+        "source": "/Users/gamuchitsuwa/.gradle/daemon/8.13/com.example.motionwatch.mobile-main-37:/drawable/ic_sessions.xml"
+    },
+    {
+        "merged": "/Users/gamuchitsuwa/.gradle/daemon/8.13/com.example.motionwatch.mobile-debug-35:/drawable_bg_item_history.xml.flat",
+        "source": "/Users/gamuchitsuwa/.gradle/daemon/8.13/com.example.motionwatch.mobile-main-37:/drawable/bg_item_history.xml"
+    },
+    {
+        "merged": "/Users/gamuchitsuwa/.gradle/daemon/8.13/com.example.motionwatch.mobile-debug-35:/layout_fragment_contact_about.xml.flat",
+        "source": "/Users/gamuchitsuwa/.gradle/daemon/8.13/com.example.motionwatch.mobile-main-37:/layout/fragment_contact_about.xml"
     }
 ]

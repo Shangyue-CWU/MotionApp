@@ -7,8 +7,8 @@
         android:icon="@android:drawable/ic_media_play" />
 
     <item
-        android:id="@+id/nav_history"
-        android:title="History"
-        android:icon="@android:drawable/ic_menu_recent_history" />
+        android:id="@+id/nav_analysis"
+        android:title="Analysis"
+        android:icon="@android:drawable/ic_menu_compass" />
 
 </menu>

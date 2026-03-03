@@ -4,7 +4,7 @@
             "outputFile": "com.example.motionwatch.mobile-mergeDebugResources-33:/values-large-v4/values-large-v4.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\v-alinizar\\.gradle\\caches\\8.13\\transforms\\fa16c8eda986405137bf41b168825441\\transformed\\appcompat-1.7.1\\res\\values-large-v4\\values-large-v4.xml",
+                    "source": "/Users/gamuchitsuwa/.gradle/caches/8.13/transforms/fa16c8eda986405137bf41b168825441/transformed/appcompat-1.7.1/res/values-large-v4/values-large-v4.xml",
                     "from": {
                         "startLines": "2,3,4,5,6,7,8,9,10",
                         "startColumns": "4,4,4,4,4,4,4,4,4",
@@ -14,7 +14,7 @@
                     }
                 },
                 {
-                    "source": "C:\\Users\\v-alinizar\\.gradle\\caches\\8.13\\transforms\\65dd36a0278ba9488bed1c8afab180aa\\transformed\\material-1.13.0\\res\\values-large-v4\\values-large-v4.xml",
+                    "source": "/Users/gamuchitsuwa/.gradle/caches/8.13/transforms/65dd36a0278ba9488bed1c8afab180aa/transformed/material-1.13.0/res/values-large-v4/values-large-v4.xml",
                     "from": {
                         "startLines": "2,3,4,5",
                         "startColumns": "4,4,4,4",

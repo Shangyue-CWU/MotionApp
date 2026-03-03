@@ -4,7 +4,7 @@
             "outputFile": "com.example.motionwatch.mobile-mergeDebugResources-33:/values-night-v8/values-night-v8.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\v-alinizar\\.gradle\\caches\\8.13\\transforms\\65dd36a0278ba9488bed1c8afab180aa\\transformed\\material-1.13.0\\res\\values-night-v8\\values-night-v8.xml",
+                    "source": "/Users/gamuchitsuwa/.gradle/caches/8.13/transforms/65dd36a0278ba9488bed1c8afab180aa/transformed/material-1.13.0/res/values-night-v8/values-night-v8.xml",
                     "from": {
                         "startLines": "2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35",
                         "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",
@@ -21,7 +21,26 @@
                     }
                 },
                 {
-                    "source": "C:\\Users\\v-alinizar\\.gradle\\caches\\8.13\\transforms\\fa16c8eda986405137bf41b168825441\\transformed\\appcompat-1.7.1\\res\\values-night-v8\\values-night-v8.xml",
+                    "source": "/Users/gamuchitsuwa/AndroidStudioProjects/CS480_FitnessApp1/mobile/src/main/res/values-night/themes.xml",
+                    "from": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "100",
+                        "endLines": "5",
+                        "endColumns": "12",
+                        "endOffsets": "318"
+                    },
+                    "to": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "55",
+                        "endLines": "5",
+                        "endColumns": "12",
+                        "endOffsets": "169"
+                    }
+                },
+                {
+                    "source": "/Users/gamuchitsuwa/.gradle/caches/8.13/transforms/fa16c8eda986405137bf41b168825441/transformed/appcompat-1.7.1/res/values-night-v8/values-night-v8.xml",
                     "from": {
                         "startLines": "2,3,4,5,6,7,8,9",
                         "startColumns": "4,4,4,4,4,4,4,4",
@@ -35,25 +54,6 @@
                         "startOffsets": "174,244,328,412,508,610,712,3694",
                         "endColumns": "69,83,83,95,101,101,93,88",
                         "endOffsets": "239,323,407,503,605,707,801,3778"
-                    }
-                },
-                {
-                    "source": "C:\\Users\\v-alinizar\\StudioProjects\\CS480_FitnessApp\\mobile\\src\\main\\res\\values-night\\themes.xml",
-                    "from": {
-                        "startLines": "2",
-                        "startColumns": "4",
-                        "startOffsets": "102",
-                        "endLines": "5",
-                        "endColumns": "12",
-                        "endOffsets": "323"
-                    },
-                    "to": {
-                        "startLines": "2",
-                        "startColumns": "4",
-                        "startOffsets": "55",
-                        "endLines": "5",
-                        "endColumns": "12",
-                        "endOffsets": "169"
                     }
                 }
             ]

@@ -1,13 +1,16 @@
-#Tue Feb 24 18:25:49 PST 2026
-base.0=C\:\\Users\\v-alinizar\\StudioProjects\\CS480_FitnessApp\\mobile\\build\\intermediates\\dex\\debug\\mergeExtDexDebug\\classes.dex
-base.1=C\:\\Users\\v-alinizar\\StudioProjects\\CS480_FitnessApp\\mobile\\build\\intermediates\\dex\\debug\\mergeProjectDexDebug\\0\\classes.dex
-base.2=C\:\\Users\\v-alinizar\\StudioProjects\\CS480_FitnessApp\\mobile\\build\\intermediates\\dex\\debug\\mergeProjectDexDebug\\3\\classes.dex
-base.3=C\:\\Users\\v-alinizar\\StudioProjects\\CS480_FitnessApp\\mobile\\build\\intermediates\\dex\\debug\\mergeExtDexDebug\\classes2.dex
+#Mon Mar 02 17:34:20 PST 2026
+base.0=/Users/gamuchitsuwa/AndroidStudioProjects/CS480_FitnessApp1/mobile/build/intermediates/dex/debug/mergeExtDexDebug/classes.dex
+base.1=/Users/gamuchitsuwa/AndroidStudioProjects/CS480_FitnessApp1/mobile/build/intermediates/dex/debug/mergeProjectDexDebug/0/classes.dex
+base.2=/Users/gamuchitsuwa/AndroidStudioProjects/CS480_FitnessApp1/mobile/build/intermediates/dex/debug/mergeProjectDexDebug/14/classes.dex
+base.3=/Users/gamuchitsuwa/AndroidStudioProjects/CS480_FitnessApp1/mobile/build/intermediates/dex/debug/mergeProjectDexDebug/3/classes.dex
+base.4=/Users/gamuchitsuwa/AndroidStudioProjects/CS480_FitnessApp1/mobile/build/intermediates/dex/debug/mergeExtDexDebug/classes2.dex
 path.0=classes.dex
 path.1=0/classes.dex
-path.2=3/classes.dex
-path.3=classes2.dex
+path.2=14/classes.dex
+path.3=3/classes.dex
+path.4=classes2.dex
 renamed.0=classes.dex
 renamed.1=classes2.dex
 renamed.2=classes3.dex
 renamed.3=classes4.dex
+renamed.4=classes5.dex

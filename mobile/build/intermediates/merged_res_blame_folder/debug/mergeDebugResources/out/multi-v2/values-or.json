@@ -4,7 +4,24 @@
             "outputFile": "com.example.motionwatch.mobile-mergeDebugResources-33:/values-or/values-or.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\v-alinizar\\.gradle\\caches\\8.13\\transforms\\65dd36a0278ba9488bed1c8afab180aa\\transformed\\material-1.13.0\\res\\values-or\\values-or.xml",
+                    "source": "/Users/gamuchitsuwa/.gradle/caches/8.13/transforms/d42bb84985ca372e32356468ece7c04f/transformed/play-services-basement-18.4.0/res/values-or/values.xml",
+                    "from": {
+                        "startLines": "4",
+                        "startColumns": "0",
+                        "startOffsets": "195",
+                        "endColumns": "135",
+                        "endOffsets": "330"
+                    },
+                    "to": {
+                        "startLines": "55",
+                        "startColumns": "4",
+                        "startOffsets": "5443",
+                        "endColumns": "139",
+                        "endOffsets": "5578"
+                    }
+                },
+                {
+                    "source": "/Users/gamuchitsuwa/.gradle/caches/8.13/transforms/65dd36a0278ba9488bed1c8afab180aa/transformed/material-1.13.0/res/values-or/values-or.xml",
                     "from": {
                         "startLines": "2,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85",
                         "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",
@@ -23,24 +40,7 @@
                     }
                 },
                 {
-                    "source": "C:\\Users\\v-alinizar\\.gradle\\caches\\8.13\\transforms\\d42bb84985ca372e32356468ece7c04f\\transformed\\play-services-basement-18.4.0\\res\\values-or\\values.xml",
-                    "from": {
-                        "startLines": "4",
-                        "startColumns": "0",
-                        "startOffsets": "195",
-                        "endColumns": "135",
-                        "endOffsets": "330"
-                    },
-                    "to": {
-                        "startLines": "55",
-                        "startColumns": "4",
-                        "startOffsets": "5443",
-                        "endColumns": "139",
-                        "endOffsets": "5578"
-                    }
-                },
-                {
-                    "source": "C:\\Users\\v-alinizar\\.gradle\\caches\\8.13\\transforms\\5255aaa9132de847d79a3ded9d25130d\\transformed\\play-services-base-18.5.0\\res\\values-or\\values.xml",
+                    "source": "/Users/gamuchitsuwa/.gradle/caches/8.13/transforms/5255aaa9132de847d79a3ded9d25130d/transformed/play-services-base-18.5.0/res/values-or/values.xml",
                     "from": {
                         "startLines": "4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20",
                         "startColumns": "0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0",
@@ -57,7 +57,7 @@
                     }
                 },
                 {
-                    "source": "C:\\Users\\v-alinizar\\.gradle\\caches\\8.13\\transforms\\7d4c338a7ff5d0379ca8662764986a78\\transformed\\core-1.13.1\\res\\values-or\\values-or.xml",
+                    "source": "/Users/gamuchitsuwa/.gradle/caches/8.13/transforms/7d4c338a7ff5d0379ca8662764986a78/transformed/core-1.13.1/res/values-or/values-or.xml",
                     "from": {
                         "startLines": "2,3,4,5,6,7,8,9",
                         "startColumns": "4,4,4,4,4,4,4,4",
@@ -74,7 +74,7 @@
                     }
                 },
                 {
-                    "source": "C:\\Users\\v-alinizar\\.gradle\\caches\\8.13\\transforms\\fa16c8eda986405137bf41b168825441\\transformed\\appcompat-1.7.1\\res\\values-or\\values-or.xml",
+                    "source": "/Users/gamuchitsuwa/.gradle/caches/8.13/transforms/fa16c8eda986405137bf41b168825441/transformed/appcompat-1.7.1/res/values-or/values-or.xml",
                     "from": {
                         "startLines": "2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29",
                         "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",

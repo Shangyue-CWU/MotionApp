@@ -10,12 +10,10 @@ import com.google.android.material.navigation.NavigationView
 import androidx.activity.OnBackPressedCallback
 import androidx.core.view.GravityCompat
 import android.view.MenuItem
-import android.graphics.Color
 
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
-    //    Initialize Variables for DrawerLayout, NavigationView, and Toolbar
     private lateinit var drawerLayout: DrawerLayout
     private lateinit var navigationView: NavigationView
     private lateinit var toolbar: MaterialToolbar
@@ -23,27 +21,20 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     private lateinit var bottomNav: BottomNavigationView
     private var isProgrammaticNavChange = false
 
-
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         supportActionBar?.hide()
 
-        // Hooks
         drawerLayout = findViewById(R.id.drawer_layout)
         navigationView = findViewById(R.id.nav_view)
         toolbar = findViewById(R.id.toolbar)
         bottomNav = findViewById(R.id.bottomNav)
 
-
-        // Toolbar
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setHomeButtonEnabled(true)
 
-
-        // Drawer toggle (hamburger)
         toggle = ActionBarDrawerToggle(
             this,
             drawerLayout,
@@ -55,19 +46,15 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         toggle.syncState()
         toggle.drawerArrowDrawable.color = android.graphics.Color.BLACK
 
-        //Drawer Listener
         navigationView.bringToFront()
         navigationView.setNavigationItemSelectedListener(this)
 
-        //Bottom Nav Listener
         bottomNav.setOnItemSelectedListener { item ->
             if (isProgrammaticNavChange) return@setOnItemSelectedListener true
             navigateTo(item.itemId, fromDrawer = false)
             true
         }
 
-
-        // Back button: close drawer first
         onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
                 if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
@@ -78,11 +65,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             }
         })
 
-        //Start at home fragment
         if (savedInstanceState == null) {
-            //Load Home Fragment
             navigateTo(R.id.nav_home, fromDrawer = false)
-            //Highlight Home in Bottom Nav
             isProgrammaticNavChange = true
             bottomNav.selectedItemId = R.id.nav_home
             isProgrammaticNavChange = false
@@ -102,9 +86,9 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     private fun navigateTo(itemId: Int, fromDrawer: Boolean) {
         val fragment = when (itemId) {
-            R.id.nav_home -> HomeFragment()
-            R.id.nav_sessions -> SessionsFragment()
-            R.id.nav_analytics -> HistoryFragment()   // if your existing analytics screen is named HistoryFragment
+            R.id.nav_home, R.id.nav_dashboard -> HomeFragment()
+            R.id.nav_sessions, R.id.nav_session -> SessionsFragment()
+            R.id.nav_analytics, R.id.nav_analysis -> AnalyticsFragment()
             R.id.nav_settings -> SettingsFragment()
             else -> null
         }
@@ -115,23 +99,19 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 .commit()
         }
 
-        // Only sync bottom nav highlight when drawer initiated the nav
-        if (fromDrawer) {
-            val bottomItemToSelect = when (itemId) {
-                R.id.nav_dashboard -> R.id.nav_home
-                R.id.nav_session -> R.id.nav_sessions
-                R.id.nav_analysis -> R.id.nav_analytics
-                else -> itemId
-            }
+        val bottomItemToSelect = when (itemId) {
+            R.id.nav_dashboard -> R.id.nav_home
+            R.id.nav_session -> R.id.nav_sessions
+            R.id.nav_analysis -> R.id.nav_analytics
+            else -> itemId
+        }
 
-            if (bottomNav.menu.findItem(bottomItemToSelect) != null &&
-                bottomNav.selectedItemId != bottomItemToSelect
-            ) {
-                isProgrammaticNavChange = true
-                bottomNav.selectedItemId = bottomItemToSelect
-                isProgrammaticNavChange = false
-            }
+        if (bottomNav.menu.findItem(bottomItemToSelect) != null &&
+            bottomNav.selectedItemId != bottomItemToSelect
+        ) {
+            isProgrammaticNavChange = true
+            bottomNav.selectedItemId = bottomItemToSelect
+            isProgrammaticNavChange = false
         }
     }
-
 }
