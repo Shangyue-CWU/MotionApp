@@ -5,13 +5,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ArrayAdapter
-import android.widget.ImageButton
-import android.widget.LinearLayout
-import android.widget.Spinner
-import android.widget.TextView
+import android.widget.*
 import androidx.fragment.app.Fragment
 import com.google.android.material.switchmaterial.SwitchMaterial
+import com.example.motionwatch.firebase.UserProfileManager
 
 /**
  * SettingsFragment: Manages user preferences, profile information, and support links.
@@ -41,7 +38,14 @@ class SettingsFragment : Fragment() {
         val spinnerBloodType = view.findViewById<Spinner>(R.id.spinner_blood_type)
         val spinnerUnits = view.findViewById<Spinner>(R.id.spinner_units)
 
-        // 1. Account Navigation
+        //Profile input fields + Save button
+        val etName = view.findViewById<EditText>(R.id.etName)
+        val etAge = view.findViewById<EditText>(R.id.etAge)
+        val etHeight = view.findViewById<EditText>(R.id.etHeight)
+        val etWeight = view.findViewById<EditText>(R.id.etWeight)
+        val btnSaveProfile = view.findViewById<Button>(R.id.btnSaveProfile)
+
+        //Account Navigation
         btnAccount?.setOnClickListener {
             parentFragmentManager.beginTransaction()
                 .replace(R.id.nav_host, AccountInfoFragment())
@@ -49,7 +53,7 @@ class SettingsFragment : Fragment() {
                 .commit()
         }
 
-        // 2. Data Privacy Logic
+        //Data Privacy Logic
         val prefs = requireContext().getSharedPreferences(prefsName, Context.MODE_PRIVATE)
         if (switchPrivacy != null && tvPrivacyStatus != null) {
             val savedPrivacy = prefs.getBoolean(keyPrivacy, false)
@@ -67,6 +71,52 @@ class SettingsFragment : Fragment() {
         setupSpinner(spinnerSex, R.array.sex_options)
         setupSpinner(spinnerBloodType, R.array.blood_type_options)
         setupSpinner(spinnerUnits, R.array.unit_options)
+
+        //Fetch profile when entering Settings page
+        UserProfileManager.fetchProfile { profile ->
+            if (profile != null) {
+
+                profile["name"]?.let { etName.setText(it.toString()) }
+                profile["age"]?.let { etAge.setText(it.toString()) }
+                profile["height"]?.let { etHeight.setText(it.toString()) }
+                profile["weight"]?.let { etWeight.setText(it.toString()) }
+
+                profile["shareData"]?.let {
+                    switchPrivacy?.isChecked = it as Boolean
+                }
+            }
+        }
+
+        //Save profile button logic
+        btnSaveProfile?.setOnClickListener {
+
+            val name = etName.text.toString()
+            val age = etAge.text.toString()
+            val height = etHeight.text.toString()
+            val weight = etWeight.text.toString()
+            val sex = spinnerSex?.selectedItem.toString()
+            val bloodType = spinnerBloodType?.selectedItem.toString()
+            val shareData = switchPrivacy?.isChecked ?: false
+            val units = spinnerUnits?.selectedItem.toString()
+
+            UserProfileManager.saveProfile(
+                name,
+                age,
+                height,
+                weight,
+                sex,
+                bloodType,
+                shareData,
+                units
+            ) { result ->
+
+                if (result != null) {
+                    Toast.makeText(requireContext(), "Profile Saved", Toast.LENGTH_SHORT).show()
+                } else {
+                    Toast.makeText(requireContext(), "Failed to Save", Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
 
         // 4. Support Navigation
         btnFaq?.setOnClickListener {
