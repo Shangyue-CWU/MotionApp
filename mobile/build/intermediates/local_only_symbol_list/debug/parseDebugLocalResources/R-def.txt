@@ -86,6 +86,7 @@ id tvGyroY
 id tvGyroYaw
 id tvGyroZ
 id tvHeight
+id tvHistorySubtitle
 id tvHistoryTitle
 id tvLabel
 id tvLastMotion

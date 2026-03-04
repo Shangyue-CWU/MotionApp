@@ -4271,6 +4271,7 @@ int id tvGyroY 0x7f080225
 int id tvGyroYaw 0x7f080226
 int id tvGyroZ 0x7f080227
 int id tvHeight 0x7f080228
+int id tvHistorySubtitle 0x7f08025a
 int id tvHistoryTitle 0x7f080229
 int id tvLabel 0x7f08022a
 int id tvLastMotion 0x7f08022b
