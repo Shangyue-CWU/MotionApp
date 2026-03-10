@@ -88,10 +88,6 @@
         "source": "/Users/gamuchitsuwa/.gradle/daemon/8.13/com.example.motionwatch.mobile-main-37:/layout/fragment_account_info.xml"
     },
     {
-        "merged": "com.example.motionwatch.mobile-debug-35:/layout_fragment_settings.xml.flat",
-        "source": "com.example.motionwatch.mobile-main-37:/layout/fragment_settings.xml"
-    },
-    {
         "merged": "/Users/gamuchitsuwa/.gradle/daemon/8.13/com.example.motionwatch.mobile-debug-35:/drawable_heartland_logo.png.flat",
         "source": "/Users/gamuchitsuwa/.gradle/daemon/8.13/com.example.motionwatch.mobile-main-37:/drawable/heartland_logo.png"
     },
@@ -310,6 +306,10 @@
     {
         "merged": "/Users/gamuchitsuwa/.gradle/daemon/8.13/com.example.motionwatch.mobile-debug-35:/mipmap-mdpi_ic_launcher_round.webp.flat",
         "source": "/Users/gamuchitsuwa/.gradle/daemon/8.13/com.example.motionwatch.mobile-main-37:/mipmap-mdpi/ic_launcher_round.webp"
+    },
+    {
+        "merged": "com.example.motionwatch.mobile-debug-35:/layout_fragment_home.xml.flat",
+        "source": "com.example.motionwatch.mobile-main-37:/layout/fragment_home.xml"
     },
     {
         "merged": "/Users/gamuchitsuwa/.gradle/daemon/8.13/com.example.motionwatch.mobile-debug-35:/drawable_ic_back.xml.flat",
