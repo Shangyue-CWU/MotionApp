@@ -16,7 +16,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:text="FEBRUARY 2026"
+            android:text="WEDNESDAY, FEB 4"
             android:textAllCaps="true"
             android:textColor="#6B7280"
             android:textSize="12sp" />
@@ -25,7 +25,7 @@
             android:id="@+id/tvGreeting"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Welcome"
+            android:text="Good Morning, Alex"
             android:textColor="#111827"
             android:textSize="20sp"
             android:textStyle="bold"
@@ -109,7 +109,7 @@
                         android:id="@+id/tvFallsCount"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="0"
+                        android:text="2"
                         android:textStyle="bold"
                         android:textSize="18sp"
                         android:textColor="#111827" />
@@ -142,7 +142,7 @@
                         android:id="@+id/tvTremorsCount"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="0"
+                        android:text="8"
                         android:textStyle="bold"
                         android:textSize="18sp"
                         android:textColor="#111827" />
@@ -174,7 +174,7 @@
                         android:id="@+id/tvAbnormalCount"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="0"
+                        android:text="14"
                         android:textStyle="bold"
                         android:textSize="18sp"
                         android:textColor="#111827" />

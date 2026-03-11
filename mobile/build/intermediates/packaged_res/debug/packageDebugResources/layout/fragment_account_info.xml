@@ -36,6 +36,24 @@
             android:textSize="14sp"/>
 
         <TextView
+            android:id="@+id/tvEmail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Email: --"
+            android:textColor="#374151"
+            android:textSize="14sp"/>
+
+        <TextView
+            android:id="@+id/tvName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Name: --"
+            android:textColor="#374151"
+            android:textSize="14sp"/>
+
+        <TextView
             android:id="@+id/tvPassword"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -51,5 +69,6 @@
             android:text="(Password is hidden for security. Later you can add change password with Firebase.)"
             android:textColor="#6B7280"
             android:textSize="12sp"/>
+
     </LinearLayout>
 </ScrollView>
