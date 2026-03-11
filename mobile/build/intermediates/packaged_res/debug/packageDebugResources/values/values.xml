@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#2E2E2E</color>
+    <color name="error">#C97A63</color>
+    <color name="green">#7FA89B</color>
+    <color name="icon_background">#33FFFFFF</color>
+    <color name="input_background">#EFEDE9</color>
+    <color name="primary">#7FA89B</color>
+    <color name="primary_text">#2E2E2E</color>
+    <color name="received_message_background">#E6ECE8</color>
+    <color name="secondary_text">#6F6F6F</color>
+    <color name="white">#F7F5F2</color>
+    <string name="analytics">Analytics</string>
+    <string name="app_name">MotionWatch</string>
+    <string name="dashboard">Dashboard</string>
+    <string name="gcm_defaultSenderId" translatable="false">910688686018</string>
+    <string name="google_api_key" translatable="false">AIzaSyAANayffkm8nqyLq5C40JRB8HzUBwVo9ec</string>
+    <string name="google_app_id" translatable="false">1:910688686018:android:8ca80d5b4ba6f51194105b</string>
+    <string name="google_crash_reporting_api_key" translatable="false">AIzaSyAANayffkm8nqyLq5C40JRB8HzUBwVo9ec</string>
+    <string name="google_storage_bucket" translatable="false">fitness-app-13b91.firebasestorage.app</string>
+    <string name="heartland_computing">Heartland Computing</string>
+    <string name="home_main_activity">Home Main Activity</string>
+    <string name="login">Login</string>
+    <string name="logout">Logout</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="profile">Profile</string>
+    <string name="project_id" translatable="false">fitness-app-13b91</string>
+    <string name="session">Session</string>
+    <string name="settings">Settings</string>
+    <string name="www_heartlandcomputing_com">www.heartlandcomputing.com</string>
+    <style name="Base.Theme.MotionWatch" parent="Theme.Material3.DayNight.NoActionBar">
+        
+        
+        <item name="colorPrimary">@color/primary</item>
+        <item name="android:statusBarColor">@color/primary</item>
+
+    </style>
+    <style name="Theme.MotionWatch" parent="Base.Theme.MotionWatch"/>
+</resources>
