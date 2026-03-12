@@ -104,7 +104,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         val fragment = when (itemId) {
             R.id.nav_home -> HomeFragment()
             R.id.nav_sessions -> SessionsFragment()
-            R.id.nav_analytics -> HistoryFragment()   // if your existing analytics screen is named HistoryFragment
+            R.id.nav_analytics -> AnalyticsFragment()
             R.id.nav_settings -> SettingsFragment()
             else -> null
         }

@@ -29,17 +29,21 @@ drawable ic_account_circle
 drawable ic_analytics
 drawable ic_back
 drawable ic_chevron_right
+drawable ic_falling
 drawable ic_filter
 drawable ic_history_clock
 drawable ic_home
+drawable ic_idle
 drawable ic_launcher_background
 drawable ic_launcher_foreground
 drawable ic_measurement
 drawable ic_menu
 drawable ic_notifications
 drawable ic_profile
+drawable ic_running
 drawable ic_sessions
 drawable ic_settings
+drawable ic_sitting
 drawable ic_walk
 drawable login_icon
 drawable logout_icon
@@ -77,7 +81,6 @@ id inputLastName
 id inputPassword
 id iv_chevron
 id iv_history_icon
-id layoutImage
 id listTotals
 id list_logs
 id main
@@ -112,6 +115,7 @@ id tvAccZ
 id tvArchives
 id tvDate
 id tvDetectionTotals
+id tvEmail
 id tvFallingTotal
 id tvFallsCount
 id tvGreeting
@@ -126,6 +130,7 @@ id tvHistoryTitle
 id tvLabel
 id tvLastMotion
 id tvMonth
+id tvName
 id tvPassword
 id tvPrivacyStatus
 id tvRunningTotal
@@ -199,6 +204,11 @@ string dashboard1
 string email
 string faq
 string first_name
+string gcm_defaultSenderId
+string google_api_key
+string google_app_id
+string google_crash_reporting_api_key
+string google_storage_bucket
 string heartland_computing
 string height_in
 string home_main_activity
@@ -214,6 +224,7 @@ string password
 string password1
 string profile
 string profile1
+string project_id
 string rate_us
 string session
 string session1
@@ -229,6 +240,7 @@ string support_information
 string units
 string version_1_0
 string weight_lb
+string welcome
 string welcome_back
 string www_heartlandcomputing_com
 style Base.Theme.MotionWatch

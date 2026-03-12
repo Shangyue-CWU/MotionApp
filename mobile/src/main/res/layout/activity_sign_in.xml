@@ -1,53 +1,81 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fillViewport="true">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="24dp"
+        android:gravity="center_horizontal">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="60dp"
+            android:text="@string/welcome_back"
             android:textSize="24sp"
+            android:textColor="#111827"
             android:textStyle="bold"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
+            android:text="@string/login_to_continue"
+            android:textColor="#6B7280"/>
 
         <EditText
             android:id="@+id/inputEmail"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_marginTop="80dp"
+            android:background="@drawable/background_input"
+            android:hint="@string/email"
             android:inputType="textEmailAddress"
+            android:paddingHorizontal="16dp" />
 
         <EditText
             android:id="@+id/inputPassword"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_marginTop="20dp"
+            android:background="@drawable/background_input"
+            android:hint="@string/password"
             android:inputType="textPassword"
+            android:paddingHorizontal="16dp" />
 
-            android:id="@+id/buttonSignIn"
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="60dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/buttonSignIn"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:text="@string/sign_in"
+                app:cornerRadius="12dp" />
 
             <ProgressBar
                 android:id="@+id/progressBar"
                 android:layout_width="25dp"
                 android:layout_height="25dp"
+                android:layout_gravity="center"
+                android:visibility="gone" />
+        </FrameLayout>
 
         <TextView
             android:id="@+id/textCreateNewAccount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="40dp"
+            android:text="@string/create_new_account"
+            android:textColor="#1D4ED8"
             android:textStyle="bold"/>
 
     </LinearLayout>
