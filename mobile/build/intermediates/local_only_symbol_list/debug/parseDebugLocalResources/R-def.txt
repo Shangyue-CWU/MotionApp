@@ -64,6 +64,8 @@ id btnToggle
 id btn_filter
 id buttonSignIn
 id buttonSignUp
+id cardActivityLog
+id cardLastMotion
 id content_frame
 id drawer_layout
 id etAge
@@ -71,9 +73,11 @@ id etHeight
 id etName
 id etWeight
 id header
+id homeScroll
 id icon_container
 id imageProfile
 id imgAccount
+id imgTopMotion
 id inputConfirmPassword
 id inputEmail
 id inputFirstName
@@ -98,6 +102,8 @@ id nav_settings
 id nav_view
 id progressBar
 id recycler_files
+id rowTotals
+id spinnerLabel
 id spinner_blood_type
 id spinner_sex
 id spinner_units
@@ -127,8 +133,8 @@ id tvGyroYaw
 id tvGyroZ
 id tvHistorySubtitle
 id tvHistoryTitle
-id tvLabel
 id tvLastMotion
+id tvLastMotionTitle
 id tvMonth
 id tvName
 id tvPassword

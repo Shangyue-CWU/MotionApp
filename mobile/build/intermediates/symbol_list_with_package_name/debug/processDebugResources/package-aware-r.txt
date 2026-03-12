@@ -3875,6 +3875,8 @@ id buttonSignUp
 id cache_measures
 id callMeasure
 id cancel_button
+id cardActivityLog
+id cardLastMotion
 id carryVelocity
 id center
 id centerCrop
@@ -3996,6 +3998,7 @@ id hide_ime_id
 id hideable
 id home
 id homeAsUp
+id homeScroll
 id honorRequest
 id horizontal
 id horizontal_only
@@ -4009,6 +4012,7 @@ id ignoreRequest
 id image
 id imageProfile
 id imgAccount
+id imgTopMotion
 id immediateStop
 id included
 id indeterminate
@@ -4185,6 +4189,7 @@ id rightToLeft
 id right_icon
 id right_side
 id rounded
+id rowTotals
 id row_index_key
 id save_non_transition_alpha
 id save_overlay_view
@@ -4226,6 +4231,7 @@ id snapMargins
 id south
 id spacer
 id special_effects_controller_view_tag
+id spinnerLabel
 id spinner_blood_type
 id spinner_sex
 id spinner_units
@@ -4327,8 +4333,8 @@ id tvGyroYaw
 id tvGyroZ
 id tvHistorySubtitle
 id tvHistoryTitle
-id tvLabel
 id tvLastMotion
+id tvLastMotionTitle
 id tvMonth
 id tvName
 id tvPassword

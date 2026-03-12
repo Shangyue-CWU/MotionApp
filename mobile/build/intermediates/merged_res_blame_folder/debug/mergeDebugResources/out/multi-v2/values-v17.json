@@ -4,7 +4,7 @@
             "outputFile": "com.example.motionwatch.mobile-mergeDebugResources-40:/values-v17/values-v17.xml",
             "map": [
                 {
-                    "source": "/Users/gamuchitsuwa/.gradle/caches/8.13/transforms/1ec4916928ad90b4eaa24a4fb36d6e71/transformed/appcompat-1.7.1/res/values-v17/values-v17.xml",
+                    "source": "C:\\Users\\v-alinizar\\.gradle\\caches\\8.13\\transforms\\1ec4916928ad90b4eaa24a4fb36d6e71\\transformed\\appcompat-1.7.1\\res\\values-v17\\values-v17.xml",
                     "from": {
                         "startLines": "2,5,9,12,15,18,22,25,29,33,37,40,43,46,50,53,57",
                         "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",

@@ -4,7 +4,7 @@
             "outputFile": "com.example.motionwatch.mobile-mergeDebugResources-40:/values-ldrtl-v17/values-ldrtl-v17.xml",
             "map": [
                 {
-                    "source": "/Users/gamuchitsuwa/.gradle/caches/8.13/transforms/fe7ac847f5819031104dd0265e8445cb/transformed/material-1.13.0/res/values-ldrtl-v17/values-ldrtl-v17.xml",
+                    "source": "C:\\Users\\v-alinizar\\.gradle\\caches\\8.13\\transforms\\fe7ac847f5819031104dd0265e8445cb\\transformed\\material-1.13.0\\res\\values-ldrtl-v17\\values-ldrtl-v17.xml",
                     "from": {
                         "startLines": "2,3",
                         "startColumns": "4,4",

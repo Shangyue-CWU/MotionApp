@@ -3874,6 +3874,8 @@ int id buttonSignUp 0x7f09007c
 int id cache_measures 0x7f09007d
 int id callMeasure 0x7f09007e
 int id cancel_button 0x7f09007f
+int id cardActivityLog 0x7f090279
+int id cardLastMotion 0x7f09027a
 int id carryVelocity 0x7f090080
 int id center 0x7f090081
 int id centerCrop 0x7f090082
@@ -3995,6 +3997,7 @@ int id hide_ime_id 0x7f0900f5
 int id hideable 0x7f0900f6
 int id home 0x7f0900f7
 int id homeAsUp 0x7f0900f8
+int id homeScroll 0x7f09027b
 int id honorRequest 0x7f0900f9
 int id horizontal 0x7f0900fa
 int id horizontal_only 0x7f0900fb
@@ -4008,6 +4011,7 @@ int id ignoreRequest 0x7f090102
 int id image 0x7f090103
 int id imageProfile 0x7f090104
 int id imgAccount 0x7f090105
+int id imgTopMotion 0x7f09027c
 int id immediateStop 0x7f090106
 int id included 0x7f090107
 int id indeterminate 0x7f090108
@@ -4184,6 +4188,7 @@ int id rightToLeft 0x7f0901b2
 int id right_icon 0x7f0901b3
 int id right_side 0x7f0901b4
 int id rounded 0x7f0901b5
+int id rowTotals 0x7f09027d
 int id row_index_key 0x7f0901b6
 int id save_non_transition_alpha 0x7f0901b7
 int id save_overlay_view 0x7f0901b8
@@ -4225,6 +4230,7 @@ int id snapMargins 0x7f0901db
 int id south 0x7f0901dc
 int id spacer 0x7f0901dd
 int id special_effects_controller_view_tag 0x7f0901de
+int id spinnerLabel 0x7f09027e
 int id spinner_blood_type 0x7f0901df
 int id spinner_sex 0x7f0901e0
 int id spinner_units 0x7f0901e1
@@ -4326,8 +4332,8 @@ int id tvGyroYaw 0x7f090240
 int id tvGyroZ 0x7f090241
 int id tvHistorySubtitle 0x7f090242
 int id tvHistoryTitle 0x7f090243
-int id tvLabel 0x7f090244
 int id tvLastMotion 0x7f090245
+int id tvLastMotionTitle 0x7f09027f
 int id tvMonth 0x7f090246
 int id tvName 0x7f090247
 int id tvPassword 0x7f090248
@@ -4863,9 +4869,9 @@ int string support_information 0x7f1200f6
 int string units 0x7f1200f7
 int string version_1_0 0x7f1200f8
 int string weight_lb 0x7f1200f9
-int string welcome 0x7f1200fc
-int string welcome_back 0x7f1200fa
-int string www_heartlandcomputing_com 0x7f1200fb
+int string welcome 0x7f1200fa
+int string welcome_back 0x7f1200fb
+int string www_heartlandcomputing_com 0x7f1200fc
 int style AlertDialog_AppCompat 0x7f130000
 int style AlertDialog_AppCompat_Light 0x7f130001
 int style Animation_AppCompat_Dialog 0x7f130002
