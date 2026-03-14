@@ -19,6 +19,13 @@ class SettingsFragment : Fragment() {
     private val prefsName = "motionwatch_prefs"
     private val keyPrivacy = "privacy_share_data"
 
+    // Added for refresh
+    private var etNameRef: EditText? = null
+    private var etAgeRef: EditText? = null
+    private var etHeightRef: EditText? = null
+    private var etWeightRef: EditText? = null
+    private var switchPrivacyRef: SwitchMaterial? = null
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -44,6 +51,13 @@ class SettingsFragment : Fragment() {
         val etHeight = view.findViewById<EditText>(R.id.etHeight)
         val etWeight = view.findViewById<EditText>(R.id.etWeight)
         val btnSaveProfile = view.findViewById<Button>(R.id.btnSaveProfile)
+
+        // Store refs for refresh
+        etNameRef = etName
+        etAgeRef = etAge
+        etHeightRef = etHeight
+        etWeightRef = etWeight
+        switchPrivacyRef = switchPrivacy
 
         //Account Navigation
         btnAccount?.setOnClickListener {
@@ -90,10 +104,35 @@ class SettingsFragment : Fragment() {
         //Save profile button logic
         btnSaveProfile?.setOnClickListener {
 
-            val name = etName.text.toString()
-            val age = etAge.text.toString()
-            val height = etHeight.text.toString()
-            val weight = etWeight.text.toString()
+            val name = etName.text.toString().trim()
+            val ageStr = etAge.text.toString().trim()
+            val heightStr = etHeight.text.toString().trim()
+            val weightStr = etWeight.text.toString().trim()
+
+            val age = ageStr.toIntOrNull()
+            val height = heightStr.toFloatOrNull()
+            val weight = weightStr.toFloatOrNull()
+
+            if (name.isEmpty()) {
+                Toast.makeText(requireContext(), "Name required", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+
+            if (age == null || age !in 1..120) {
+                Toast.makeText(requireContext(), "Age must be 1–120", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+
+            if (height == null || height !in 24f..96f) {
+                Toast.makeText(requireContext(), "Height must be 24–96 in", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+
+            if (weight == null || weight !in 30f..700f) {
+                Toast.makeText(requireContext(), "Weight must be 30–700 lb", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+
             val sex = spinnerSex?.selectedItem.toString()
             val bloodType = spinnerBloodType?.selectedItem.toString()
             val shareData = switchPrivacy?.isChecked ?: false
@@ -101,9 +140,9 @@ class SettingsFragment : Fragment() {
 
             UserProfileManager.saveProfile(
                 name,
-                age,
-                height,
-                weight,
+                ageStr,
+                heightStr,
+                weightStr,
                 sex,
                 bloodType,
                 shareData,
@@ -134,6 +173,24 @@ class SettingsFragment : Fragment() {
         }
 
         return view
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        UserProfileManager.fetchProfile { profile ->
+            if (profile != null) {
+
+                profile["name"]?.let { etNameRef?.setText(it.toString()) }
+                profile["age"]?.let { etAgeRef?.setText(it.toString()) }
+                profile["height"]?.let { etHeightRef?.setText(it.toString()) }
+                profile["weight"]?.let { etWeightRef?.setText(it.toString()) }
+
+                profile["shareData"]?.let {
+                    switchPrivacyRef?.isChecked = it as Boolean
+                }
+            }
+        }
     }
 
     /**
