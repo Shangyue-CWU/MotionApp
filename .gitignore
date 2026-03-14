@@ -1,17 +1,25 @@
-# Gradle
+# =========================
+# Android / Gradle
+# =========================
+
+*.iml
 .gradle/
 build/
-
-# Android Studio
-.idea/
-*.iml
-
-# Local config
+*/build/
 local.properties
+.cxx/
+.externalNativeBuild/
+captures/
 
-# APKs and Dex
-*.apk
-*.dex
+# =========================
+# IDE (Android Studio)
+# =========================
 
-# Logs
-*.log
+.idea/
+.DS_Store
+
+# =========================
+# OS
+# =========================
+
+Thumbs.db

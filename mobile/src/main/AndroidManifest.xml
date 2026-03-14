@@ -4,7 +4,6 @@
 
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE_DATA_SYNC" />
 
-
     <!-- Required for foreground logging + notifications -->
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
@@ -24,6 +23,10 @@
         <activity android:name=".SignUpActivity" />
 
 
+        <!-- NEW: Authentication Activities -->
+        <activity android:name=".SignInActivity" />
+        <activity android:name=".SignUpActivity" />
+
         <activity
             android:name=".MainActivity"
             android:exported="true">
@@ -38,7 +41,8 @@
             android:exported="false" />
 
         <!-- Phone sensor logging service (foreground) -->
-        <service android:name=".SensorLoggerService"
+        <service
+            android:name=".SensorLoggerService"
             android:exported="false"
             android:foregroundServiceType="dataSync" />
 
@@ -51,10 +55,6 @@
                 <action android:name="com.google.android.gms.wearable.BIND_LISTENER" />
             </intent-filter>
         </service>
-
-
-
-
 
         <!-- Receive CSV file stream from watch (ChannelClient) -->
         <service

@@ -1,8 +1,11 @@
 <resources>
     <string name="app_name">MotionWatch</string>
     <string name="dashboard">Dashboard</string>
+    <string name="dashboard1">Dashboard</string>
     <string name="session">Session</string>
+    <string name="session1">Session</string>
     <string name="settings">Settings</string>
+    <string name="settings1">Settings</string>
     <string name="profile">Profile</string>
     <string name="login">Login</string>
     <string name="logout">Logout</string>
@@ -12,4 +15,70 @@
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="analytics">Analytics</string>
+    <string name="analysis">Analysis</string>
+
+    <!-- Sign In / Sign Up Strings -->
+    <string name="welcome_back">Welcome Back</string>
+    <string name="login_to_continue">Login to continue</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="password1">Password</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="sign_in">Sign In</string>
+    <string name="sign_in1">Sign In</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="create_new_account">Create new account</string>
+    <string name="create_new_account1">Create New Account</string>
+    <string name="add_image">Add Image</string>
+    <string name="first_name">First Name</string>
+    <string name="last_name">Last Name</string>
+
+    <!-- Menu / UI Strings -->
+    <string name="communicate">Communicate</string>
+    <string name="share">Share</string>
+    <string name="rate_us">Rate Us</string>
+    <string name="account">Account</string>
+    <string name="profile1">PROFILE</string>
+
+    <!-- Settings / Profile labels -->
+    <string name="name">NAME</string>
+    <string name="age">AGE</string>
+    <string name="height_in">HEIGHT (IN)</string>
+    <string name="weight_lb">WEIGHT (LB)</string>
+    <string name="sex">SEX</string>
+    <string name="blood_type">BLOOD TYPE</string>
+    <string name="measurement_units">MEASUREMENT UNITS</string>
+    <string name="share_data_no">Share data: No</string>
+    <string name="support_information"><![CDATA[SUPPORT & INFORMATION]]></string>
+    <string name="faq">FAQ</string>
+    <string name="allow_data_sharing">Allow data sharing</string>
+    <string name="save_profile">Save Profile</string>
+    <string name="version_1_0">Version: 1.0</string>
+    <string name="about">About</string>
+    <string name="units">UNITS</string>
+
+    <string-array name="sex_options">
+        <item>Select sex</item>
+        <item>Female</item>
+        <item>Male</item>
+        <item>Non-binary</item>
+        <item>Prefer not to say</item>
+    </string-array>
+
+    <string-array name="blood_type_options">
+        <item>Select blood type</item>
+        <item>A+</item>
+        <item>A-</item>
+        <item>B+</item>
+        <item>B-</item>
+        <item>AB+</item>
+        <item>AB-</item>
+        <item>O+</item>
+        <item>O-</item>
+    </string-array>
+
+    <string-array name="unit_options">
+        <item>Metric</item>
+        <item>Imperial</item>
+    </string-array>
 </resources>

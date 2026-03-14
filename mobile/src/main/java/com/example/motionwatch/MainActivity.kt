@@ -1,24 +1,26 @@
 package com.example.motionwatch
 
+import android.content.Intent
 import android.os.Bundle
+import android.view.MenuItem
+import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
-import com.google.android.material.appbar.MaterialToolbar
+import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
+import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.navigation.NavigationView
-import androidx.activity.OnBackPressedCallback
-import androidx.core.view.GravityCompat
-import android.view.MenuItem
+import com.google.firebase.auth.FirebaseAuth
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
-    // Initialize Variables
     private lateinit var drawerLayout: DrawerLayout
     private lateinit var navigationView: NavigationView
     private lateinit var toolbar: MaterialToolbar
     private lateinit var toggle: ActionBarDrawerToggle
     private lateinit var bottomNav: BottomNavigationView
+
     private var isProgrammaticNavChange = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -36,7 +38,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setHomeButtonEnabled(true)
 
-        // Drawer toggle
+        // Drawer toggle (hamburger)
         toggle = ActionBarDrawerToggle(
             this,
             drawerLayout,
@@ -48,11 +50,11 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         toggle.syncState()
         toggle.drawerArrowDrawable.color = android.graphics.Color.BLACK
 
-        // Drawer Listener
+        // Drawer listener
         navigationView.bringToFront()
         navigationView.setNavigationItemSelectedListener(this)
 
-        // Bottom Nav Listener
+        // Bottom nav listener
         bottomNav.setOnItemSelectedListener { item ->
             if (isProgrammaticNavChange) return@setOnItemSelectedListener true
             navigateTo(item.itemId, fromDrawer = false)
@@ -70,7 +72,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             }
         })
 
-        // Start at home fragment
+        // Start at Home
         if (savedInstanceState == null) {
             navigateTo(R.id.nav_home, fromDrawer = false)
             isProgrammaticNavChange = true
@@ -91,27 +93,35 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     }
 
     private fun navigateTo(itemId: Int, fromDrawer: Boolean) {
-
-        // --- ADDED: login/logout handling ---
-        if (itemId == R.id.nav_login) {
-            startActivity(android.content.Intent(this, SignInActivity::class.java))
-            return
+        // Handle drawer-only actions first (login/logout)
+        when (itemId) {
+            R.id.nav_login -> {
+                // If your login screen is an Activity, this is the correct place to launch it.
+                // Rename SignInActivity if your class name differs.
+                startActivity(Intent(this, SignInActivity::class.java))
+                return
+            }
+            R.id.nav_logout -> {
+                FirebaseAuth.getInstance().signOut()
+                // Optional: after logout, send them to login screen
+                startActivity(Intent(this, SignInActivity::class.java))
+                return
+            }
         }
 
-        if (itemId == R.id.nav_logout) {
-            com.example.motionwatch.firebase.FirebaseAuthManager.signOut()
-            android.widget.Toast
-                .makeText(this, "Logged out", android.widget.Toast.LENGTH_SHORT)
-                .show()
-            return
-        }
-        // --- END ADDED CODE ---
-
+        // Map BOTH drawer IDs and bottom-nav IDs to fragments
         val fragment = when (itemId) {
-            R.id.nav_home, R.id.nav_dashboard -> HomeFragment()
-            R.id.nav_sessions, R.id.nav_session -> CollectFragment()
-            R.id.nav_analytics, R.id.nav_analysis -> HistoryFragment()
+            // Bottom nav ids (likely)
+            R.id.nav_home -> HomeFragment()
+            R.id.nav_sessions -> SessionsFragment()
+            R.id.nav_analytics -> HistoryFragment()
             R.id.nav_settings -> SettingsFragment()
+
+            // Drawer ids (from main_menu.xml)
+            R.id.nav_dashboard -> HomeFragment()
+            R.id.nav_session -> SessionsFragment()
+            R.id.nav_analysis -> HistoryFragment()
+
             else -> null
         }
 
@@ -121,12 +131,13 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 .commit()
         }
 
-        // Sync bottom nav when drawer used
+        // Sync bottom nav highlight when drawer initiated navigation
         if (fromDrawer) {
             val bottomItemToSelect = when (itemId) {
                 R.id.nav_dashboard -> R.id.nav_home
                 R.id.nav_session -> R.id.nav_sessions
                 R.id.nav_analysis -> R.id.nav_analytics
+                R.id.nav_settings -> R.id.nav_settings
                 else -> itemId
             }
 
