@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Gradle: androidx.wear.compose:compose-material:1.2.1@aar" external-system-id="GRADLE">
+    <CLASSES>
+      <root url="file://$USER_HOME$/.gradle/caches/8.13/transforms/5678bf363299e6cef48b41c53da4a7da/transformed/compose-material-1.2.1/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/8.13/transforms/5678bf363299e6cef48b41c53da4a7da/transformed/compose-material-1.2.1/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/8.13/transforms/5678bf363299e6cef48b41c53da4a7da/transformed/compose-material-1.2.1/AndroidManifest.xml" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/androidx.wear.compose/compose-material/1.2.1/615bd26d07a8cd0028b24ded771daabee5fe7ea7/compose-material-1.2.1-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

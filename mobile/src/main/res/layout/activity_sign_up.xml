@@ -5,6 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fillViewport="true"
     android:clipToPadding="false"
     android:overScrollMode="never"
     android:padding="24dp"
@@ -14,8 +15,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:gravity="center_horizontal">
 
         <TextView
             android:layout_width="wrap_content"
@@ -30,7 +31,7 @@
             android:id="@+id/layoutImage"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp">
+            android:layout_marginTop="32dp">
 
             <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/imageProfile"
@@ -43,7 +44,7 @@
                 android:id="@+id/textAddImage"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
+                android:layout_gravity="bottom|center_horizontal"
                 android:text="@string/add_image"
                 android:textColor="@color/secondary_text"
                 android:textSize="12sp"/>
@@ -54,13 +55,12 @@
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_marginTop="40dp"
-            android:hint="@string/first_name"
             android:background="@drawable/background_input"
+            android:hint="@string/first_name"
             android:imeOptions="actionNext"
             android:importantForAutofill="no"
-            android:inputType="text"
-            android:paddingStart="16dp"
-            android:paddingEnd="16dp"
+            android:inputType="textPersonName"
+            android:paddingHorizontal="16dp"
             android:textColor="@color/primary_text"
             android:textSize="18sp"/>
 
@@ -69,13 +69,12 @@
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_marginTop="20dp"
-            android:hint="@string/last_name"
             android:background="@drawable/background_input"
+            android:hint="@string/last_name"
             android:imeOptions="actionNext"
             android:importantForAutofill="no"
-            android:inputType="text"
-            android:paddingStart="16dp"
-            android:paddingEnd="16dp"
+            android:inputType="textPersonName"
+            android:paddingHorizontal="16dp"
             android:textColor="@color/primary_text"
             android:textSize="18sp"/>
 
@@ -84,13 +83,12 @@
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_marginTop="20dp"
-            android:hint="@string/email"
             android:background="@drawable/background_input"
+            android:hint="@string/email"
             android:imeOptions="actionNext"
             android:importantForAutofill="no"
             android:inputType="textEmailAddress"
-            android:paddingStart="16dp"
-            android:paddingEnd="16dp"
+            android:paddingHorizontal="16dp"
             android:textColor="@color/primary_text"
             android:textSize="18sp"/>
 
@@ -99,14 +97,12 @@
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_marginTop="20dp"
-            android:hint="@string/password1"
             android:background="@drawable/background_input"
+            android:hint="@string/password1"
             android:imeOptions="actionNext"
             android:importantForAutofill="no"
             android:inputType="textPassword"
-            android:paddingStart="16dp"
-            android:paddingEnd="16dp"
-            android:textAlignment="gravity"
+            android:paddingHorizontal="16dp"
             android:textColor="@color/primary_text"
             android:textSize="18sp"/>
 
@@ -115,14 +111,12 @@
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_marginTop="20dp"
-            android:hint="@string/confirm_password"
             android:background="@drawable/background_input"
+            android:hint="@string/confirm_password"
             android:imeOptions="actionNext"
             android:importantForAutofill="no"
             android:inputType="textPassword"
-            android:paddingStart="16dp"
-            android:paddingEnd="16dp"
-            android:textAlignment="gravity"
+            android:paddingHorizontal="16dp"
             android:textColor="@color/primary_text"
             android:textSize="18sp"/>
 
@@ -132,34 +126,34 @@
             android:layout_marginTop="20dp"
             android:animateLayoutChanges="true">
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/buttonSignUp"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_marginTop="20dp"
-            android:text="@string/sign_up"
-            android:textColor="@color/white"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            app:cornerRadius="8sp"/>
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/buttonSignUp"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:text="@string/sign_up"
+                android:textColor="@color/white"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:cornerRadius="12dp"/>
 
-        <ProgressBar
-            android:id="@+id/progressBar"
-            android:layout_width="25dp"
-            android:layout_height="25dp"
-            android:layout_gravity="center"
-            android:visibility="invisible"/>
+            <ProgressBar
+                android:id="@+id/progressBar"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_gravity="center"
+                android:visibility="gone"/>
         </FrameLayout>
 
         <TextView
             android:id="@+id/textSignIn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="24dp"
             android:text="@string/sign_in1"
             android:textColor="@color/primary"
             android:textSize="18sp"
-            android:textStyle="bold"/>
+            android:textStyle="bold"
+            android:paddingBottom="24dp"/>
 
     </LinearLayout>
 </ScrollView>

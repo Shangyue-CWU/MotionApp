@@ -52,10 +52,11 @@
     <string name="support_information"><![CDATA[SUPPORT & INFORMATION]]></string>
     <string name="faq">FAQ</string>
     <string name="allow_data_sharing">Allow data sharing</string>
-    <string name="save_profile">Save Profile</string>
+
     <string name="version_1_0">Version: 1.0</string>
     <string name="about">About</string>
     <string name="units">UNITS</string>
+    <string name="welcome">Welcome!</string>
 
     <string-array name="sex_options">
         <item>Select sex</item>
@@ -81,4 +82,5 @@
         <item>Metric</item>
         <item>Imperial</item>
     </string-array>
+
 </resources>

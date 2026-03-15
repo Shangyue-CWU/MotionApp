@@ -9,14 +9,21 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
+import android.widget.ImageView
+import android.widget.Spinner
 import android.widget.TextView
+import androidx.appcompat.app.AlertDialog
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.google.android.material.button.MaterialButton
+import java.io.File
 import java.util.Locale
-import androidx.core.content.ContextCompat
 
 class HomeFragment : Fragment() {
 
+    // Live sensor UI
     private var tvAccX: TextView? = null
     private var tvAccY: TextView? = null
     private var tvAccZ: TextView? = null
@@ -25,26 +32,47 @@ class HomeFragment : Fragment() {
     private var tvGyroRoll: TextView? = null
     private var tvGyroYaw: TextView? = null
 
+    // Top motion card
     private var tvLastMotion: TextView? = null
+    private var imgTopMotion: ImageView? = null
+
+    // Dashboard totals
+    private var tvFallsCount: TextView? = null
+    private var tvTremorsCount: TextView? = null
+    private var tvAbnormalCount: TextView? = null
+
+    // Controls
+    private var spinnerLabel: Spinner? = null
     private var btnStart: MaterialButton? = null
 
     private var isLogging = false
     private var currentSessionId: String = ""
+    private var selectedLabel: String = "Walking"
+
+    private val labels = listOf(
+        "Walking",
+        "Running",
+        "Sitting",
+        "Falling"
+    )
 
     private val logReceiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context?, intent: Intent?) {
             if (intent == null) return
 
             when (intent.action) {
-
                 SensorLoggerService.ACTION_LOG_STATE -> {
                     val started = intent.getBooleanExtra("started", false)
                     isLogging = started
                     btnStart?.text = if (started) "STOP" else "START"
+
+                    if (!started) {
+                        tvLastMotion?.text = "Idle"
+                        updateTopIconForLabel("Idle")
+                    }
                 }
 
                 SensorLoggerService.ACTION_LIVE_SAMPLE -> {
-                    // EXACT extras used by teacher SensorLoggerService.java
                     val ax = intent.getFloatExtra("ax", Float.NaN)
                     val ay = intent.getFloatExtra("ay", Float.NaN)
                     val az = intent.getFloatExtra("az", Float.NaN)
@@ -58,42 +86,61 @@ class HomeFragment : Fragment() {
                     tvAccZ?.text = "Z-Axis: ${fmt(az)}"
 
                     tvGyroPitch?.text = "Pitch: ${fmt(gx)}"
-                    tvGyroRoll?.text  = "Roll: ${fmt(gy)}"
-                    tvGyroYaw?.text   = "Yaw: ${fmt(gz)}"
+                    tvGyroRoll?.text = "Roll: ${fmt(gy)}"
+                    tvGyroYaw?.text = "Yaw: ${fmt(gz)}"
 
-                    // Optional: update "last tracked motion" label (placeholder)
-                    tvLastMotion?.text = "Monitoring…"
+                    tvLastMotion?.text = selectedLabel
+                    updateTopIconForLabel(selectedLabel)
+                }
+
+                SensorLoggerService.ACTION_LOG_DONE -> {
+                    updateDashboardTotals()
+                    tvLastMotion?.text = "Idle"
+                    updateTopIconForLabel("Idle")
                 }
             }
         }
     }
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         val view = inflater.inflate(R.layout.fragment_home, container, false)
 
+        // Sensor text
         tvAccX = view.findViewById(R.id.tvAccX)
         tvAccY = view.findViewById(R.id.tvAccY)
         tvAccZ = view.findViewById(R.id.tvAccZ)
 
         tvGyroPitch = view.findViewById(R.id.tvGyroPitch)
-        tvGyroRoll  = view.findViewById(R.id.tvGyroRoll)
-        tvGyroYaw   = view.findViewById(R.id.tvGyroYaw)
+        tvGyroRoll = view.findViewById(R.id.tvGyroRoll)
+        tvGyroYaw = view.findViewById(R.id.tvGyroYaw)
 
+        // Top motion card
         tvLastMotion = view.findViewById(R.id.tvLastMotion)
+        imgTopMotion = view.findViewById(R.id.imgTopMotion)
+
+        // Totals
+        tvFallsCount = view.findViewById(R.id.tvFallsCount)
+        tvTremorsCount = view.findViewById(R.id.tvTremorsCount)
+        tvAbnormalCount = view.findViewById(R.id.tvAbnormalCount)
+
+        // Controls
+        spinnerLabel = view.findViewById(R.id.spinnerLabel)
         btnStart = view.findViewById(R.id.btnStart)
 
         setIdleText()
+        updateDashboardTotals()
+        setupLabelDropdown()
 
         btnStart?.setOnClickListener {
             if (!isLogging) {
-                // NEW session each start (like teacher behavior)
                 currentSessionId = System.currentTimeMillis().toString()
                 startPhoneLogging(
                     sessionId = currentSessionId,
-                    label = "epilepsy_monitor" // change label if you want different filenames
+                    label = selectedLabel
                 )
             } else {
                 stopPhoneLogging()
@@ -103,15 +150,79 @@ class HomeFragment : Fragment() {
         return view
     }
 
+    private fun setupLabelDropdown() {
+        val adapter = ArrayAdapter(
+            requireContext(),
+            android.R.layout.simple_spinner_item,
+            labels
+        )
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        spinnerLabel?.adapter = adapter
+        spinnerLabel?.setSelection(labels.indexOf(selectedLabel).coerceAtLeast(0))
+
+        spinnerLabel?.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(parent: AdapterView<*>, view: View?, position: Int, id: Long) {
+                if (isLogging) {
+                    AlertDialog.Builder(requireContext())
+                        .setTitle("Label locked")
+                        .setMessage("Stop logging before changing the label.")
+                        .setPositiveButton("OK", null)
+                        .show()
+
+                    val currentIndex = labels.indexOf(selectedLabel).coerceAtLeast(0)
+                    spinnerLabel?.setSelection(currentIndex)
+                    return
+                }
+
+                selectedLabel = labels[position]
+                tvLastMotion?.text = selectedLabel
+                updateTopIconForLabel(selectedLabel)
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>) {}
+        }
+    }
+
+    private fun updateDashboardTotals() {
+        val context = context ?: return
+        val base = context.getExternalFilesDir(null) ?: context.filesDir
+        val phoneDir = File(base, "logs")
+        val watchDir = File(base, "logs/watch")
+
+        val allFiles = mutableListOf<File>()
+        if (phoneDir.exists()) allFiles += phoneDir.listFiles()?.toList().orEmpty()
+        if (watchDir.exists()) allFiles += watchDir.listFiles()?.toList().orEmpty()
+
+        var falls = 0
+        var tremors = 0
+        var abnormal = 0
+
+        allFiles.filter { it.isFile && it.name.lowercase(Locale.US).endsWith(".csv") }.forEach { file ->
+            val label = extractLabel(file.name).uppercase(Locale.US)
+            when (label) {
+                "FALLING" -> falls++
+                "TREMOR" -> tremors++
+                "ABNORMAL", "RUNNING", "WALKING", "SITTING", "STANDING" -> abnormal++
+            }
+        }
+
+        tvFallsCount?.text = falls.toString()
+        tvTremorsCount?.text = tremors.toString()
+        tvAbnormalCount?.text = abnormal.toString()
+    }
+
+    private fun extractLabel(filename: String): String {
+        val parts = filename.split("_")
+        return if (parts.size >= 5) parts[3] else "UNKNOWN"
+    }
+
     override fun onStart() {
         super.onStart()
-
         val filter = IntentFilter().apply {
             addAction(SensorLoggerService.ACTION_LOG_STATE)
             addAction(SensorLoggerService.ACTION_LIVE_SAMPLE)
             addAction(SensorLoggerService.ACTION_LOG_DONE)
         }
-
         ContextCompat.registerReceiver(
             requireContext(),
             logReceiver,
@@ -124,33 +235,26 @@ class HomeFragment : Fragment() {
         super.onStop()
         try {
             requireContext().unregisterReceiver(logReceiver)
-        } catch (_: Exception) {}
-    }
-
-    override fun onPause() {
-        super.onPause()
-        // Optional: if you want to stop logging when leaving the dashboard, uncomment:
-        // if (isLogging) stopPhoneLogging()
+        } catch (_: Exception) { }
     }
 
     private fun startPhoneLogging(sessionId: String, label: String) {
         val startIntent = Intent(requireContext(), SensorLoggerService::class.java).apply {
             action = SensorLoggerService.ACTION_START
-            putExtra("sessionId", sessionId)                 // teacher service reads this
-            putExtra("label", label)                         // teacher service reads this
-            putExtra("startEpochMs", System.currentTimeMillis()) // teacher service reads this
+            putExtra("sessionId", sessionId)
+            putExtra("label", label)
+            putExtra("startEpochMs", System.currentTimeMillis())
         }
 
-        // Foreground service on newer Android versions is safer
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             requireContext().startForegroundService(startIntent)
         } else {
             requireContext().startService(startIntent)
         }
 
-        // UI feels instant
         btnStart?.text = "STOP"
-        tvLastMotion?.text = "Monitoring…"
+        tvLastMotion?.text = selectedLabel
+        updateTopIconForLabel(selectedLabel)
     }
 
     private fun stopPhoneLogging() {
@@ -159,9 +263,21 @@ class HomeFragment : Fragment() {
         }
         requireContext().startService(stopIntent)
 
-        // UI feels instant; service will also broadcast LOG_STATE
         btnStart?.text = "START"
         tvLastMotion?.text = "Idle"
+        updateTopIconForLabel("Idle")
+    }
+
+    private fun updateTopIconForLabel(label: String) {
+        val iconRes = when (label) {
+            "Walking" -> R.drawable.ic_walk
+            "Running" -> R.drawable.ic_running
+            "Sitting" -> R.drawable.ic_sitting
+            "Falling" -> R.drawable.ic_falling
+            "Idle" -> R.drawable.ic_idle
+            else -> R.drawable.ic_idle
+        }
+        imgTopMotion?.setImageResource(iconRes)
     }
 
     private fun setIdleText() {
@@ -172,6 +288,7 @@ class HomeFragment : Fragment() {
         tvGyroRoll?.text = "Roll: --"
         tvGyroYaw?.text = "Yaw: --"
         tvLastMotion?.text = "Idle"
+        updateTopIconForLabel("Idle")
         btnStart?.text = "START"
     }
 

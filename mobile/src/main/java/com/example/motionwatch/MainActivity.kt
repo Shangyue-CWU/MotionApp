@@ -75,6 +75,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         // Start at Home
         if (savedInstanceState == null) {
             navigateTo(R.id.nav_home, fromDrawer = false)
+
+            // Highlight Home in Bottom Nav
             isProgrammaticNavChange = true
             bottomNav.selectedItemId = R.id.nav_home
             isProgrammaticNavChange = false
@@ -93,31 +95,31 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     }
 
     private fun navigateTo(itemId: Int, fromDrawer: Boolean) {
-        // Handle drawer-only actions first (login/logout)
+
+        // Drawer-only actions
         when (itemId) {
             R.id.nav_login -> {
-                // If your login screen is an Activity, this is the correct place to launch it.
-                // Rename SignInActivity if your class name differs.
                 startActivity(Intent(this, SignInActivity::class.java))
                 return
             }
+
             R.id.nav_logout -> {
                 FirebaseAuth.getInstance().signOut()
-                // Optional: after logout, send them to login screen
                 startActivity(Intent(this, SignInActivity::class.java))
                 return
             }
         }
 
-        // Map BOTH drawer IDs and bottom-nav IDs to fragments
+        // Fragment mapping
         val fragment = when (itemId) {
-            // Bottom nav ids (likely)
+
+            // Bottom navigation IDs
             R.id.nav_home -> HomeFragment()
             R.id.nav_sessions -> SessionsFragment()
-            R.id.nav_analytics -> HistoryFragment()
+            R.id.nav_analytics -> AnalyticsFragment()
             R.id.nav_settings -> SettingsFragment()
 
-            // Drawer ids (from main_menu.xml)
+            // Drawer IDs
             R.id.nav_dashboard -> HomeFragment()
             R.id.nav_session -> SessionsFragment()
             R.id.nav_analysis -> HistoryFragment()
@@ -131,7 +133,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 .commit()
         }
 
-        // Sync bottom nav highlight when drawer initiated navigation
+        // Sync bottom nav highlight when navigation came from drawer
         if (fromDrawer) {
             val bottomItemToSelect = when (itemId) {
                 R.id.nav_dashboard -> R.id.nav_home

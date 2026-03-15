@@ -11,6 +11,7 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.AbsListView
+import android.widget.ImageButton
 import android.widget.ListView
 import android.widget.TextView
 import android.widget.Toast
@@ -21,18 +22,35 @@ import java.io.BufferedReader
 import java.io.File
 import java.io.FileInputStream
 import java.io.InputStreamReader
+import java.text.SimpleDateFormat
+import java.util.Calendar
+import java.util.Date
 import java.util.Locale
 
+/**
+ * Fragment that displays a list of recorded CSV data logs.
+ * Supports filtering by source (Watch/Phone) and month.
+ */
 class HistoryFragment : Fragment(R.layout.fragment_history) {
 
     private lateinit var listView: ListView
     private lateinit var tvHint: TextView
+    private lateinit var btnFilter: ImageButton
+    private lateinit var tvActiveFilters: TextView
 
     private lateinit var adapter: android.widget.ArrayAdapter<String>
 
+    // Lists to manage the files and their display text
     private val files = mutableListOf<File>()
     private val displayNames = mutableListOf<String>()
 
+    // Current filter state
+    private var filterSource = "ALL" // "ALL", "WATCH", or "PHONE"
+    private var filterMonth = -1      // -1 for all months, 0-11 for Jan-Dec
+
+    /**
+     * Receiver to refresh the list when a new file is received via Wearable Data Layer.
+     */
     private val fileReceivedReceiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context?, intent: Intent?) {
             loadLogs()
@@ -42,23 +60,23 @@ class HistoryFragment : Fragment(R.layout.fragment_history) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         listView = view.findViewById(R.id.list_logs)
         tvHint = view.findViewById(R.id.tv_hint)
+        btnFilter = view.findViewById(R.id.btn_filter)
+        tvActiveFilters = view.findViewById(R.id.tv_active_filters)
 
-        // Use custom row layout with padding + multi-line text
+        // Setup the list adapter
         adapter = android.widget.ArrayAdapter(
             requireContext(),
             R.layout.item_history_file,
             displayNames
         )
         listView.adapter = adapter
-
-        // Avoid odd focus/selection behavior on some devices
         listView.setItemsCanFocus(false)
 
-        // Enable contextual multi-selection mode
+        // Multi-selection setup for batch actions
         listView.choiceMode = ListView.CHOICE_MODE_MULTIPLE_MODAL
         listView.setMultiChoiceModeListener(historyMultiChoiceListener)
 
-        // Normal click: preview only when NOT selecting
+        // Click a file to show a preview dialog
         listView.setOnItemClickListener { _, _, position, _ ->
             if (listView.checkedItemCount == 0) {
                 val f = files.getOrNull(position) ?: return@setOnItemClickListener
@@ -66,11 +84,17 @@ class HistoryFragment : Fragment(R.layout.fragment_history) {
             }
         }
 
+        // Filter button click listener
+        btnFilter.setOnClickListener {
+            showFilterDialog()
+        }
+
         loadLogs()
     }
 
     override fun onStart() {
         super.onStart()
+        // Register receiver for new data notifications
         val filter = IntentFilter(FileReceiverService.ACTION_FILE_RECEIVED)
         if (Build.VERSION.SDK_INT >= 33) {
             requireContext().registerReceiver(fileReceivedReceiver, filter, Context.RECEIVER_NOT_EXPORTED)
@@ -87,6 +111,9 @@ class HistoryFragment : Fragment(R.layout.fragment_history) {
         } catch (_: Exception) { }
     }
 
+    /**
+     * Loads logs from the app's log directories and applies the current filters.
+     */
     private fun loadLogs() {
         files.clear()
         displayNames.clear()
@@ -95,35 +122,112 @@ class HistoryFragment : Fragment(R.layout.fragment_history) {
         val phoneDir = File(base, "logs")
         val watchDir = File(base, "logs/watch")
 
+        // Collect all potential files
         val all = mutableListOf<File>()
         if (phoneDir.exists()) all += phoneDir.listFiles()?.toList().orEmpty()
         if (watchDir.exists()) all += watchDir.listFiles()?.toList().orEmpty()
 
-        val csvs = all
-            .filter { it.isFile && it.name.lowercase(Locale.US).endsWith(".csv") }
-            .sortedByDescending { it.lastModified() }
+        // Filter by extension, source, and date
+        val filtered = all.filter { file ->
+            if (!file.isFile || !file.name.lowercase(Locale.US).endsWith(".csv")) return@filter false
 
-        files.addAll(csvs)
+            // 1. Source Filter
+            val isWatch = file.absolutePath.contains("${File.separator}watch${File.separator}")
+            if (filterSource == "WATCH" && !isWatch) return@filter false
+            if (filterSource == "PHONE" && isWatch) return@filter false
 
-        for (f in csvs) {
+            // 2. Month Filter
+            if (filterMonth != -1) {
+                val cal = Calendar.getInstance()
+                cal.timeInMillis = file.lastModified()
+                if (cal.get(Calendar.MONTH) != filterMonth) return@filter false
+            }
+
+            true
+        }.sortedByDescending { it.lastModified() }
+
+        files.addAll(filtered)
+
+        // Prepare display strings
+        for (f in filtered) {
             val source = if (f.absolutePath.contains("${File.separator}watch${File.separator}")) "WATCH" else "PHONE"
-            // Put size on the next line to improve readability
-            displayNames.add("[$source] ${f.name}\n${formatSize(f.length())}")
+            val dateStr = SimpleDateFormat("MMM dd, yyyy HH:mm", Locale.getDefault()).format(Date(f.lastModified()))
+            displayNames.add("[$source] ${f.name}\n$dateStr • ${formatSize(f.length())}")
         }
 
+        updateFilterLabel()
         adapter.notifyDataSetChanged()
         clearAllSelections()
 
+        // Show empty message if no files match
         tvHint.text = if (files.isEmpty()) {
-            "No logs yet.\nStart/Stop from watch to create logs.\nSynced watch CSVs will appear here."
+            if (filterSource != "ALL" || filterMonth != -1) "No logs match the current filters."
+            else "No logs yet.\nStart recording data to see files here."
         } else {
-            "Tap to preview • Long-press to select • Batch delete supported"
+            "Tap to preview • Long-press to select"
         }
     }
 
-    // ----------------------------
-    // Multi-select contextual menu
-    // ----------------------------
+    /**
+     * Updates the UI label showing what filters are currently active.
+     */
+    private fun updateFilterLabel() {
+        val monthName = if (filterMonth == -1) "All Months" 
+                        else SimpleDateFormat("MMMM", Locale.US).format(Calendar.getInstance().apply { set(Calendar.MONTH, filterMonth) }.time)
+        val sourceName = when(filterSource) {
+            "WATCH" -> "Watch Only"
+            "PHONE" -> "Phone Only"
+            else -> "All Sources"
+        }
+        tvActiveFilters.text = "Filtering: $sourceName • $monthName"
+    }
+
+    /**
+     * Shows a dialog allowing the user to select source and month filters.
+     */
+    private fun showFilterDialog() {
+        val months = arrayOf("All Months", "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec")
+        val sources = arrayOf("All Sources", "Watch Only", "Phone Only")
+
+        val builder = AlertDialog.Builder(requireContext())
+        builder.setTitle("Filter Logs")
+
+        // We'll use a custom view or sequential dialogs. For simplicity, let's use a two-step dialog approach
+        builder.setItems(arrayOf("Select Source ($filterSource)", "Select Month")) { _, which ->
+            if (which == 0) {
+                // Source sub-selection
+                AlertDialog.Builder(requireContext())
+                    .setTitle("Select Source")
+                    .setItems(sources) { _, sWhich ->
+                        filterSource = when(sWhich) {
+                            1 -> "WATCH"
+                            2 -> "PHONE"
+                            else -> "ALL"
+                        }
+                        loadLogs()
+                    }.show()
+            } else {
+                // Month sub-selection
+                AlertDialog.Builder(requireContext())
+                    .setTitle("Select Month")
+                    .setItems(months) { _, mWhich ->
+                        filterMonth = mWhich - 1 // -1 is "All Months"
+                        loadLogs()
+                    }.show()
+            }
+        }
+        builder.setNeutralButton("Reset All") { _, _ ->
+            filterSource = "ALL"
+            filterMonth = -1
+            loadLogs()
+        }
+        builder.setPositiveButton("Close", null)
+        builder.show()
+    }
+
+    // ---------------------------------------------------------
+    // Multi-select Contextual Action Bar (CAB) logic
+    // ---------------------------------------------------------
     private val historyMultiChoiceListener = object : AbsListView.MultiChoiceModeListener {
 
         override fun onCreateActionMode(mode: android.view.ActionMode, menu: Menu): Boolean {
@@ -131,24 +235,17 @@ class HistoryFragment : Fragment(R.layout.fragment_history) {
             menu.add(0, MENU_CLEAR, 1, "Clear")
             menu.add(0, MENU_SHARE, 2, "Share")
             menu.add(0, MENU_DELETE, 3, "Delete")
-
             updateCabTitle(mode)
-            updateCabMenu(menu)
             return true
         }
 
-        override fun onPrepareActionMode(mode: android.view.ActionMode, menu: Menu): Boolean {
-            updateCabTitle(mode)
-            updateCabMenu(menu)
-            return true
-        }
+        override fun onPrepareActionMode(mode: android.view.ActionMode, menu: Menu): Boolean = false
 
         override fun onActionItemClicked(mode: android.view.ActionMode, item: MenuItem): Boolean {
             return when (item.itemId) {
                 MENU_SELECT_ALL -> {
                     selectAll()
                     updateCabTitle(mode)
-                    updateCabMenu(mode.menu)
                     true
                 }
                 MENU_CLEAR -> {
@@ -158,14 +255,12 @@ class HistoryFragment : Fragment(R.layout.fragment_history) {
                 }
                 MENU_SHARE -> {
                     val selected = getSelectedFiles()
-                    if (selected.isEmpty()) return true
-                    shareCsvFiles(selected)
+                    if (selected.isNotEmpty()) shareCsvFiles(selected)
                     true
                 }
                 MENU_DELETE -> {
                     val selected = getSelectedFiles()
-                    if (selected.isEmpty()) return true
-                    confirmDelete(selected) {
+                    if (selected.isNotEmpty()) confirmDelete(selected) {
                         mode.finish()
                         loadLogs()
                     }
@@ -179,40 +274,22 @@ class HistoryFragment : Fragment(R.layout.fragment_history) {
             clearAllSelections()
         }
 
-        override fun onItemCheckedStateChanged(
-            mode: android.view.ActionMode,
-            position: Int,
-            id: Long,
-            checked: Boolean
-        ) {
+        override fun onItemCheckedStateChanged(mode: android.view.ActionMode, position: Int, id: Long, checked: Boolean) {
             updateCabTitle(mode)
-            updateCabMenu(mode.menu)
         }
 
         private fun updateCabTitle(mode: android.view.ActionMode) {
             val n = listView.checkedItemCount
             mode.title = if (n > 0) "$n selected" else "Select files"
         }
-
-        private fun updateCabMenu(menu: Menu) {
-            val n = listView.checkedItemCount
-            menu.findItem(MENU_SHARE)?.isEnabled = n > 0
-            menu.findItem(MENU_DELETE)?.isEnabled = n > 0
-            menu.findItem(MENU_CLEAR)?.isEnabled = n > 0
-            menu.findItem(MENU_SELECT_ALL)?.isEnabled = files.isNotEmpty()
-        }
     }
 
     private fun selectAll() {
-        for (i in 0 until adapter.count) {
-            listView.setItemChecked(i, true)
-        }
+        for (i in 0 until adapter.count) listView.setItemChecked(i, true)
     }
 
     private fun clearAllSelections() {
-        for (i in 0 until adapter.count) {
-            listView.setItemChecked(i, false)
-        }
+        for (i in 0 until adapter.count) listView.setItemChecked(i, false)
     }
 
     private fun getSelectedFiles(): List<File> {
@@ -227,6 +304,9 @@ class HistoryFragment : Fragment(R.layout.fragment_history) {
         return selected
     }
 
+    /**
+     * Shows a confirmation dialog before deleting selected files.
+     */
     private fun confirmDelete(selected: List<File>, onDone: () -> Unit) {
         AlertDialog.Builder(requireContext())
             .setTitle("Delete files")
@@ -234,9 +314,7 @@ class HistoryFragment : Fragment(R.layout.fragment_history) {
             .setPositiveButton("Delete") { _, _ ->
                 var deleted = 0
                 selected.forEach { f ->
-                    try {
-                        if (f.exists() && f.isFile && f.delete()) deleted++
-                    } catch (_: Exception) { }
+                    try { if (f.exists() && f.delete()) deleted++ } catch (_: Exception) { }
                 }
                 Toast.makeText(requireContext(), "Deleted $deleted file(s)", Toast.LENGTH_SHORT).show()
                 onDone()
@@ -245,6 +323,9 @@ class HistoryFragment : Fragment(R.layout.fragment_history) {
             .show()
     }
 
+    /**
+     * Shows a dialog with the first few lines of a CSV file for quick verification.
+     */
     private fun showPreviewDialog(file: File) {
         val text = readFirstLines(file, 50)
         AlertDialog.Builder(requireContext())
@@ -255,18 +336,16 @@ class HistoryFragment : Fragment(R.layout.fragment_history) {
             .show()
     }
 
+    /**
+     * Triggers the system share sheet for the selected CSV files.
+     */
     private fun shareCsvFiles(filesToShare: List<File>) {
         try {
-            val uris: ArrayList<Uri> = ArrayList()
+            val uris = ArrayList<Uri>()
             filesToShare.forEach { file ->
-                val uri = FileProvider.getUriForFile(
-                    requireContext(),
-                    "${requireContext().packageName}.provider",
-                    file
-                )
+                val uri = FileProvider.getUriForFile(requireContext(), "${requireContext().packageName}.provider", file)
                 uris.add(uri)
             }
-
             val share = Intent().apply {
                 action = if (uris.size == 1) Intent.ACTION_SEND else Intent.ACTION_SEND_MULTIPLE
                 type = "text/csv"
@@ -274,29 +353,28 @@ class HistoryFragment : Fragment(R.layout.fragment_history) {
                 if (uris.size == 1) putExtra(Intent.EXTRA_STREAM, uris[0])
                 else putParcelableArrayListExtra(Intent.EXTRA_STREAM, uris)
             }
-
             startActivity(Intent.createChooser(share, "Share CSV"))
         } catch (e: Exception) {
             Toast.makeText(requireContext(), "Share failed: ${e.message}", Toast.LENGTH_LONG).show()
         }
     }
 
+    /**
+     * Reads the start of a file to display in the preview dialog.
+     */
     private fun readFirstLines(file: File, maxLines: Int): String {
         val sb = StringBuilder()
         try {
             BufferedReader(InputStreamReader(FileInputStream(file))).use { br ->
-                var line: String?
                 var count = 0
                 while (count < maxLines) {
-                    line = br.readLine() ?: break
+                    val line = br.readLine() ?: break
                     sb.append(line).append('\n')
                     count++
                 }
                 if (count == maxLines) sb.append("...\n")
             }
-        } catch (e: Exception) {
-            return "Failed to read file: ${e.message}"
-        }
+        } catch (e: Exception) { return "Failed to read: ${e.message}" }
         return sb.toString()
     }
 
