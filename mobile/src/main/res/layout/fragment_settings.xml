@@ -241,10 +241,8 @@
                         android:textColor="#6B7280"
                         android:textSize="12sp" />
 
-<<<<<<< HEAD
                     <!-- FIX: keep this row ONLY for label + switch -->
-=======
->>>>>>> origin/Cindy
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -267,7 +265,7 @@
                             app:thumbTint="#FFFFFF"
                             app:trackTint="#CBD5E1" />
                     </LinearLayout>
-<<<<<<< HEAD
+
 
                     <!-- FIX: button moved OUTSIDE the horizontal row so it stops fighting the switch -->
                     <Button
@@ -281,8 +279,7 @@
                         android:textAllCaps="false"
                         android:textColor="@android:color/white"
                         android:textSize="15sp" />
-=======
->>>>>>> origin/Cindy
+
 
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
