@@ -6,6 +6,7 @@ import android.app.NotificationManager
 import android.app.Service
 import android.content.Context
 import android.content.Intent
+import android.content.pm.ServiceInfo
 import android.hardware.Sensor
 import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
@@ -25,9 +26,13 @@ import java.time.format.DateTimeFormatter
 import java.util.Locale
 import java.util.UUID
 import java.util.concurrent.atomic.AtomicLong
+import kotlinx.coroutines.*
 
 class SensorService : Service(), SensorEventListener {
 
+    private val writeBuffer = mutableListOf<String>()
+    private val bufferLock = Any()
+    private val serviceScope = CoroutineScope(Dispatchers.IO + SupervisorJob())
     private lateinit var sensorManager: SensorManager
     private var accSensor: Sensor? = null
     private var gyroSensor: Sensor? = null
@@ -51,7 +56,8 @@ class SensorService : Service(), SensorEventListener {
     private var currentLogFile: File? = null
 
     // flush every N samples to reduce data loss
-    private val flushEvery = 50
+    // test at 300
+    private val flushEvery = 300
     private var linesSinceFlush = 0
 
     // simple counters for debugging
@@ -60,7 +66,8 @@ class SensorService : Service(), SensorEventListener {
 
     // IMPORTANT: safe explicit sampling period to avoid 0us (FASTEST) crash
     // 10,000 us = 10 ms ≈ 100 Hz
-    private val samplingPeriodUs = 10_000
+    // test 20,000 = 50 Hz
+    private val samplingPeriodUs = 20_000
 
     // Latest samples so each row contains both ACC and GYRO
     private var lastAx = Float.NaN
@@ -96,6 +103,31 @@ class SensorService : Service(), SensorEventListener {
 
         logsDir = File(filesDir, "motion_logs")
         if (!logsDir.exists()) logsDir.mkdirs()
+        serviceScope.launch {
+            while (isActive) {
+                delay(200) // write 5 times per second
+
+                val toWrite = mutableListOf<String>()
+
+                synchronized(bufferLock) {
+                    if (writeBuffer.isNotEmpty()) {
+                        toWrite.addAll(writeBuffer)
+                        writeBuffer.clear()
+                    }
+                }
+
+                if (toWrite.isNotEmpty()) {
+                    try {
+                        writer?.apply {
+                            toWrite.forEach { write(it) }
+                            flush()
+                        }
+                    } catch (e: Exception) {
+                        Log.e(TAG, "Batch write failed", e)
+                    }
+                }
+            }
+        }
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
@@ -148,7 +180,10 @@ class SensorService : Service(), SensorEventListener {
             .setOnlyAlertOnce(true)
             .build()
 
-        startForeground(notifId, notif)
+        startForeground(
+            notifId,
+            notif,
+            ServiceInfo.FOREGROUND_SERVICE_TYPE_DATA_SYNC)
     }
 
     private fun createNotificationChannelIfNeeded() {
@@ -210,8 +245,6 @@ class SensorService : Service(), SensorEventListener {
     // Sensor callback (merged rows)
     // ----------------------------
     override fun onSensorChanged(event: SensorEvent) {
-        val w = writer ?: return
-
         val epochMs = System.currentTimeMillis()
         val eventTsNs = event.timestamp
 
@@ -231,6 +264,7 @@ class SensorService : Service(), SensorEventListener {
 
                 // If you still want a gyro-only UI preview, keep broadcasting it
                 val ui = Intent(ACTION_GYRO_UPDATE).apply {
+                    setPackage(packageName)
                     putExtra("gx", lastGx)
                     putExtra("gy", lastGy)
                     putExtra("gz", lastGz)
@@ -240,23 +274,16 @@ class SensorService : Service(), SensorEventListener {
 
             else -> return
         }
-
-        // Write merged row on every ACC or GYRO event
-        try {
-            w.write(
-                "$epochMs,$eventTsNs," +
-                        "$lastAx,$lastAy,$lastAz," +
-                        "$lastGx,$lastGy,$lastGz," +
-                        "$sportCategory,$sessionId\n"
-            )
-            linesSinceFlush++
-            if (linesSinceFlush >= flushEvery) {
-                w.flush()
-                linesSinceFlush = 0
-            }
-        } catch (e: Exception) {
-            Log.e(TAG, "Write failed", e)
+        val line = "$epochMs,$eventTsNs," +
+                "$lastAx,$lastAy,$lastAz," +
+                "$lastGx,$lastGy,$lastGz," +
+                "$sportCategory,$sessionId\n"
+        synchronized(bufferLock) {
+            writeBuffer.add(line)
         }
+
+
+
     }
 
     override fun onAccuracyChanged(sensor: Sensor?, accuracy: Int) {}
@@ -348,6 +375,6 @@ class SensorService : Service(), SensorEventListener {
     companion object {
         private const val TAG = "SensorService"
         private const val TAG_SYNC = "WearSync"
-        const val ACTION_GYRO_UPDATE = "GYRO_UPDATE"
+        const val ACTION_GYRO_UPDATE = "com.example.motionwatch.GYRO_UPDATE"
     }
 }

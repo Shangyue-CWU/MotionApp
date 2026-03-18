@@ -9,6 +9,8 @@
 
     <!-- Foreground Service permission -->
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_DATA_SYNC" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
 
     <!-- Android 13+ requires this for foreground notifications on many devices -->
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
@@ -57,7 +59,8 @@
         <!-- Foreground logging service -->
         <service
             android:name=".presentation.SensorService"
-            android:exported="false" />
+            android:exported="false"
+            android:foregroundServiceType="dataSync" />
     </application>
 
 </manifest>

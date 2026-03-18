@@ -38,6 +38,7 @@ import com.example.motionwatch.presentation.theme.MotionWatchTheme
 import com.google.android.gms.wearable.Wearable
 import java.util.UUID
 
+
 class MainActivity : ComponentActivity() {
 
     private var gx by mutableStateOf(0f)
@@ -45,6 +46,8 @@ class MainActivity : ComponentActivity() {
     private var gz by mutableStateOf(0f)
 
     private var activeSessionId: String? = null
+
+
 
     // Keep receiver reference so we can unregister (good practice)
     private var gyroReceiver: BroadcastReceiver? = null
@@ -55,16 +58,24 @@ class MainActivity : ComponentActivity() {
         setTheme(android.R.style.Theme_DeviceDefault)
 
         // Listen for live gyro updates from SensorService
-        val filter = IntentFilter(ACTION_GYRO_UPDATE)
+        val filter = IntentFilter(SensorService.ACTION_GYRO_UPDATE)
         gyroReceiver = object : BroadcastReceiver() {
             override fun onReceive(context: Context?, intent: Intent?) {
+                if (intent?.action != SensorService.ACTION_GYRO_UPDATE) return
+
                 gx = intent?.getFloatExtra("gx", 0f) ?: 0f
                 gy = intent?.getFloatExtra("gy", 0f) ?: 0f
                 gz = intent?.getFloatExtra("gz", 0f) ?: 0f
+
+                Log.d("GYRO_UI", "gx=$gx gy=$gy gz=$gz")
             }
         }
-        registerReceiver(gyroReceiver, filter)
 
+        registerReceiver(
+            gyroReceiver,
+            filter,
+            Context.RECEIVER_NOT_EXPORTED
+        )
         setContent {
             WearApp(
                 gx = gx,
@@ -160,7 +171,7 @@ class MainActivity : ComponentActivity() {
     companion object {
         private const val TAG_CMD = "WearCmd"
         private const val TAG_TEST = "WearTest"
-        const val ACTION_GYRO_UPDATE = "GYRO_UPDATE"
+        //const val ACTION_GYRO_UPDATE = "GYRO_UPDATE"
     }
 }
 
@@ -207,9 +218,8 @@ fun WearApp(
 
                         sportCategory = when (sportCategory) {
                             "RUNNING" -> "WALKING"
-                            "WALKING" -> "CYCLING"
-                            "CYCLING" -> "GYM"
-                            "GYM" -> "HIKING"
+                            "WALKING" -> "SITTING"
+                            "SITTING" -> "FALLING"
                             else -> "RUNNING"
                         }
                     },
