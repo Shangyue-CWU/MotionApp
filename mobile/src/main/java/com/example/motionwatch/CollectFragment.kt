@@ -16,13 +16,8 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
 import java.util.Locale
 
-/**
- * CollectFragment: Handles real-time sensor data collection and display.
- * Users can start/stop logging, change labels, and view live accelerometer/gyroscope data.
- */
 class CollectFragment : Fragment(R.layout.fragment_collect) {
 
-    // UI Components for status, sensor data, and summary
     private lateinit var tvStatus: TextView
     private lateinit var tvAccX: TextView
     private lateinit var tvAccY: TextView
@@ -37,15 +32,23 @@ class CollectFragment : Fragment(R.layout.fragment_collect) {
 
     private var isLogging = false
 
-    // Available activity labels
-    private val labels = arrayOf("Running", "Sitting", "Standing", "Walking")
-    private var labelIdx = 3
+    // Match HomeFragment label system exactly
+    private val labels = arrayOf(
+        "JERKING",
+        "TONIC",
+        "FALLS",
+        "TREMOR",
+        "RUNNING",
+        "WALKING",
+        "SITTING",
+        "STANDING"
+    )
+
+    private var labelIdx = labels.indexOf("WALKING")
     private var currentLabel = labels[labelIdx]
 
-    // Unique ID for the current logging session
     private var currentSessionId: String = "unknown"
 
-    // Statistics tracking for the current session
     private var startElapsedMs = 0L
     private var accCount = 0L
     private var gyroCount = 0L
@@ -56,9 +59,6 @@ class CollectFragment : Fragment(R.layout.fragment_collect) {
     private var gyroSumY = 0.0
     private var gyroSumZ = 0.0
 
-    /**
-     * Permission launcher for notifications (required for foreground services on Android 13+).
-     */
     private val notifPerm =
         registerForActivityResult(ActivityResultContracts.RequestPermission()) { granted ->
             if (!granted && Build.VERSION.SDK_INT >= 33) {
@@ -70,25 +70,53 @@ class CollectFragment : Fragment(R.layout.fragment_collect) {
             }
         }
 
-    /**
-     * BroadcastReceiver to handle updates from the SensorLoggerService.
-     * Listens for state changes (start/stop), live sensor samples, and final logging summaries.
-     */
     private val logReceiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context?, intent: Intent?) {
             if (intent == null) return
 
             when (intent.action) {
-                // Handle changes in the logging service state
+
+                WearCommandService.ACTION_UI_CMD -> {
+                    val cmd = intent.getStringExtra("cmd") ?: return
+
+                    when (cmd.lowercase(Locale.US)) {
+                        "start" -> {
+                            val label = intent.getStringExtra("label")?.uppercase(Locale.US) ?: "UNKNOWN"
+                            val sessionId = intent.getStringExtra("sessionId") ?: "unknown"
+
+                            currentLabel = label
+                            labelIdx = labels.indexOf(currentLabel).takeIf { it >= 0 } ?: labelIdx
+                            currentSessionId = sessionId
+                            isLogging = true
+
+                            updateLabelButton()
+                            btnToggle.text = "Stop"
+                            tvStatus.text = "Logging… ($currentLabel)\nSession: $currentSessionId"
+
+                            resetStats()
+                            startElapsedMs = SystemClock.elapsedRealtime()
+                            tvSummary.text = "Summary: logging…"
+
+                            setAccText(Float.NaN, Float.NaN, Float.NaN)
+                            setGyroText(Float.NaN, Float.NaN, Float.NaN)
+                        }
+
+                        "stop" -> {
+                            isLogging = false
+                            btnToggle.text = "Start"
+                            tvStatus.text = "Stopped ($currentLabel)\nSession: $currentSessionId"
+                        }
+                    }
+                }
+
                 SensorLoggerService.ACTION_LOG_STATE -> {
                     val started = intent.getBooleanExtra("started", false)
-                    val label = intent.getStringExtra("label") ?: "UNKNOWN"
+                    val label = intent.getStringExtra("label")?.uppercase(Locale.US) ?: "UNKNOWN"
                     val sessionId = intent.getStringExtra("sessionId") ?: "unknown"
 
                     currentSessionId = sessionId
-                    currentLabel = label.replaceFirstChar {
-                        if (it.isLowerCase()) it.titlecase() else it.toString()
-                    }
+                    currentLabel = label
+                    labelIdx = labels.indexOf(currentLabel).takeIf { it >= 0 } ?: labelIdx
                     updateLabelButton()
 
                     if (started) {
@@ -109,7 +137,6 @@ class CollectFragment : Fragment(R.layout.fragment_collect) {
                     }
                 }
 
-                // Handle incoming live sensor data for UI updates
                 SensorLoggerService.ACTION_LIVE_SAMPLE -> {
                     val sampleSessionId = intent.getStringExtra("sessionId") ?: "unknown"
                     if (currentSessionId != "unknown" && sampleSessionId != currentSessionId) return
@@ -124,18 +151,21 @@ class CollectFragment : Fragment(R.layout.fragment_collect) {
                     setAccText(ax, ay, az)
                     setGyroText(gx, gy, gz)
 
-                    // Accumulate stats for local tracking
                     if (!ax.isNaN() && !ay.isNaN() && !az.isNaN()) {
-                        accSumX += ax; accSumY += ay; accSumZ += az
+                        accSumX += ax
+                        accSumY += ay
+                        accSumZ += az
                         accCount++
                     }
+
                     if (!gx.isNaN() && !gy.isNaN() && !gz.isNaN()) {
-                        gyroSumX += gx; gyroSumY += gy; gyroSumZ += gz
+                        gyroSumX += gx
+                        gyroSumY += gy
+                        gyroSumZ += gz
                         gyroCount++
                     }
                 }
 
-                // Handle final summary once logging is complete
                 SensorLoggerService.ACTION_LOG_DONE -> {
                     val durationMs = intent.getLongExtra("durationMs", 0L)
                     val durationStr = String.format(Locale.US, "%.2f s", durationMs / 1000.0)
@@ -163,7 +193,6 @@ class CollectFragment : Fragment(R.layout.fragment_collect) {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        // Initialize UI component hooks
         tvStatus = view.findViewById(R.id.tvStatus)
         tvAccX = view.findViewById(R.id.tvAccX)
         tvAccY = view.findViewById(R.id.tvAccY)
@@ -176,7 +205,6 @@ class CollectFragment : Fragment(R.layout.fragment_collect) {
         btnLabel = view.findViewById(R.id.btnLabel)
         btnHistory = view.findViewById(R.id.btnHistory)
 
-        // Request notification permission for Android 13+
         if (Build.VERSION.SDK_INT >= 33) {
             notifPerm.launch(Manifest.permission.POST_NOTIFICATIONS)
         }
@@ -188,7 +216,6 @@ class CollectFragment : Fragment(R.layout.fragment_collect) {
         setAccText(Float.NaN, Float.NaN, Float.NaN)
         setGyroText(Float.NaN, Float.NaN, Float.NaN)
 
-        // Button: Cycle through labels
         btnLabel.setOnClickListener {
             if (isLogging) {
                 Toast.makeText(requireContext(), "Stop logging to change label.", Toast.LENGTH_SHORT).show()
@@ -199,13 +226,11 @@ class CollectFragment : Fragment(R.layout.fragment_collect) {
             updateLabelButton()
         }
 
-        // Button: Toggle start/stop logging
         btnToggle.setOnClickListener {
             if (!isLogging) startLoggingFromPhoneTap()
             else stopLoggingFromPhoneTap()
         }
 
-        // Button: Navigate to the modern HistoryPageFragment
         btnHistory.setOnClickListener {
             parentFragmentManager.beginTransaction()
                 .replace(R.id.nav_host, HistoryPageFragment())
@@ -216,11 +241,12 @@ class CollectFragment : Fragment(R.layout.fragment_collect) {
 
     override fun onStart() {
         super.onStart()
-        // Register receiver for sensor service updates
+
         val filter = IntentFilter().apply {
             addAction(SensorLoggerService.ACTION_LOG_STATE)
             addAction(SensorLoggerService.ACTION_LIVE_SAMPLE)
             addAction(SensorLoggerService.ACTION_LOG_DONE)
+            addAction(WearCommandService.ACTION_UI_CMD)
         }
 
         if (Build.VERSION.SDK_INT >= 33) {
@@ -233,7 +259,10 @@ class CollectFragment : Fragment(R.layout.fragment_collect) {
 
     override fun onStop() {
         super.onStop()
-        try { requireContext().unregisterReceiver(logReceiver) } catch (_: Exception) {}
+        try {
+            requireContext().unregisterReceiver(logReceiver)
+        } catch (_: Exception) {
+        }
     }
 
     private fun updateLabelButton() {
@@ -243,8 +272,12 @@ class CollectFragment : Fragment(R.layout.fragment_collect) {
     private fun resetStats() {
         accCount = 0
         gyroCount = 0
-        accSumX = 0.0; accSumY = 0.0; accSumZ = 0.0
-        gyroSumX = 0.0; gyroSumY = 0.0; gyroSumZ = 0.0
+        accSumX = 0.0
+        accSumY = 0.0
+        accSumZ = 0.0
+        gyroSumX = 0.0
+        gyroSumY = 0.0
+        gyroSumZ = 0.0
     }
 
     private fun setAccText(x: Float, y: Float, z: Float) {
@@ -263,9 +296,6 @@ class CollectFragment : Fragment(R.layout.fragment_collect) {
         return if (v.isNaN()) "-" else String.format(Locale.US, "%.3f", v)
     }
 
-    /**
-     * Start the SensorLoggerService from a phone tap.
-     */
     private fun startLoggingFromPhoneTap() {
         val sessionId = "PHONE_ONLY_${System.currentTimeMillis()}"
         currentSessionId = sessionId
@@ -273,7 +303,7 @@ class CollectFragment : Fragment(R.layout.fragment_collect) {
         val intent = Intent(requireContext(), SensorLoggerService::class.java).apply {
             action = SensorLoggerService.ACTION_START
             putExtra("sessionId", sessionId)
-            putExtra("label", currentLabel)
+            putExtra("label", currentLabel.uppercase(Locale.US))
             putExtra("startEpochMs", System.currentTimeMillis())
         }
 
@@ -284,9 +314,6 @@ class CollectFragment : Fragment(R.layout.fragment_collect) {
         }
     }
 
-    /**
-     * Stop the SensorLoggerService.
-     */
     private fun stopLoggingFromPhoneTap() {
         val stop = Intent(requireContext(), SensorLoggerService::class.java).apply {
             action = SensorLoggerService.ACTION_STOP

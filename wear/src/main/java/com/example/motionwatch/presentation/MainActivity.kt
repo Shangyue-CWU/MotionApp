@@ -185,7 +185,7 @@ fun WearApp(
 ) {
     MotionWatchTheme {
         var isLogging by remember { mutableStateOf(false) }
-        var sportCategory by remember { mutableStateOf("RUNNING") }
+        var sportCategory by remember { mutableStateOf("JERKING") }
 
         Box(
             modifier = Modifier
@@ -210,17 +210,20 @@ fun WearApp(
 
                 Spacer(modifier = Modifier.height(15.dp))
 
-                // Sport selector
                 Button(
                     onClick = {
-                        // lock category changes while logging (optional)
                         if (isLogging) return@Button
 
                         sportCategory = when (sportCategory) {
+                            "JERKING" -> "TONIC"
+                            "TONIC" -> "FALLS"
+                            "FALLS" -> "TREMOR"
+                            "TREMOR" -> "RUNNING"
                             "RUNNING" -> "WALKING"
                             "WALKING" -> "SITTING"
-                            "SITTING" -> "FALLING"
-                            else -> "RUNNING"
+                            "SITTING" -> "STANDING"
+                            "STANDING" -> "JERKING"
+                            else -> "JERKING"
                         }
                     },
                     modifier = Modifier
@@ -233,7 +236,6 @@ fun WearApp(
 
                 Spacer(modifier = Modifier.height(15.dp))
 
-                // Start/Stop toggle
                 Button(
                     onClick = {
                         if (!isLogging) {
