@@ -41,3 +41,9 @@ Thumbs.db
 .cxx
 local.properties
 >>>>>>> origin/Cindy
+.gradle/
+.gradle-user/
+build/
+local.properties
+.idea/
+*.iml
