@@ -327,11 +327,11 @@ class HomeFragment : Fragment() {
             "WALKING" -> R.drawable.ic_walk
             "RUNNING" -> R.drawable.ic_running
             "SITTING" -> R.drawable.ic_sitting
-            "STANDING" -> R.drawable.ic_sitting
+            "STANDING" -> R.drawable.ic_standing
             "FALLS" -> R.drawable.ic_falling
-            "TREMOR" -> R.drawable.ic_falling
-            "JERKING" -> R.drawable.ic_falling
-            "TONIC" -> R.drawable.ic_falling
+            "TREMOR" -> R.drawable.ic_tremor
+            "JERKING" -> R.drawable.ic_jerking
+            "TONIC" -> R.drawable.ic_tonic
             "IDLE" -> R.drawable.ic_idle
             else -> R.drawable.ic_idle
         }
