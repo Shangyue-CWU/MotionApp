@@ -122,7 +122,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             // Drawer IDs
             R.id.nav_dashboard -> HomeFragment()
             R.id.nav_session -> SessionsFragment()
-            R.id.nav_analysis -> HistoryFragment()
+            R.id.nav_analysis -> AnalyticsFragment()
 
             else -> null
         }
