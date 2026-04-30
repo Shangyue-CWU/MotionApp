@@ -1,18 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
     fragment_analytics.xml
-    Layout for the Live Monitor section (UR-L1 through UR-L6).
-
-    Place this file in:  app/src/main/res/layout/fragment_analytics.xml
-
-    Drawables required (all in res/drawable/):
-      bg_badge_idle, bg_badge_live,
-      bg_dot_idle, bg_dot_live, bg_dot_stopped,
-      bg_dot_axis      ← single file used for all 6 axis dots via backgroundTint
-      bg_stat_chip, bg_axis_pill,
-      bg_tab_active, bg_tab_inactive,
-      bg_btn_start, bg_btn_stop, bg_btn_clear, bg_btn_export,
-      bg_conf_bar_track, bg_conf_bar_fill
+    Live Monitor section — UR-L1 through UR-L6.
+    Place in: app/src/main/res/layout/fragment_analytics.xml
 -->
 <androidx.core.widget.NestedScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
@@ -32,9 +22,7 @@
         android:padding="16dp"
         android:paddingBottom="24dp">
 
-        <!-- ══════════════════════════════════════════════════════════════ -->
-        <!-- Page heading row                                               -->
-        <!-- ══════════════════════════════════════════════════════════════ -->
+        <!-- ══ Page heading row ══════════════════════════════════════════════ -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -53,8 +41,6 @@
                 android:textSize="22sp"
                 android:textStyle="bold" />
 
-            <!-- Status badge: background resource is swapped in code
-                 between bg_badge_idle and bg_badge_live -->
             <LinearLayout
                 android:id="@+id/statusBadge"
                 android:layout_width="wrap_content"
@@ -67,7 +53,6 @@
                 android:paddingTop="4dp"
                 android:paddingBottom="4dp">
 
-                <!-- Dot drawable + pulse animation both driven in code -->
                 <View
                     android:id="@+id/statusDot"
                     android:layout_width="7dp"
@@ -87,9 +72,7 @@
             </LinearLayout>
         </LinearLayout>
 
-        <!-- ══════════════════════════════════════════════════════════════ -->
-        <!-- Prediction card                                                -->
-        <!-- ══════════════════════════════════════════════════════════════ -->
+        <!-- ══ Prediction card ═══════════════════════════════════════════════ -->
         <androidx.cardview.widget.CardView
             android:id="@+id/cardPrediction"
             android:layout_width="match_parent"
@@ -106,7 +89,6 @@
                 android:orientation="horizontal"
                 android:padding="14dp">
 
-                <!-- Left: section label + motion type -->
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -136,7 +118,6 @@
                         tools:text="TREMOR" />
                 </LinearLayout>
 
-                <!-- Right: confidence percentage + bar -->
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -181,10 +162,7 @@
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 
-        <!-- ══════════════════════════════════════════════════════════════ -->
-        <!-- Session stats row — hidden when IDLE, shown when RECORDING     -->
-        <!-- and ENDED                                                      -->
-        <!-- ══════════════════════════════════════════════════════════════ -->
+        <!-- ══ Session stats row ════════════════════════════════════════════ -->
         <LinearLayout
             android:id="@+id/sessionStatsRow"
             android:layout_width="match_parent"
@@ -194,7 +172,6 @@
             android:visibility="gone"
             tools:visibility="visible">
 
-            <!-- Duration -->
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -225,7 +202,6 @@
                     android:textStyle="bold" />
             </LinearLayout>
 
-            <!-- Samples -->
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -257,7 +233,6 @@
                     android:textStyle="bold" />
             </LinearLayout>
 
-            <!-- Events -->
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -289,9 +264,7 @@
             </LinearLayout>
         </LinearLayout>
 
-        <!-- ══════════════════════════════════════════════════════════════ -->
-        <!-- Chart section label                                            -->
-        <!-- ══════════════════════════════════════════════════════════════ -->
+        <!-- ══ Chart section label ══════════════════════════════════════════ -->
         <TextView
             android:id="@+id/tvChartLabel"
             android:layout_width="wrap_content"
@@ -305,9 +278,7 @@
             android:textColor="#3B5BF7"
             android:textSize="10sp" />
 
-        <!-- ══════════════════════════════════════════════════════════════ -->
-        <!-- Chart card                                                     -->
-        <!-- ══════════════════════════════════════════════════════════════ -->
+        <!-- ══ Chart card ════════════════════════════════════════════════════ -->
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -322,69 +293,114 @@
                 android:orientation="vertical"
                 android:padding="12dp">
 
-                <!-- Tab row: ACC / GYRO / ALL -->
-                <LinearLayout
-                    android:layout_width="wrap_content"
+                <!-- ── Tab row: ACC / GYRO / ALL / WACC / WGYRO ─────────── -->
+                <!-- Horizontally scrollable so the row never wraps on small screens -->
+                <HorizontalScrollView
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="10dp"
-                    android:orientation="horizontal">
+                    android:scrollbars="none">
 
-                    <TextView
-                        android:id="@+id/tabAcc"
+                    <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginEnd="8dp"
-                        android:background="@drawable/bg_tab_active"
-                        android:fontFamily="sans-serif-medium"
-                        android:letterSpacing="0.06"
-                        android:paddingStart="12dp"
-                        android:paddingEnd="12dp"
-                        android:paddingTop="4dp"
-                        android:paddingBottom="4dp"
-                        android:text="ACC"
-                        android:textColor="#FFFFFF"
-                        android:textSize="10sp" />
+                        android:orientation="horizontal">
 
-                    <TextView
-                        android:id="@+id/tabGyro"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="8dp"
-                        android:background="@drawable/bg_tab_inactive"
-                        android:fontFamily="sans-serif-medium"
-                        android:letterSpacing="0.06"
-                        android:paddingStart="12dp"
-                        android:paddingEnd="12dp"
-                        android:paddingTop="4dp"
-                        android:paddingBottom="4dp"
-                        android:text="GYRO"
-                        android:textColor="#6B6B9A"
-                        android:textSize="10sp" />
+                        <TextView
+                            android:id="@+id/tabAcc"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="8dp"
+                            android:background="@drawable/bg_tab_active"
+                            android:fontFamily="sans-serif-medium"
+                            android:letterSpacing="0.06"
+                            android:paddingStart="12dp"
+                            android:paddingEnd="12dp"
+                            android:paddingTop="4dp"
+                            android:paddingBottom="4dp"
+                            android:text="ACC"
+                            android:textColor="#FFFFFF"
+                            android:textSize="10sp" />
 
-                    <TextView
-                        android:id="@+id/tabAll"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/bg_tab_inactive"
-                        android:fontFamily="sans-serif-medium"
-                        android:letterSpacing="0.06"
-                        android:paddingStart="12dp"
-                        android:paddingEnd="12dp"
-                        android:paddingTop="4dp"
-                        android:paddingBottom="4dp"
-                        android:text="ALL"
-                        android:textColor="#6B6B9A"
-                        android:textSize="10sp" />
-                </LinearLayout>
+                        <TextView
+                            android:id="@+id/tabGyro"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="8dp"
+                            android:background="@drawable/bg_tab_inactive"
+                            android:fontFamily="sans-serif-medium"
+                            android:letterSpacing="0.06"
+                            android:paddingStart="12dp"
+                            android:paddingEnd="12dp"
+                            android:paddingTop="4dp"
+                            android:paddingBottom="4dp"
+                            android:text="GYRO"
+                            android:textColor="#6B6B9A"
+                            android:textSize="10sp" />
 
-                <!-- Live scrolling chart (custom canvas view) -->
+                        <TextView
+                            android:id="@+id/tabAll"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="8dp"
+                            android:background="@drawable/bg_tab_inactive"
+                            android:fontFamily="sans-serif-medium"
+                            android:letterSpacing="0.06"
+                            android:paddingStart="12dp"
+                            android:paddingEnd="12dp"
+                            android:paddingTop="4dp"
+                            android:paddingBottom="4dp"
+                            android:text="ALL"
+                            android:textColor="#6B6B9A"
+                            android:textSize="10sp" />
+
+                        <!-- Divider between phone and watch tabs -->
+                        <View
+                            android:layout_width="1dp"
+                            android:layout_height="match_parent"
+                            android:layout_marginEnd="8dp"
+                            android:background="#DDDDF7" />
+
+                        <TextView
+                            android:id="@+id/tabWAcc"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="8dp"
+                            android:background="@drawable/bg_tab_inactive"
+                            android:fontFamily="sans-serif-medium"
+                            android:letterSpacing="0.06"
+                            android:paddingStart="12dp"
+                            android:paddingEnd="12dp"
+                            android:paddingTop="4dp"
+                            android:paddingBottom="4dp"
+                            android:text="WACC"
+                            android:textColor="#6B6B9A"
+                            android:textSize="10sp" />
+
+                        <TextView
+                            android:id="@+id/tabWGyro"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/bg_tab_inactive"
+                            android:fontFamily="sans-serif-medium"
+                            android:letterSpacing="0.06"
+                            android:paddingStart="12dp"
+                            android:paddingEnd="12dp"
+                            android:paddingTop="4dp"
+                            android:paddingBottom="4dp"
+                            android:text="WGYRO"
+                            android:textColor="#6B6B9A"
+                            android:textSize="10sp" />
+                    </LinearLayout>
+                </HorizontalScrollView>
+
+                <!-- Live chart -->
                 <com.example.motionwatch.LiveChartView
                     android:id="@+id/liveChart"
                     android:layout_width="match_parent"
                     android:layout_height="100dp" />
 
-                <!-- ── ACC axis pills ─────────────────────────────────── -->
-                <!-- Visible when ACC or ALL tab is active                 -->
+                <!-- ── Phone ACC pills (ACC / ALL tabs) ──────────────────── -->
                 <LinearLayout
                     android:id="@+id/pillsAcc"
                     android:layout_width="match_parent"
@@ -392,98 +408,46 @@
                     android:layout_marginTop="8dp"
                     android:orientation="horizontal">
 
-                    <!-- AX — blue -->
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="6dp"
-                        android:background="@drawable/bg_axis_pill"
-                        android:gravity="center_vertical"
-                        android:orientation="horizontal"
-                        android:paddingStart="8dp"
-                        android:paddingEnd="8dp"
-                        android:paddingTop="4dp"
-                        android:paddingBottom="4dp">
-
-                        <View
-                            android:layout_width="7dp"
-                            android:layout_height="7dp"
-                            android:layout_marginEnd="4dp"
-                            android:background="@drawable/bg_dot_axis"
+                    <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content"
+                        android:layout_marginEnd="6dp" android:background="@drawable/bg_axis_pill"
+                        android:gravity="center_vertical" android:orientation="horizontal"
+                        android:paddingStart="8dp" android:paddingEnd="8dp"
+                        android:paddingTop="4dp" android:paddingBottom="4dp">
+                        <View android:layout_width="7dp" android:layout_height="7dp"
+                            android:layout_marginEnd="4dp" android:background="@drawable/bg_dot_axis"
                             android:backgroundTint="#4A6CF7" />
-
-                        <TextView
-                            android:id="@+id/tvAX"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:fontFamily="monospace"
-                            android:text="X: --"
-                            android:textColor="#3A3A6A"
-                            android:textSize="10sp" />
+                        <TextView android:id="@+id/tvAX" android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" android:fontFamily="monospace"
+                            android:text="X: --" android:textColor="#3A3A6A" android:textSize="10sp" />
                     </LinearLayout>
 
-                    <!-- AY — green -->
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="6dp"
-                        android:background="@drawable/bg_axis_pill"
-                        android:gravity="center_vertical"
-                        android:orientation="horizontal"
-                        android:paddingStart="8dp"
-                        android:paddingEnd="8dp"
-                        android:paddingTop="4dp"
-                        android:paddingBottom="4dp">
-
-                        <View
-                            android:layout_width="7dp"
-                            android:layout_height="7dp"
-                            android:layout_marginEnd="4dp"
-                            android:background="@drawable/bg_dot_axis"
+                    <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content"
+                        android:layout_marginEnd="6dp" android:background="@drawable/bg_axis_pill"
+                        android:gravity="center_vertical" android:orientation="horizontal"
+                        android:paddingStart="8dp" android:paddingEnd="8dp"
+                        android:paddingTop="4dp" android:paddingBottom="4dp">
+                        <View android:layout_width="7dp" android:layout_height="7dp"
+                            android:layout_marginEnd="4dp" android:background="@drawable/bg_dot_axis"
                             android:backgroundTint="#66BB6A" />
-
-                        <TextView
-                            android:id="@+id/tvAY"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:fontFamily="monospace"
-                            android:text="Y: --"
-                            android:textColor="#3A3A6A"
-                            android:textSize="10sp" />
+                        <TextView android:id="@+id/tvAY" android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" android:fontFamily="monospace"
+                            android:text="Y: --" android:textColor="#3A3A6A" android:textSize="10sp" />
                     </LinearLayout>
 
-                    <!-- AZ — orange -->
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/bg_axis_pill"
-                        android:gravity="center_vertical"
-                        android:orientation="horizontal"
-                        android:paddingStart="8dp"
-                        android:paddingEnd="8dp"
-                        android:paddingTop="4dp"
-                        android:paddingBottom="4dp">
-
-                        <View
-                            android:layout_width="7dp"
-                            android:layout_height="7dp"
-                            android:layout_marginEnd="4dp"
-                            android:background="@drawable/bg_dot_axis"
+                    <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content"
+                        android:background="@drawable/bg_axis_pill" android:gravity="center_vertical"
+                        android:orientation="horizontal" android:paddingStart="8dp"
+                        android:paddingEnd="8dp" android:paddingTop="4dp" android:paddingBottom="4dp">
+                        <View android:layout_width="7dp" android:layout_height="7dp"
+                            android:layout_marginEnd="4dp" android:background="@drawable/bg_dot_axis"
                             android:backgroundTint="#FFA726" />
-
-                        <TextView
-                            android:id="@+id/tvAZ"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:fontFamily="monospace"
-                            android:text="Z: --"
-                            android:textColor="#3A3A6A"
-                            android:textSize="10sp" />
+                        <TextView android:id="@+id/tvAZ" android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" android:fontFamily="monospace"
+                            android:text="Z: --" android:textColor="#3A3A6A" android:textSize="10sp" />
                     </LinearLayout>
                 </LinearLayout>
 
-                <!-- ── GYRO axis pills ────────────────────────────────── -->
-                <!-- Visible when GYRO or ALL tab is active                -->
+                <!-- ── Phone GYRO pills (GYRO / ALL tabs) ───────────────── -->
                 <LinearLayout
                     android:id="@+id/pillsGyro"
                     android:layout_width="match_parent"
@@ -493,102 +457,145 @@
                     android:visibility="gone"
                     tools:visibility="visible">
 
-                    <!-- GX — red -->
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="6dp"
-                        android:background="@drawable/bg_axis_pill"
-                        android:gravity="center_vertical"
-                        android:orientation="horizontal"
-                        android:paddingStart="8dp"
-                        android:paddingEnd="8dp"
-                        android:paddingTop="4dp"
-                        android:paddingBottom="4dp">
-
-                        <View
-                            android:layout_width="7dp"
-                            android:layout_height="7dp"
-                            android:layout_marginEnd="4dp"
-                            android:background="@drawable/bg_dot_axis"
+                    <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content"
+                        android:layout_marginEnd="6dp" android:background="@drawable/bg_axis_pill"
+                        android:gravity="center_vertical" android:orientation="horizontal"
+                        android:paddingStart="8dp" android:paddingEnd="8dp"
+                        android:paddingTop="4dp" android:paddingBottom="4dp">
+                        <View android:layout_width="7dp" android:layout_height="7dp"
+                            android:layout_marginEnd="4dp" android:background="@drawable/bg_dot_axis"
                             android:backgroundTint="#EF5350" />
-
-                        <TextView
-                            android:id="@+id/tvGX"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:fontFamily="monospace"
-                            android:text="GX: --"
-                            android:textColor="#3A3A6A"
-                            android:textSize="10sp" />
+                        <TextView android:id="@+id/tvGX" android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" android:fontFamily="monospace"
+                            android:text="GX: --" android:textColor="#3A3A6A" android:textSize="10sp" />
                     </LinearLayout>
 
-                    <!-- GY — purple -->
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="6dp"
-                        android:background="@drawable/bg_axis_pill"
-                        android:gravity="center_vertical"
-                        android:orientation="horizontal"
-                        android:paddingStart="8dp"
-                        android:paddingEnd="8dp"
-                        android:paddingTop="4dp"
-                        android:paddingBottom="4dp">
-
-                        <View
-                            android:layout_width="7dp"
-                            android:layout_height="7dp"
-                            android:layout_marginEnd="4dp"
-                            android:background="@drawable/bg_dot_axis"
+                    <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content"
+                        android:layout_marginEnd="6dp" android:background="@drawable/bg_axis_pill"
+                        android:gravity="center_vertical" android:orientation="horizontal"
+                        android:paddingStart="8dp" android:paddingEnd="8dp"
+                        android:paddingTop="4dp" android:paddingBottom="4dp">
+                        <View android:layout_width="7dp" android:layout_height="7dp"
+                            android:layout_marginEnd="4dp" android:background="@drawable/bg_dot_axis"
                             android:backgroundTint="#AB47BC" />
-
-                        <TextView
-                            android:id="@+id/tvGY"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:fontFamily="monospace"
-                            android:text="GY: --"
-                            android:textColor="#3A3A6A"
-                            android:textSize="10sp" />
+                        <TextView android:id="@+id/tvGY" android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" android:fontFamily="monospace"
+                            android:text="GY: --" android:textColor="#3A3A6A" android:textSize="10sp" />
                     </LinearLayout>
 
-                    <!-- GZ — cyan -->
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/bg_axis_pill"
-                        android:gravity="center_vertical"
-                        android:orientation="horizontal"
-                        android:paddingStart="8dp"
-                        android:paddingEnd="8dp"
-                        android:paddingTop="4dp"
-                        android:paddingBottom="4dp">
-
-                        <View
-                            android:layout_width="7dp"
-                            android:layout_height="7dp"
-                            android:layout_marginEnd="4dp"
-                            android:background="@drawable/bg_dot_axis"
+                    <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content"
+                        android:background="@drawable/bg_axis_pill" android:gravity="center_vertical"
+                        android:orientation="horizontal" android:paddingStart="8dp"
+                        android:paddingEnd="8dp" android:paddingTop="4dp" android:paddingBottom="4dp">
+                        <View android:layout_width="7dp" android:layout_height="7dp"
+                            android:layout_marginEnd="4dp" android:background="@drawable/bg_dot_axis"
                             android:backgroundTint="#26C6DA" />
+                        <TextView android:id="@+id/tvGZ" android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" android:fontFamily="monospace"
+                            android:text="GZ: --" android:textColor="#3A3A6A" android:textSize="10sp" />
+                    </LinearLayout>
+                </LinearLayout>
 
-                        <TextView
-                            android:id="@+id/tvGZ"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:fontFamily="monospace"
-                            android:text="GZ: --"
-                            android:textColor="#3A3A6A"
-                            android:textSize="10sp" />
+                <!-- ── Watch WACC pills (WACC tab) — deep-orange dots ───── -->
+                <LinearLayout
+                    android:id="@+id/pillsWAcc"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:orientation="horizontal"
+                    android:visibility="gone">
+
+                    <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content"
+                        android:layout_marginEnd="6dp" android:background="@drawable/bg_axis_pill"
+                        android:gravity="center_vertical" android:orientation="horizontal"
+                        android:paddingStart="8dp" android:paddingEnd="8dp"
+                        android:paddingTop="4dp" android:paddingBottom="4dp">
+                        <View android:layout_width="7dp" android:layout_height="7dp"
+                            android:layout_marginEnd="4dp" android:background="@drawable/bg_dot_axis"
+                            android:backgroundTint="#FF7043" />
+                        <TextView android:id="@+id/tvWAX" android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" android:fontFamily="monospace"
+                            android:text="WX: --" android:textColor="#3A3A6A" android:textSize="10sp" />
+                    </LinearLayout>
+
+                    <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content"
+                        android:layout_marginEnd="6dp" android:background="@drawable/bg_axis_pill"
+                        android:gravity="center_vertical" android:orientation="horizontal"
+                        android:paddingStart="8dp" android:paddingEnd="8dp"
+                        android:paddingTop="4dp" android:paddingBottom="4dp">
+                        <View android:layout_width="7dp" android:layout_height="7dp"
+                            android:layout_marginEnd="4dp" android:background="@drawable/bg_dot_axis"
+                            android:backgroundTint="#FF8A65" />
+                        <TextView android:id="@+id/tvWAY" android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" android:fontFamily="monospace"
+                            android:text="WY: --" android:textColor="#3A3A6A" android:textSize="10sp" />
+                    </LinearLayout>
+
+                    <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content"
+                        android:background="@drawable/bg_axis_pill" android:gravity="center_vertical"
+                        android:orientation="horizontal" android:paddingStart="8dp"
+                        android:paddingEnd="8dp" android:paddingTop="4dp" android:paddingBottom="4dp">
+                        <View android:layout_width="7dp" android:layout_height="7dp"
+                            android:layout_marginEnd="4dp" android:background="@drawable/bg_dot_axis"
+                            android:backgroundTint="#FFAB91" />
+                        <TextView android:id="@+id/tvWAZ" android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" android:fontFamily="monospace"
+                            android:text="WZ: --" android:textColor="#3A3A6A" android:textSize="10sp" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <!-- ── Watch WGYRO pills (WGYRO tab) ─────────────────────── -->
+                <LinearLayout
+                    android:id="@+id/pillsWGyro"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:orientation="horizontal"
+                    android:visibility="gone">
+
+                    <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content"
+                        android:layout_marginEnd="6dp" android:background="@drawable/bg_axis_pill"
+                        android:gravity="center_vertical" android:orientation="horizontal"
+                        android:paddingStart="8dp" android:paddingEnd="8dp"
+                        android:paddingTop="4dp" android:paddingBottom="4dp">
+                        <View android:layout_width="7dp" android:layout_height="7dp"
+                            android:layout_marginEnd="4dp" android:background="@drawable/bg_dot_axis"
+                            android:backgroundTint="#F4511E" />
+                        <TextView android:id="@+id/tvWGX" android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" android:fontFamily="monospace"
+                            android:text="WGX: --" android:textColor="#3A3A6A" android:textSize="10sp" />
+                    </LinearLayout>
+
+                    <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content"
+                        android:layout_marginEnd="6dp" android:background="@drawable/bg_axis_pill"
+                        android:gravity="center_vertical" android:orientation="horizontal"
+                        android:paddingStart="8dp" android:paddingEnd="8dp"
+                        android:paddingTop="4dp" android:paddingBottom="4dp">
+                        <View android:layout_width="7dp" android:layout_height="7dp"
+                            android:layout_marginEnd="4dp" android:background="@drawable/bg_dot_axis"
+                            android:backgroundTint="#BF360C" />
+                        <TextView android:id="@+id/tvWGY" android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" android:fontFamily="monospace"
+                            android:text="WGY: --" android:textColor="#3A3A6A" android:textSize="10sp" />
+                    </LinearLayout>
+
+                    <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content"
+                        android:background="@drawable/bg_axis_pill" android:gravity="center_vertical"
+                        android:orientation="horizontal" android:paddingStart="8dp"
+                        android:paddingEnd="8dp" android:paddingTop="4dp" android:paddingBottom="4dp">
+                        <View android:layout_width="7dp" android:layout_height="7dp"
+                            android:layout_marginEnd="4dp" android:background="@drawable/bg_dot_axis"
+                            android:backgroundTint="#E64A19" />
+                        <TextView android:id="@+id/tvWGZ" android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" android:fontFamily="monospace"
+                            android:text="WGZ: --" android:textColor="#3A3A6A" android:textSize="10sp" />
                     </LinearLayout>
                 </LinearLayout>
 
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 
-        <!-- ══════════════════════════════════════════════════════════════ -->
-        <!-- Controls row: Start/Stop + Clear                               -->
-        <!-- ══════════════════════════════════════════════════════════════ -->
+        <!-- ══ Controls row: Start/Stop + Clear ═════════════════════════════ -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -609,7 +616,6 @@
                 android:textColor="#FFFFFF"
                 android:textSize="12sp" />
 
-            <!-- Clear button: proper label so it is always identifiable -->
             <LinearLayout
                 android:id="@+id/btnClear"
                 android:layout_width="80dp"
@@ -639,10 +645,7 @@
             </LinearLayout>
         </LinearLayout>
 
-        <!-- ══════════════════════════════════════════════════════════════ -->
-        <!-- Export row: CSV + Summary                                      -->
-        <!-- Both disabled + translucent until state == ENDED              -->
-        <!-- ══════════════════════════════════════════════════════════════ -->
+        <!-- ══ Export row ═══════════════════════════════════════════════════ -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
