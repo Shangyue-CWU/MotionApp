@@ -67,6 +67,11 @@ public class SensorLoggerService extends Service implements SensorEventListener 
     private float lastAx = Float.NaN, lastAy = Float.NaN, lastAz = Float.NaN;
     private float lastGx = Float.NaN, lastGy = Float.NaN, lastGz = Float.NaN;
 
+    // Reference to the CSV file currently being written — used to pass the
+    // file path to AnalyticsFragment via the LOG_DONE broadcast so it can
+    // offer the user a CSV export after the session ends.
+    private File csvFile = null;
+
     // Throttle UI broadcasts (don’t spam UI at 200Hz)
     private int uiEveryN = 5;
     private int uiCounter = 0;
@@ -206,6 +211,9 @@ public class SensorLoggerService extends Service implements SensorEventListener 
             done.putExtra("gyrAvgX", gyroN > 0 ? gyrSx / gyroN : 0);
             done.putExtra("gyrAvgY", gyroN > 0 ? gyrSy / gyroN : 0);
             done.putExtra("gyrAvgZ", gyroN > 0 ? gyrSz / gyroN : 0);
+            // File path so AnalyticsFragment (Live section) can surface the CSV
+            // for export without needing to know the naming convention.
+            done.putExtra("filePath", csvFile != null ? csvFile.getAbsolutePath() : "");
             sendBroadcast(done);
         }
 
@@ -226,6 +234,7 @@ public class SensorLoggerService extends Service implements SensorEventListener 
         String name = "SESSION_" + safeSession + "_PHONE_" + safeLabel + "_" + ts + ".csv";
         File file = new File(logsDir, name);
 
+        csvFile = file;
         writer = new BufferedWriter(new FileWriter(file, false));
         writer.write("# epoch_ms,event_ts_ns,AX,AY,AZ,GX,GY,GZ,label,sessionID\n");
         writer.flush();

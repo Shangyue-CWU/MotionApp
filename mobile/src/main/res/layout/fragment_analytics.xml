@@ -1,267 +1,682 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/analyticsScrollView"
+<!--
+    fragment_analytics.xml
+    Layout for the Live Monitor section (UR-L1 through UR-L6).
+
+    Place this file in:  app/src/main/res/layout/fragment_analytics.xml
+
+    Drawables required (all in res/drawable/):
+      bg_badge_idle, bg_badge_live,
+      bg_dot_idle, bg_dot_live, bg_dot_stopped,
+      bg_dot_axis      ← single file used for all 6 axis dots via backgroundTint
+      bg_stat_chip, bg_axis_pill,
+      bg_tab_active, bg_tab_inactive,
+      bg_btn_start, bg_btn_stop, bg_btn_clear, bg_btn_export,
+      bg_conf_bar_track, bg_conf_bar_fill
+-->
+<androidx.core.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/scrollRoot"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F4F4F4"
-    android:fillViewport="true">
+    android:background="#F3F2FF"
+    android:fillViewport="true"
+    android:scrollbars="none">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="18dp">
+        android:padding="16dp"
+        android:paddingBottom="24dp">
 
-        <!-- Header -->
-        <TextView
-            android:id="@+id/tvAnalyticsDate"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="AUTOMATIC RECOGNITION"
-            android:textAllCaps="true"
-            android:textColor="#8B93A7"
-            android:textSize="12sp"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/tvAnalyticsWelcome"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="Analytics"
-            android:textColor="#111111"
-            android:textSize="24sp"
-            android:textStyle="bold" />
-
-        <!-- Current Recognition Card -->
+        <!-- ══════════════════════════════════════════════════════════════ -->
+        <!-- Page heading row                                               -->
+        <!-- ══════════════════════════════════════════════════════════════ -->
         <LinearLayout
-            android:id="@+id/cardRecognition"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:background="#DDE6F2"
-            android:orientation="vertical"
-            android:padding="20dp"
-            android:minHeight="170dp"
-            android:gravity="center"
-            android:backgroundTint="#DDE6F2">
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:layout_marginBottom="10dp">
 
             <TextView
-                android:id="@+id/tvRecognitionTitle"
-                android:layout_width="wrap_content"
+                android:id="@+id/tvPageTitle"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="CURRENT RECOGNITION"
-                android:textAllCaps="true"
-                android:textColor="#6E7688"
-                android:textSize="13sp"
+                android:layout_weight="1"
+                android:fontFamily="sans-serif-medium"
+                android:text="Live Monitor"
+                android:textColor="#1A1A3E"
+                android:textSize="22sp"
                 android:textStyle="bold" />
 
-            <TextView
-                android:id="@+id/tvRecognitionIcon"
+            <!-- Status badge: background resource is swapped in code
+                 between bg_badge_idle and bg_badge_live -->
+            <LinearLayout
+                android:id="@+id/statusBadge"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="18dp"
-                android:text="◫◫"
-                android:textColor="#000000"
-                android:textSize="42sp"
-                android:textStyle="bold" />
+                android:background="@drawable/bg_badge_idle"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+                android:paddingTop="4dp"
+                android:paddingBottom="4dp">
 
-            <TextView
-                android:id="@+id/tvCurrentLabel"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:text="Idle"
-                android:textColor="#2E64F5"
-                android:textSize="30sp"
-                android:textStyle="bold" />
+                <!-- Dot drawable + pulse animation both driven in code -->
+                <View
+                    android:id="@+id/statusDot"
+                    android:layout_width="7dp"
+                    android:layout_height="7dp"
+                    android:layout_marginEnd="5dp"
+                    android:background="@drawable/bg_dot_idle" />
 
-            <TextView
-                android:id="@+id/tvConfidence"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="6dp"
-                android:text="Confidence: --"
-                android:textColor="#4A5568"
-                android:textSize="14sp" />
+                <TextView
+                    android:id="@+id/tvStatus"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif-medium"
+                    android:letterSpacing="0.08"
+                    android:text="IDLE"
+                    android:textColor="#757575"
+                    android:textSize="10sp" />
+            </LinearLayout>
         </LinearLayout>
 
-        <!-- Totals -->
-
-        <!-- Session Card -->
-        <LinearLayout
-            android:id="@+id/cardSession"
+        <!-- ══════════════════════════════════════════════════════════════ -->
+        <!-- Prediction card                                                -->
+        <!-- ══════════════════════════════════════════════════════════════ -->
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardPrediction"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="22dp"
-            android:background="#DDE6F2"
-            android:orientation="vertical"
-            android:padding="16dp">
-
-            <TextView
-                android:id="@+id/tvSessionTitle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="ANALYTICS SESSION"
-                android:textAllCaps="true"
-                android:textColor="#8B93A7"
-                android:textSize="12sp"
-                android:textStyle="bold" />
+            android:layout_marginBottom="10dp"
+            app:cardBackgroundColor="#E4E8FF"
+            app:cardCornerRadius="16dp"
+            app:cardElevation="0dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="14dp"
-                android:orientation="horizontal">
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="14dp">
 
-                <Button
-                    android:id="@+id/btnStartStop"
-                    android:layout_width="132dp"
-                    android:layout_height="42dp"
-                    android:layout_marginStart="14dp"
-                    android:backgroundTint="#8EA9A0"
-                    android:text="START"
+                <!-- Left: section label + motion type -->
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="sans-serif-medium"
+                        android:letterSpacing="0.1"
+                        android:text="CURRENT MOTION"
+                        android:textAllCaps="true"
+                        android:textColor="#6B6B9A"
+                        android:textSize="10sp" />
+
+                    <TextView
+                        android:id="@+id/tvPrediction"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="sans-serif-medium"
+                        android:letterSpacing="-0.02"
+                        android:text="Waiting…"
+                        android:textColor="#9090C0"
+                        android:textSize="26sp"
+                        android:textStyle="bold"
+                        tools:text="TREMOR" />
+                </LinearLayout>
+
+                <!-- Right: confidence percentage + bar -->
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="end"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="sans-serif-medium"
+                        android:letterSpacing="0.08"
+                        android:text="CONFIDENCE"
+                        android:textAllCaps="true"
+                        android:textColor="#8888BB"
+                        android:textSize="9sp" />
+
+                    <TextView
+                        android:id="@+id/tvConfidence"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="end"
+                        android:fontFamily="sans-serif-medium"
+                        android:text="--%"
+                        android:textColor="#9090C0"
+                        android:textSize="20sp"
+                        android:textStyle="bold"
+                        tools:text="87%" />
+
+                    <FrameLayout
+                        android:layout_width="80dp"
+                        android:layout_height="6dp"
+                        android:layout_marginTop="4dp"
+                        android:background="@drawable/bg_conf_bar_track">
+
+                        <View
+                            android:id="@+id/confBarFill"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/bg_conf_bar_fill" />
+                    </FrameLayout>
+                </LinearLayout>
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <!-- ══════════════════════════════════════════════════════════════ -->
+        <!-- Session stats row — hidden when IDLE, shown when RECORDING     -->
+        <!-- and ENDED                                                      -->
+        <!-- ══════════════════════════════════════════════════════════════ -->
+        <LinearLayout
+            android:id="@+id/sessionStatsRow"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:orientation="horizontal"
+            android:visibility="gone"
+            tools:visibility="visible">
+
+            <!-- Duration -->
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginEnd="4dp"
+                android:background="@drawable/bg_stat_chip"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:padding="8dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:letterSpacing="0.08"
+                    android:text="DURATION"
                     android:textAllCaps="true"
-                    android:textColor="#FFFFFF"
+                    android:textColor="#7070A8"
+                    android:textSize="9sp" />
+
+                <TextView
+                    android:id="@+id/tvDuration"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif-medium"
+                    android:text="0:00"
+                    android:textColor="#1A2480"
+                    android:textSize="16sp"
                     android:textStyle="bold" />
             </LinearLayout>
 
-            <TextView
-                android:id="@+id/tvSessionStatusLabel"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:text="SESSION STATUS"
-                android:textAllCaps="true"
-                android:textColor="#2E64F5"
-                android:textSize="13sp"
-                android:textStyle="bold" />
-
+            <!-- Samples -->
             <LinearLayout
-                android:id="@+id/boxSessionStatus"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:background="#E8E8ED"
+                android:layout_weight="1"
+                android:layout_marginStart="4dp"
+                android:layout_marginEnd="4dp"
+                android:background="@drawable/bg_stat_chip"
+                android:gravity="center"
                 android:orientation="vertical"
-                android:padding="16dp">
+                android:padding="8dp">
 
                 <TextView
-                    android:id="@+id/tvSessionState"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="State: Idle"
-                    android:textColor="#111111"
-                    android:textSize="18sp"
+                    android:letterSpacing="0.08"
+                    android:text="SAMPLES"
+                    android:textAllCaps="true"
+                    android:textColor="#7070A8"
+                    android:textSize="9sp" />
+
+                <TextView
+                    android:id="@+id/tvSamples"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif-medium"
+                    android:text="0"
+                    android:textColor="#1A2480"
+                    android:textSize="16sp"
                     android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/tvSessionTimer"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:text="Duration: 00:00"
-                    android:textColor="#333333"
-                    android:textSize="16sp" />
-
-                <TextView
-                    android:id="@+id/tvSessionFile"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:text="Output File: --"
-                    android:textColor="#333333"
-                    android:textSize="16sp" />
             </LinearLayout>
 
-            <TextView
-                android:id="@+id/tvResultTitle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:text="LIVE RECOGNITION"
-                android:textAllCaps="true"
-                android:textColor="#2E64F5"
-                android:textSize="13sp"
-                android:textStyle="bold" />
-
+            <!-- Events -->
             <LinearLayout
-                android:id="@+id/boxRecognitionResult"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:background="#E8E8ED"
+                android:layout_weight="1"
+                android:layout_marginStart="4dp"
+                android:background="@drawable/bg_stat_chip"
+                android:gravity="center"
                 android:orientation="vertical"
-                android:padding="16dp">
+                android:padding="8dp">
 
                 <TextView
-                    android:id="@+id/tvLivePrediction"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Prediction: Idle"
-                    android:textColor="#111111"
-                    android:textSize="18sp"
+                    android:letterSpacing="0.08"
+                    android:text="EVENTS"
+                    android:textAllCaps="true"
+                    android:textColor="#7070A8"
+                    android:textSize="9sp" />
+
+                <TextView
+                    android:id="@+id/tvEvents"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif-medium"
+                    android:text="0"
+                    android:textColor="#1A2480"
+                    android:textSize="16sp"
                     android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/tvLiveScore"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:text="Score: --"
-                    android:textColor="#333333"
-                    android:textSize="16sp" />
-
-                <TextView
-                    android:id="@+id/tvLiveHint"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:text="Waiting for recognition session to start."
-                    android:textColor="#666666"
-                    android:textSize="15sp" />
             </LinearLayout>
+        </LinearLayout>
+
+        <!-- ══════════════════════════════════════════════════════════════ -->
+        <!-- Chart section label                                            -->
+        <!-- ══════════════════════════════════════════════════════════════ -->
+        <TextView
+            android:id="@+id/tvChartLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="6dp"
+            android:layout_marginStart="2dp"
+            android:fontFamily="sans-serif-medium"
+            android:letterSpacing="0.12"
+            android:text="ACCELEROMETER"
+            android:textAllCaps="true"
+            android:textColor="#3B5BF7"
+            android:textSize="10sp" />
+
+        <!-- ══════════════════════════════════════════════════════════════ -->
+        <!-- Chart card                                                     -->
+        <!-- ══════════════════════════════════════════════════════════════ -->
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            app:cardBackgroundColor="#FFFFFF"
+            app:cardCornerRadius="16dp"
+            app:cardElevation="2dp">
 
             <LinearLayout
-                android:id="@+id/layoutActions"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:gravity="end"
-                android:orientation="horizontal">
+                android:orientation="vertical"
+                android:padding="12dp">
 
-                <Button
-                    android:id="@+id/btnClear"
+                <!-- Tab row: ACC / GYRO / ALL -->
+                <LinearLayout
                     android:layout_width="wrap_content"
-                    android:layout_height="42dp"
-                    android:layout_marginEnd="10dp"
-                    android:backgroundTint="#D97A7A"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/tabAcc"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="8dp"
+                        android:background="@drawable/bg_tab_active"
+                        android:fontFamily="sans-serif-medium"
+                        android:letterSpacing="0.06"
+                        android:paddingStart="12dp"
+                        android:paddingEnd="12dp"
+                        android:paddingTop="4dp"
+                        android:paddingBottom="4dp"
+                        android:text="ACC"
+                        android:textColor="#FFFFFF"
+                        android:textSize="10sp" />
+
+                    <TextView
+                        android:id="@+id/tabGyro"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="8dp"
+                        android:background="@drawable/bg_tab_inactive"
+                        android:fontFamily="sans-serif-medium"
+                        android:letterSpacing="0.06"
+                        android:paddingStart="12dp"
+                        android:paddingEnd="12dp"
+                        android:paddingTop="4dp"
+                        android:paddingBottom="4dp"
+                        android:text="GYRO"
+                        android:textColor="#6B6B9A"
+                        android:textSize="10sp" />
+
+                    <TextView
+                        android:id="@+id/tabAll"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/bg_tab_inactive"
+                        android:fontFamily="sans-serif-medium"
+                        android:letterSpacing="0.06"
+                        android:paddingStart="12dp"
+                        android:paddingEnd="12dp"
+                        android:paddingTop="4dp"
+                        android:paddingBottom="4dp"
+                        android:text="ALL"
+                        android:textColor="#6B6B9A"
+                        android:textSize="10sp" />
+                </LinearLayout>
+
+                <!-- Live scrolling chart (custom canvas view) -->
+                <com.example.motionwatch.LiveChartView
+                    android:id="@+id/liveChart"
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp" />
+
+                <!-- ── ACC axis pills ─────────────────────────────────── -->
+                <!-- Visible when ACC or ALL tab is active                 -->
+                <LinearLayout
+                    android:id="@+id/pillsAcc"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:orientation="horizontal">
+
+                    <!-- AX — blue -->
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="6dp"
+                        android:background="@drawable/bg_axis_pill"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:paddingStart="8dp"
+                        android:paddingEnd="8dp"
+                        android:paddingTop="4dp"
+                        android:paddingBottom="4dp">
+
+                        <View
+                            android:layout_width="7dp"
+                            android:layout_height="7dp"
+                            android:layout_marginEnd="4dp"
+                            android:background="@drawable/bg_dot_axis"
+                            android:backgroundTint="#4A6CF7" />
+
+                        <TextView
+                            android:id="@+id/tvAX"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="monospace"
+                            android:text="X: --"
+                            android:textColor="#3A3A6A"
+                            android:textSize="10sp" />
+                    </LinearLayout>
+
+                    <!-- AY — green -->
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="6dp"
+                        android:background="@drawable/bg_axis_pill"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:paddingStart="8dp"
+                        android:paddingEnd="8dp"
+                        android:paddingTop="4dp"
+                        android:paddingBottom="4dp">
+
+                        <View
+                            android:layout_width="7dp"
+                            android:layout_height="7dp"
+                            android:layout_marginEnd="4dp"
+                            android:background="@drawable/bg_dot_axis"
+                            android:backgroundTint="#66BB6A" />
+
+                        <TextView
+                            android:id="@+id/tvAY"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="monospace"
+                            android:text="Y: --"
+                            android:textColor="#3A3A6A"
+                            android:textSize="10sp" />
+                    </LinearLayout>
+
+                    <!-- AZ — orange -->
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/bg_axis_pill"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:paddingStart="8dp"
+                        android:paddingEnd="8dp"
+                        android:paddingTop="4dp"
+                        android:paddingBottom="4dp">
+
+                        <View
+                            android:layout_width="7dp"
+                            android:layout_height="7dp"
+                            android:layout_marginEnd="4dp"
+                            android:background="@drawable/bg_dot_axis"
+                            android:backgroundTint="#FFA726" />
+
+                        <TextView
+                            android:id="@+id/tvAZ"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="monospace"
+                            android:text="Z: --"
+                            android:textColor="#3A3A6A"
+                            android:textSize="10sp" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <!-- ── GYRO axis pills ────────────────────────────────── -->
+                <!-- Visible when GYRO or ALL tab is active                -->
+                <LinearLayout
+                    android:id="@+id/pillsGyro"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    android:orientation="horizontal"
+                    android:visibility="gone"
+                    tools:visibility="visible">
+
+                    <!-- GX — red -->
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="6dp"
+                        android:background="@drawable/bg_axis_pill"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:paddingStart="8dp"
+                        android:paddingEnd="8dp"
+                        android:paddingTop="4dp"
+                        android:paddingBottom="4dp">
+
+                        <View
+                            android:layout_width="7dp"
+                            android:layout_height="7dp"
+                            android:layout_marginEnd="4dp"
+                            android:background="@drawable/bg_dot_axis"
+                            android:backgroundTint="#EF5350" />
+
+                        <TextView
+                            android:id="@+id/tvGX"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="monospace"
+                            android:text="GX: --"
+                            android:textColor="#3A3A6A"
+                            android:textSize="10sp" />
+                    </LinearLayout>
+
+                    <!-- GY — purple -->
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="6dp"
+                        android:background="@drawable/bg_axis_pill"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:paddingStart="8dp"
+                        android:paddingEnd="8dp"
+                        android:paddingTop="4dp"
+                        android:paddingBottom="4dp">
+
+                        <View
+                            android:layout_width="7dp"
+                            android:layout_height="7dp"
+                            android:layout_marginEnd="4dp"
+                            android:background="@drawable/bg_dot_axis"
+                            android:backgroundTint="#AB47BC" />
+
+                        <TextView
+                            android:id="@+id/tvGY"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="monospace"
+                            android:text="GY: --"
+                            android:textColor="#3A3A6A"
+                            android:textSize="10sp" />
+                    </LinearLayout>
+
+                    <!-- GZ — cyan -->
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/bg_axis_pill"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:paddingStart="8dp"
+                        android:paddingEnd="8dp"
+                        android:paddingTop="4dp"
+                        android:paddingBottom="4dp">
+
+                        <View
+                            android:layout_width="7dp"
+                            android:layout_height="7dp"
+                            android:layout_marginEnd="4dp"
+                            android:background="@drawable/bg_dot_axis"
+                            android:backgroundTint="#26C6DA" />
+
+                        <TextView
+                            android:id="@+id/tvGZ"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="monospace"
+                            android:text="GZ: --"
+                            android:textColor="#3A3A6A"
+                            android:textSize="10sp" />
+                    </LinearLayout>
+                </LinearLayout>
+
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <!-- ══════════════════════════════════════════════════════════════ -->
+        <!-- Controls row: Start/Stop + Clear                               -->
+        <!-- ══════════════════════════════════════════════════════════════ -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/btnStartStop"
+                android:layout_width="0dp"
+                android:layout_height="44dp"
+                android:layout_weight="1"
+                android:layout_marginEnd="8dp"
+                android:background="@drawable/bg_btn_start"
+                android:fontFamily="sans-serif-medium"
+                android:letterSpacing="0.06"
+                android:text="▶  START SESSION"
+                android:textAllCaps="true"
+                android:textColor="#FFFFFF"
+                android:textSize="12sp" />
+
+            <!-- Clear button: proper label so it is always identifiable -->
+            <LinearLayout
+                android:id="@+id/btnClear"
+                android:layout_width="80dp"
+                android:layout_height="44dp"
+                android:background="@drawable/bg_btn_clear"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:clickable="true"
+                android:focusable="true">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="↺"
+                    android:textColor="#4A4A8A"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif-medium"
+                    android:letterSpacing="0.06"
                     android:text="CLEAR"
-                    android:textColor="#FFFFFF"
-                    android:textStyle="bold" />
-
-                <Button
-                    android:id="@+id/btnSaveCsv"
-                    android:layout_width="wrap_content"
-                    android:layout_height="42dp"
-                    android:enabled="false"
-                    android:backgroundTint="#B0B7C3"
-                    android:text="SAVE CSV"
-                    android:textColor="#FFFFFF"
-                    android:textStyle="bold" />
-
-                <Button
-                    android:id="@+id/btnShareCsv"
-                    android:layout_width="wrap_content"
-                    android:layout_height="42dp"
-                    android:layout_marginStart="10dp"
-                    android:enabled="false"
-                    android:backgroundTint="#B0B7C3"
-                    android:text="SHARE"
-                    android:textColor="#FFFFFF"
-                    android:textStyle="bold" />
+                    android:textAllCaps="true"
+                    android:textColor="#4A4A8A"
+                    android:textSize="8sp" />
             </LinearLayout>
+        </LinearLayout>
+
+        <!-- ══════════════════════════════════════════════════════════════ -->
+        <!-- Export row: CSV + Summary                                      -->
+        <!-- Both disabled + translucent until state == ENDED              -->
+        <!-- ══════════════════════════════════════════════════════════════ -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/btnExportCsv"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_weight="1"
+                android:layout_marginEnd="8dp"
+                android:alpha="0.4"
+                android:background="@drawable/bg_btn_export"
+                android:enabled="false"
+                android:fontFamily="sans-serif-medium"
+                android:letterSpacing="0.05"
+                android:text="↓  Export CSV"
+                android:textColor="#2A3FBF"
+                android:textSize="11sp" />
+
+            <Button
+                android:id="@+id/btnSummary"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_weight="1"
+                android:alpha="0.4"
+                android:background="@drawable/bg_btn_export"
+                android:enabled="false"
+                android:fontFamily="sans-serif-medium"
+                android:letterSpacing="0.05"
+                android:text="⊞  Summary"
+                android:textColor="#2A3FBF"
+                android:textSize="11sp" />
         </LinearLayout>
 
     </LinearLayout>
-</ScrollView>
+</androidx.core.widget.NestedScrollView>
