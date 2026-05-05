@@ -1,20 +1,685 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<!--
+    fragment_analytics.xml
+    Live Monitor section — UR-L1 through UR-L6.
+    Place in: app/src/main/res/layout/fragment_analytics.xml
+-->
+<androidx.core.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/scrollRoot"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F8FAFC">
+    android:background="#F3F2FF"
+    android:fillViewport="true"
+    android:scrollbars="none">
 
-    <TextView
-        android:id="@+id/tv_no_data"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="No data available yet"
-        android:textColor="#94A3B8"
-        android:textSize="16sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:orientation="vertical"
+        android:padding="16dp"
+        android:paddingBottom="24dp">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <!-- ══ Page heading row ══════════════════════════════════════════════ -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:layout_marginBottom="10dp">
+
+            <TextView
+                android:id="@+id/tvPageTitle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="sans-serif-medium"
+                android:text="Live Monitor"
+                android:textColor="#1A1A3E"
+                android:textSize="22sp"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:id="@+id/statusBadge"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_badge_idle"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+                android:paddingTop="4dp"
+                android:paddingBottom="4dp">
+
+                <View
+                    android:id="@+id/statusDot"
+                    android:layout_width="7dp"
+                    android:layout_height="7dp"
+                    android:layout_marginEnd="5dp"
+                    android:background="@drawable/bg_dot_idle" />
+
+                <TextView
+                    android:id="@+id/tvStatus"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif-medium"
+                    android:letterSpacing="0.08"
+                    android:text="IDLE"
+                    android:textColor="#757575"
+                    android:textSize="10sp" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- ══ Prediction card ═══════════════════════════════════════════════ -->
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardPrediction"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            app:cardBackgroundColor="#E4E8FF"
+            app:cardCornerRadius="16dp"
+            app:cardElevation="0dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="14dp">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="sans-serif-medium"
+                        android:letterSpacing="0.1"
+                        android:text="CURRENT MOTION"
+                        android:textAllCaps="true"
+                        android:textColor="#6B6B9A"
+                        android:textSize="10sp" />
+
+                    <TextView
+                        android:id="@+id/tvPrediction"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="sans-serif-medium"
+                        android:letterSpacing="-0.02"
+                        android:text="Waiting…"
+                        android:textColor="#9090C0"
+                        android:textSize="26sp"
+                        android:textStyle="bold"
+                        tools:text="TREMOR" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="end"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="sans-serif-medium"
+                        android:letterSpacing="0.08"
+                        android:text="CONFIDENCE"
+                        android:textAllCaps="true"
+                        android:textColor="#8888BB"
+                        android:textSize="9sp" />
+
+                    <TextView
+                        android:id="@+id/tvConfidence"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="end"
+                        android:fontFamily="sans-serif-medium"
+                        android:text="--%"
+                        android:textColor="#9090C0"
+                        android:textSize="20sp"
+                        android:textStyle="bold"
+                        tools:text="87%" />
+
+                    <FrameLayout
+                        android:layout_width="80dp"
+                        android:layout_height="6dp"
+                        android:layout_marginTop="4dp"
+                        android:background="@drawable/bg_conf_bar_track">
+
+                        <View
+                            android:id="@+id/confBarFill"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/bg_conf_bar_fill" />
+                    </FrameLayout>
+                </LinearLayout>
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <!-- ══ Session stats row ════════════════════════════════════════════ -->
+        <LinearLayout
+            android:id="@+id/sessionStatsRow"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:orientation="horizontal"
+            android:visibility="gone"
+            tools:visibility="visible">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginEnd="4dp"
+                android:background="@drawable/bg_stat_chip"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:padding="8dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:letterSpacing="0.08"
+                    android:text="DURATION"
+                    android:textAllCaps="true"
+                    android:textColor="#7070A8"
+                    android:textSize="9sp" />
+
+                <TextView
+                    android:id="@+id/tvDuration"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif-medium"
+                    android:text="0:00"
+                    android:textColor="#1A2480"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginStart="4dp"
+                android:layout_marginEnd="4dp"
+                android:background="@drawable/bg_stat_chip"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:padding="8dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:letterSpacing="0.08"
+                    android:text="SAMPLES"
+                    android:textAllCaps="true"
+                    android:textColor="#7070A8"
+                    android:textSize="9sp" />
+
+                <TextView
+                    android:id="@+id/tvSamples"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif-medium"
+                    android:text="0"
+                    android:textColor="#1A2480"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginStart="4dp"
+                android:background="@drawable/bg_stat_chip"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:padding="8dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:letterSpacing="0.08"
+                    android:text="EVENTS"
+                    android:textAllCaps="true"
+                    android:textColor="#7070A8"
+                    android:textSize="9sp" />
+
+                <TextView
+                    android:id="@+id/tvEvents"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif-medium"
+                    android:text="0"
+                    android:textColor="#1A2480"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- ══ Chart section label ══════════════════════════════════════════ -->
+        <TextView
+            android:id="@+id/tvChartLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="6dp"
+            android:layout_marginStart="2dp"
+            android:fontFamily="sans-serif-medium"
+            android:letterSpacing="0.12"
+            android:text="ACCELEROMETER"
+            android:textAllCaps="true"
+            android:textColor="#3B5BF7"
+            android:textSize="10sp" />
+
+        <!-- ══ Chart card ════════════════════════════════════════════════════ -->
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            app:cardBackgroundColor="#FFFFFF"
+            app:cardCornerRadius="16dp"
+            app:cardElevation="2dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="12dp">
+
+                <!-- ── Tab row: ACC / GYRO / ALL / WACC / WGYRO ─────────── -->
+                <!-- Horizontally scrollable so the row never wraps on small screens -->
+                <HorizontalScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:scrollbars="none">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/tabAcc"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="8dp"
+                            android:background="@drawable/bg_tab_active"
+                            android:fontFamily="sans-serif-medium"
+                            android:letterSpacing="0.06"
+                            android:paddingStart="12dp"
+                            android:paddingEnd="12dp"
+                            android:paddingTop="4dp"
+                            android:paddingBottom="4dp"
+                            android:text="ACC"
+                            android:textColor="#FFFFFF"
+                            android:textSize="10sp" />
+
+                        <TextView
+                            android:id="@+id/tabGyro"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="8dp"
+                            android:background="@drawable/bg_tab_inactive"
+                            android:fontFamily="sans-serif-medium"
+                            android:letterSpacing="0.06"
+                            android:paddingStart="12dp"
+                            android:paddingEnd="12dp"
+                            android:paddingTop="4dp"
+                            android:paddingBottom="4dp"
+                            android:text="GYRO"
+                            android:textColor="#6B6B9A"
+                            android:textSize="10sp" />
+
+                        <TextView
+                            android:id="@+id/tabAll"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="8dp"
+                            android:background="@drawable/bg_tab_inactive"
+                            android:fontFamily="sans-serif-medium"
+                            android:letterSpacing="0.06"
+                            android:paddingStart="12dp"
+                            android:paddingEnd="12dp"
+                            android:paddingTop="4dp"
+                            android:paddingBottom="4dp"
+                            android:text="ALL"
+                            android:textColor="#6B6B9A"
+                            android:textSize="10sp" />
+
+                        <!-- Divider between phone and watch tabs -->
+                        <View
+                            android:layout_width="1dp"
+                            android:layout_height="match_parent"
+                            android:layout_marginEnd="8dp"
+                            android:background="#DDDDF7" />
+
+                        <TextView
+                            android:id="@+id/tabWAcc"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="8dp"
+                            android:background="@drawable/bg_tab_inactive"
+                            android:fontFamily="sans-serif-medium"
+                            android:letterSpacing="0.06"
+                            android:paddingStart="12dp"
+                            android:paddingEnd="12dp"
+                            android:paddingTop="4dp"
+                            android:paddingBottom="4dp"
+                            android:text="WACC"
+                            android:textColor="#6B6B9A"
+                            android:textSize="10sp" />
+
+                        <TextView
+                            android:id="@+id/tabWGyro"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/bg_tab_inactive"
+                            android:fontFamily="sans-serif-medium"
+                            android:letterSpacing="0.06"
+                            android:paddingStart="12dp"
+                            android:paddingEnd="12dp"
+                            android:paddingTop="4dp"
+                            android:paddingBottom="4dp"
+                            android:text="WGYRO"
+                            android:textColor="#6B6B9A"
+                            android:textSize="10sp" />
+                    </LinearLayout>
+                </HorizontalScrollView>
+
+                <!-- Live chart -->
+                <com.example.motionwatch.LiveChartView
+                    android:id="@+id/liveChart"
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp" />
+
+                <!-- ── Phone ACC pills (ACC / ALL tabs) ──────────────────── -->
+                <LinearLayout
+                    android:id="@+id/pillsAcc"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:orientation="horizontal">
+
+                    <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content"
+                        android:layout_marginEnd="6dp" android:background="@drawable/bg_axis_pill"
+                        android:gravity="center_vertical" android:orientation="horizontal"
+                        android:paddingStart="8dp" android:paddingEnd="8dp"
+                        android:paddingTop="4dp" android:paddingBottom="4dp">
+                        <View android:layout_width="7dp" android:layout_height="7dp"
+                            android:layout_marginEnd="4dp" android:background="@drawable/bg_dot_axis"
+                            android:backgroundTint="#4A6CF7" />
+                        <TextView android:id="@+id/tvAX" android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" android:fontFamily="monospace"
+                            android:text="X: --" android:textColor="#3A3A6A" android:textSize="10sp" />
+                    </LinearLayout>
+
+                    <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content"
+                        android:layout_marginEnd="6dp" android:background="@drawable/bg_axis_pill"
+                        android:gravity="center_vertical" android:orientation="horizontal"
+                        android:paddingStart="8dp" android:paddingEnd="8dp"
+                        android:paddingTop="4dp" android:paddingBottom="4dp">
+                        <View android:layout_width="7dp" android:layout_height="7dp"
+                            android:layout_marginEnd="4dp" android:background="@drawable/bg_dot_axis"
+                            android:backgroundTint="#66BB6A" />
+                        <TextView android:id="@+id/tvAY" android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" android:fontFamily="monospace"
+                            android:text="Y: --" android:textColor="#3A3A6A" android:textSize="10sp" />
+                    </LinearLayout>
+
+                    <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content"
+                        android:background="@drawable/bg_axis_pill" android:gravity="center_vertical"
+                        android:orientation="horizontal" android:paddingStart="8dp"
+                        android:paddingEnd="8dp" android:paddingTop="4dp" android:paddingBottom="4dp">
+                        <View android:layout_width="7dp" android:layout_height="7dp"
+                            android:layout_marginEnd="4dp" android:background="@drawable/bg_dot_axis"
+                            android:backgroundTint="#FFA726" />
+                        <TextView android:id="@+id/tvAZ" android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" android:fontFamily="monospace"
+                            android:text="Z: --" android:textColor="#3A3A6A" android:textSize="10sp" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <!-- ── Phone GYRO pills (GYRO / ALL tabs) ───────────────── -->
+                <LinearLayout
+                    android:id="@+id/pillsGyro"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    android:orientation="horizontal"
+                    android:visibility="gone"
+                    tools:visibility="visible">
+
+                    <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content"
+                        android:layout_marginEnd="6dp" android:background="@drawable/bg_axis_pill"
+                        android:gravity="center_vertical" android:orientation="horizontal"
+                        android:paddingStart="8dp" android:paddingEnd="8dp"
+                        android:paddingTop="4dp" android:paddingBottom="4dp">
+                        <View android:layout_width="7dp" android:layout_height="7dp"
+                            android:layout_marginEnd="4dp" android:background="@drawable/bg_dot_axis"
+                            android:backgroundTint="#EF5350" />
+                        <TextView android:id="@+id/tvGX" android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" android:fontFamily="monospace"
+                            android:text="GX: --" android:textColor="#3A3A6A" android:textSize="10sp" />
+                    </LinearLayout>
+
+                    <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content"
+                        android:layout_marginEnd="6dp" android:background="@drawable/bg_axis_pill"
+                        android:gravity="center_vertical" android:orientation="horizontal"
+                        android:paddingStart="8dp" android:paddingEnd="8dp"
+                        android:paddingTop="4dp" android:paddingBottom="4dp">
+                        <View android:layout_width="7dp" android:layout_height="7dp"
+                            android:layout_marginEnd="4dp" android:background="@drawable/bg_dot_axis"
+                            android:backgroundTint="#AB47BC" />
+                        <TextView android:id="@+id/tvGY" android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" android:fontFamily="monospace"
+                            android:text="GY: --" android:textColor="#3A3A6A" android:textSize="10sp" />
+                    </LinearLayout>
+
+                    <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content"
+                        android:background="@drawable/bg_axis_pill" android:gravity="center_vertical"
+                        android:orientation="horizontal" android:paddingStart="8dp"
+                        android:paddingEnd="8dp" android:paddingTop="4dp" android:paddingBottom="4dp">
+                        <View android:layout_width="7dp" android:layout_height="7dp"
+                            android:layout_marginEnd="4dp" android:background="@drawable/bg_dot_axis"
+                            android:backgroundTint="#26C6DA" />
+                        <TextView android:id="@+id/tvGZ" android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" android:fontFamily="monospace"
+                            android:text="GZ: --" android:textColor="#3A3A6A" android:textSize="10sp" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <!-- ── Watch WACC pills (WACC tab) — deep-orange dots ───── -->
+                <LinearLayout
+                    android:id="@+id/pillsWAcc"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:orientation="horizontal"
+                    android:visibility="gone">
+
+                    <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content"
+                        android:layout_marginEnd="6dp" android:background="@drawable/bg_axis_pill"
+                        android:gravity="center_vertical" android:orientation="horizontal"
+                        android:paddingStart="8dp" android:paddingEnd="8dp"
+                        android:paddingTop="4dp" android:paddingBottom="4dp">
+                        <View android:layout_width="7dp" android:layout_height="7dp"
+                            android:layout_marginEnd="4dp" android:background="@drawable/bg_dot_axis"
+                            android:backgroundTint="#FF7043" />
+                        <TextView android:id="@+id/tvWAX" android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" android:fontFamily="monospace"
+                            android:text="WX: --" android:textColor="#3A3A6A" android:textSize="10sp" />
+                    </LinearLayout>
+
+                    <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content"
+                        android:layout_marginEnd="6dp" android:background="@drawable/bg_axis_pill"
+                        android:gravity="center_vertical" android:orientation="horizontal"
+                        android:paddingStart="8dp" android:paddingEnd="8dp"
+                        android:paddingTop="4dp" android:paddingBottom="4dp">
+                        <View android:layout_width="7dp" android:layout_height="7dp"
+                            android:layout_marginEnd="4dp" android:background="@drawable/bg_dot_axis"
+                            android:backgroundTint="#FF8A65" />
+                        <TextView android:id="@+id/tvWAY" android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" android:fontFamily="monospace"
+                            android:text="WY: --" android:textColor="#3A3A6A" android:textSize="10sp" />
+                    </LinearLayout>
+
+                    <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content"
+                        android:background="@drawable/bg_axis_pill" android:gravity="center_vertical"
+                        android:orientation="horizontal" android:paddingStart="8dp"
+                        android:paddingEnd="8dp" android:paddingTop="4dp" android:paddingBottom="4dp">
+                        <View android:layout_width="7dp" android:layout_height="7dp"
+                            android:layout_marginEnd="4dp" android:background="@drawable/bg_dot_axis"
+                            android:backgroundTint="#FFAB91" />
+                        <TextView android:id="@+id/tvWAZ" android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" android:fontFamily="monospace"
+                            android:text="WZ: --" android:textColor="#3A3A6A" android:textSize="10sp" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <!-- ── Watch WGYRO pills (WGYRO tab) ─────────────────────── -->
+                <LinearLayout
+                    android:id="@+id/pillsWGyro"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:orientation="horizontal"
+                    android:visibility="gone">
+
+                    <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content"
+                        android:layout_marginEnd="6dp" android:background="@drawable/bg_axis_pill"
+                        android:gravity="center_vertical" android:orientation="horizontal"
+                        android:paddingStart="8dp" android:paddingEnd="8dp"
+                        android:paddingTop="4dp" android:paddingBottom="4dp">
+                        <View android:layout_width="7dp" android:layout_height="7dp"
+                            android:layout_marginEnd="4dp" android:background="@drawable/bg_dot_axis"
+                            android:backgroundTint="#F4511E" />
+                        <TextView android:id="@+id/tvWGX" android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" android:fontFamily="monospace"
+                            android:text="WGX: --" android:textColor="#3A3A6A" android:textSize="10sp" />
+                    </LinearLayout>
+
+                    <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content"
+                        android:layout_marginEnd="6dp" android:background="@drawable/bg_axis_pill"
+                        android:gravity="center_vertical" android:orientation="horizontal"
+                        android:paddingStart="8dp" android:paddingEnd="8dp"
+                        android:paddingTop="4dp" android:paddingBottom="4dp">
+                        <View android:layout_width="7dp" android:layout_height="7dp"
+                            android:layout_marginEnd="4dp" android:background="@drawable/bg_dot_axis"
+                            android:backgroundTint="#BF360C" />
+                        <TextView android:id="@+id/tvWGY" android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" android:fontFamily="monospace"
+                            android:text="WGY: --" android:textColor="#3A3A6A" android:textSize="10sp" />
+                    </LinearLayout>
+
+                    <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content"
+                        android:background="@drawable/bg_axis_pill" android:gravity="center_vertical"
+                        android:orientation="horizontal" android:paddingStart="8dp"
+                        android:paddingEnd="8dp" android:paddingTop="4dp" android:paddingBottom="4dp">
+                        <View android:layout_width="7dp" android:layout_height="7dp"
+                            android:layout_marginEnd="4dp" android:background="@drawable/bg_dot_axis"
+                            android:backgroundTint="#E64A19" />
+                        <TextView android:id="@+id/tvWGZ" android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" android:fontFamily="monospace"
+                            android:text="WGZ: --" android:textColor="#3A3A6A" android:textSize="10sp" />
+                    </LinearLayout>
+                </LinearLayout>
+
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <!-- ══ Controls row: Start/Stop + Clear ═════════════════════════════ -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/btnStartStop"
+                android:layout_width="0dp"
+                android:layout_height="44dp"
+                android:layout_weight="1"
+                android:layout_marginEnd="8dp"
+                android:background="@drawable/bg_btn_start"
+                android:fontFamily="sans-serif-medium"
+                android:letterSpacing="0.06"
+                android:text="▶  START SESSION"
+                android:textAllCaps="true"
+                android:textColor="#FFFFFF"
+                android:textSize="12sp" />
+
+            <LinearLayout
+                android:id="@+id/btnClear"
+                android:layout_width="80dp"
+                android:layout_height="44dp"
+                android:background="@drawable/bg_btn_clear"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:clickable="true"
+                android:focusable="true">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="↺"
+                    android:textColor="#4A4A8A"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif-medium"
+                    android:letterSpacing="0.06"
+                    android:text="CLEAR"
+                    android:textAllCaps="true"
+                    android:textColor="#4A4A8A"
+                    android:textSize="8sp" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- ══ Export row ═══════════════════════════════════════════════════ -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/btnExportCsv"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_weight="1"
+                android:layout_marginEnd="8dp"
+                android:alpha="0.4"
+                android:background="@drawable/bg_btn_export"
+                android:enabled="false"
+                android:fontFamily="sans-serif-medium"
+                android:letterSpacing="0.05"
+                android:text="↓  Export CSV"
+                android:textColor="#2A3FBF"
+                android:textSize="11sp" />
+
+            <Button
+                android:id="@+id/btnSummary"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_weight="1"
+                android:alpha="0.4"
+                android:background="@drawable/bg_btn_export"
+                android:enabled="false"
+                android:fontFamily="sans-serif-medium"
+                android:letterSpacing="0.05"
+                android:text="⊞  Summary"
+                android:textColor="#2A3FBF"
+                android:textSize="11sp" />
+        </LinearLayout>
+
+    </LinearLayout>
+</androidx.core.widget.NestedScrollView>
