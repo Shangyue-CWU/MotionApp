@@ -254,10 +254,10 @@ class SensorService : Service(), SensorEventListener {
         writer = null
         serviceScope.cancel()
 
-        // File transfer only in Home mode — Live mode already streamed data
-        if (!isLiveMode) {
-            currentLogFile?.takeIf { it.exists() }?.let { sendFileToPhone(it, sessionId.ifBlank { "unknown" }) }
-        }
+        // Send the CSV file to the phone regardless of mode.
+        // Home mode: full-resolution recording. Live mode: same data that was
+        // streamed at 10 Hz, but now at full 50 Hz resolution from the buffer.
+        currentLogFile?.takeIf { it.exists() }?.let { sendFileToPhone(it, sessionId.ifBlank { "unknown" }) }
 
         stopForeground(STOP_FOREGROUND_REMOVE)
         super.onDestroy()

@@ -26,68 +26,57 @@ import java.util.Locale;
 
 public class SensorLoggerService extends Service implements SensorEventListener {
 
-    public static final String ACTION_START = "com.example.motionwatch.action.START";
-    public static final String ACTION_STOP  = "com.example.motionwatch.action.STOP";
-
-    public static final String ACTION_LOG_DONE = "com.example.motionwatch.LOG_DONE";
-
-    // Live UI updates + state
-    public static final String ACTION_LOG_STATE = "com.example.motionwatch.LOG_STATE";
+    public static final String ACTION_START      = "com.example.motionwatch.action.START";
+    public static final String ACTION_STOP       = "com.example.motionwatch.action.STOP";
+    public static final String ACTION_LOG_DONE   = "com.example.motionwatch.LOG_DONE";
+    public static final String ACTION_LOG_STATE  = "com.example.motionwatch.LOG_STATE";
     public static final String ACTION_LIVE_SAMPLE = "com.example.motionwatch.LIVE_SAMPLE";
 
-    private static final String TAG = "PhoneLogger";
-
-    private static final int NOTIF_ID = 1;
+    private static final String TAG         = "PhoneLogger";
+    private static final int    NOTIF_ID    = 1;
     private static final String NOTIF_CH_ID = "logger";
 
-    // Keep both sensors at the same requested rate
-    // 10,000 us = 10 ms ≈ 100 Hz
-    private static final int SAMPLING_PERIOD_US = 10_000;
+    // 20,000 us = 20 ms = 50 Hz — matches watch SensorService and roadmap target
+    private static final int SAMPLING_PERIOD_US = 20_000;
 
-    private SensorManager sensorManager;
-    private Sensor acc, gyro;
+    private SensorManager  sensorManager;
+    private Sensor         acc, gyro;
     private BufferedWriter writer;
 
-    private String label = "unlabeled";
+    private String label     = "unlabeled";
     private String sessionId = "unknown";
 
-    // epoch_ms = bootToEpochOffsetMs + (event.timestamp / 1e6)
-    private long bootToEpochOffsetMs;
+    private long    bootToEpochOffsetMs;
+    private long    startEpochMs = 0;
+    private boolean running      = false;
+    private boolean stopping     = false;
 
-    private long startEpochMs = 0;
-    private boolean running = false;
-    private boolean stopping = false;
-
-    // stats for summary
-    private long accN = 0, gyroN = 0;
+    // Stats for SUMMARY footer
+    private long   accN = 0, gyroN = 0;
     private double accSx = 0, accSy = 0, accSz = 0;
     private double gyrSx = 0, gyrSy = 0, gyrSz = 0;
 
-    // Latest samples (so every row can include both ACC and GYRO)
+    // Latest sensor values — every ACC row includes nearest GYRO latch
     private float lastAx = Float.NaN, lastAy = Float.NaN, lastAz = Float.NaN;
     private float lastGx = Float.NaN, lastGy = Float.NaN, lastGz = Float.NaN;
 
-    // Reference to the CSV file currently being written — used to pass the
-    // file path to AnalyticsFragment via the LOG_DONE broadcast so it can
-    // offer the user a CSV export after the session ends.
-    private File csvFile = null;
-
-    // Throttle UI broadcasts (don’t spam UI at 200Hz)
-    private int uiEveryN = 5;
+    // Throttle UI broadcasts — every 5th ACC event at 50 Hz = ~10 Hz to UI
+    private final int uiEveryN = 5;
     private int uiCounter = 0;
+
+    // Absolute path of the CSV file; passed to AnalyticsFragment via LOG_DONE
+    private File csvFile = null;
 
     @Override public IBinder onBind(Intent intent) { return null; }
 
     @Override
     public void onCreate() {
         super.onCreate();
-
         sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
         if (sensorManager != null) {
-            acc = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+            acc  = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
             gyro = sensorManager.getDefaultSensor(Sensor.TYPE_GYROSCOPE);
         }
-
         bootToEpochOffsetMs = System.currentTimeMillis() - SystemClock.elapsedRealtime();
         Log.d(TAG, "onCreate() acc=" + (acc != null) + " gyro=" + (gyro != null));
     }
@@ -98,7 +87,7 @@ public class SensorLoggerService extends Service implements SensorEventListener 
 
         String action = intent.getAction();
         Log.d(TAG, "onStartCommand action=" + action
-                + " label=" + intent.getStringExtra("label")
+                + " label="     + intent.getStringExtra("label")
                 + " sessionId=" + intent.getStringExtra("sessionId"));
 
         if (ACTION_START.equals(action)) {
@@ -107,14 +96,12 @@ public class SensorLoggerService extends Service implements SensorEventListener 
                 return START_STICKY;
             }
 
-            sessionId = safe(intent.getStringExtra("sessionId"), "unknown");
-            label = safe(intent.getStringExtra("label"), "unlabeled");
+            sessionId    = safe(intent.getStringExtra("sessionId"), "unknown");
+            label        = safe(intent.getStringExtra("label"),     "unlabeled");
             startEpochMs = intent.getLongExtra("startEpochMs", System.currentTimeMillis());
 
-            // 1) foreground immediately
             startForeground(NOTIF_ID, buildNotification("Logging PHONE… (" + label + ")"));
 
-            // 2) init stats + file + sensors
             resetStats();
             resetLatestSamples();
             uiCounter = 0;
@@ -128,12 +115,10 @@ public class SensorLoggerService extends Service implements SensorEventListener 
             }
 
             registerSensors();
-            running = true;
+            running  = true;
             stopping = false;
 
-            // tell UI we started
             sendStateBroadcast(true);
-
             Log.d(TAG, "STARTED label=" + label + " sessionId=" + sessionId);
             return START_STICKY;
         }
@@ -147,20 +132,17 @@ public class SensorLoggerService extends Service implements SensorEventListener 
         return START_NOT_STICKY;
     }
 
-    // Register both sensors at the same sampling period (microseconds)
     private void registerSensors() {
         if (sensorManager == null) return;
-
         if (acc != null) {
             sensorManager.registerListener(this, acc, SAMPLING_PERIOD_US);
-            Log.d(TAG, "ACC registered @" + SAMPLING_PERIOD_US + "us");
+            Log.d(TAG, "ACC registered @" + SAMPLING_PERIOD_US + "us (50 Hz)");
         } else {
             Log.e(TAG, "ACC not available");
         }
-
         if (gyro != null) {
             sensorManager.registerListener(this, gyro, SAMPLING_PERIOD_US);
-            Log.d(TAG, "GYRO registered @" + SAMPLING_PERIOD_US + "us");
+            Log.d(TAG, "GYRO registered @" + SAMPLING_PERIOD_US + "us (50 Hz)");
         } else {
             Log.e(TAG, "GYRO not available");
         }
@@ -180,9 +162,15 @@ public class SensorLoggerService extends Service implements SensorEventListener 
         try {
             if (writer != null) {
                 writer.write("# SUMMARY,duration_ms=" + durationMs
-                        + ",accN=" + accN + ",gyroN=" + gyroN
-                        + ",accAvg=(" + (accN > 0 ? (accSx / accN) : 0) + "," + (accN > 0 ? (accSy / accN) : 0) + "," + (accN > 0 ? (accSz / accN) : 0) + ")"
-                        + ",gyroAvg=(" + (gyroN > 0 ? (gyrSx / gyroN) : 0) + "," + (gyroN > 0 ? (gyrSy / gyroN) : 0) + "," + (gyroN > 0 ? (gyrSz / gyroN) : 0) + ")"
+                        + ",accN="  + accN  + ",gyroN=" + gyroN
+                        + ",accAvg=("
+                        + (accN  > 0 ? (accSx / accN)  : 0) + ","
+                        + (accN  > 0 ? (accSy / accN)  : 0) + ","
+                        + (accN  > 0 ? (accSz / accN)  : 0) + ")"
+                        + ",gyroAvg=("
+                        + (gyroN > 0 ? (gyrSx / gyroN) : 0) + ","
+                        + (gyroN > 0 ? (gyrSy / gyroN) : 0) + ","
+                        + (gyroN > 0 ? (gyrSz / gyroN) : 0) + ")"
                         + "\n");
                 writer.flush();
                 writer.close();
@@ -195,24 +183,20 @@ public class SensorLoggerService extends Service implements SensorEventListener 
         try { stopForeground(true); } catch (Exception ignored) {}
         stopSelf();
 
-        // tell UI we stopped
         sendStateBroadcast(false);
 
-        // Broadcast summary for UI
         if (wasRunning) {
             Intent done = new Intent(ACTION_LOG_DONE);
             done.setPackage(getPackageName());
-            done.putExtra("sessionId", sessionId);
-            done.putExtra("label", label);
+            done.putExtra("sessionId",  sessionId);
+            done.putExtra("label",      label);
             done.putExtra("durationMs", durationMs);
-            done.putExtra("accAvgX", accN > 0 ? accSx / accN : 0);
-            done.putExtra("accAvgY", accN > 0 ? accSy / accN : 0);
-            done.putExtra("accAvgZ", accN > 0 ? accSz / accN : 0);
-            done.putExtra("gyrAvgX", gyroN > 0 ? gyrSx / gyroN : 0);
-            done.putExtra("gyrAvgY", gyroN > 0 ? gyrSy / gyroN : 0);
-            done.putExtra("gyrAvgZ", gyroN > 0 ? gyrSz / gyroN : 0);
-            // File path so AnalyticsFragment (Live section) can surface the CSV
-            // for export without needing to know the naming convention.
+            done.putExtra("accAvgX",  accN  > 0 ? accSx / accN  : 0);
+            done.putExtra("accAvgY",  accN  > 0 ? accSy / accN  : 0);
+            done.putExtra("accAvgZ",  accN  > 0 ? accSz / accN  : 0);
+            done.putExtra("gyrAvgX",  gyroN > 0 ? gyrSx / gyroN : 0);
+            done.putExtra("gyrAvgY",  gyroN > 0 ? gyrSy / gyroN : 0);
+            done.putExtra("gyrAvgZ",  gyroN > 0 ? gyrSz / gyroN : 0);
             done.putExtra("filePath", csvFile != null ? csvFile.getAbsolutePath() : "");
             sendBroadcast(done);
         }
@@ -227,14 +211,14 @@ public class SensorLoggerService extends Service implements SensorEventListener 
         File logsDir = new File(base, "logs");
         if (!logsDir.exists()) logsDir.mkdirs();
 
-        String ts = new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.US).format(new Date());
-        String safeLabel = safe(label, "unlabeled");
+        String ts          = new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.US).format(new Date());
+        String safeLabel   = safe(label,     "unlabeled");
         String safeSession = safe(sessionId, "unknown");
 
         String name = "SESSION_" + safeSession + "_PHONE_" + safeLabel + "_" + ts + ".csv";
         File file = new File(logsDir, name);
-
         csvFile = file;
+
         writer = new BufferedWriter(new FileWriter(file, false));
         writer.write("# epoch_ms,event_ts_ns,AX,AY,AZ,GX,GY,GZ,label,sessionID\n");
         writer.flush();
@@ -246,27 +230,21 @@ public class SensorLoggerService extends Service implements SensorEventListener 
     public void onSensorChanged(SensorEvent e) {
         if (!running || writer == null) return;
 
-        long epochMs = bootToEpochOffsetMs + e.timestamp / 1_000_000L;
+        long epochMs   = bootToEpochOffsetMs + e.timestamp / 1_000_000L;
         long eventTsNs = e.timestamp;
+        int  type      = e.sensor.getType();
 
-        int type = e.sensor.getType();
-
-        // Update GYRO only (no row write)
+        // Update GYRO latch only — no row written until next ACC event
         if (type == Sensor.TYPE_GYROSCOPE) {
-            float gx = e.values[0], gy = e.values[1], gz = e.values[2];
-            lastGx = gx; lastGy = gy; lastGz = gz;
-
-            gyrSx += gx; gyrSy += gy; gyrSz += gz; gyroN++;
+            lastGx = e.values[0]; lastGy = e.values[1]; lastGz = e.values[2];
+            gyrSx += lastGx; gyrSy += lastGy; gyrSz += lastGz; gyroN++;
             return;
         }
 
-        // Write rows only on ACC events (merged row = nearest gyro)
         if (type != Sensor.TYPE_ACCELEROMETER) return;
 
-        float ax = e.values[0], ay = e.values[1], az = e.values[2];
-        lastAx = ax; lastAy = ay; lastAz = az;
-
-        accSx += ax; accSy += ay; accSz += az; accN++;
+        lastAx = e.values[0]; lastAy = e.values[1]; lastAz = e.values[2];
+        accSx += lastAx; accSy += lastAy; accSz += lastAz; accN++;
 
         try {
             writer.write(epochMs + "," + eventTsNs + ","
@@ -277,24 +255,17 @@ public class SensorLoggerService extends Service implements SensorEventListener 
             Log.e(TAG, "write failed", ex);
         }
 
-        // Live UI broadcast (throttled) — based on ACC ticks
+        // Live UI broadcast — throttled to ~10 Hz (1 in 5 at 50 Hz)
         uiCounter++;
         if (uiCounter % uiEveryN == 0) {
             Intent live = new Intent(ACTION_LIVE_SAMPLE);
             live.setPackage(getPackageName());
-            live.putExtra("sessionId", sessionId);
-            live.putExtra("label", label);
-            live.putExtra("epochMs", epochMs);
-            live.putExtra("eventTsNs", eventTsNs);
-
-            live.putExtra("ax", lastAx);
-            live.putExtra("ay", lastAy);
-            live.putExtra("az", lastAz);
-
-            live.putExtra("gx", lastGx);
-            live.putExtra("gy", lastGy);
-            live.putExtra("gz", lastGz);
-
+            live.putExtra("sessionId",  sessionId);
+            live.putExtra("label",      label);
+            live.putExtra("epochMs",    epochMs);
+            live.putExtra("eventTsNs",  eventTsNs);
+            live.putExtra("ax", lastAx); live.putExtra("ay", lastAy); live.putExtra("az", lastAz);
+            live.putExtra("gx", lastGx); live.putExtra("gy", lastGy); live.putExtra("gz", lastGz);
             sendBroadcast(live);
         }
     }
@@ -302,9 +273,9 @@ public class SensorLoggerService extends Service implements SensorEventListener 
     private void sendStateBroadcast(boolean started) {
         Intent st = new Intent(ACTION_LOG_STATE);
         st.setPackage(getPackageName());
-        st.putExtra("started", started);
-        st.putExtra("sessionId", sessionId);
-        st.putExtra("label", label);
+        st.putExtra("started",      started);
+        st.putExtra("sessionId",    sessionId);
+        st.putExtra("label",        label);
         st.putExtra("startEpochMs", startEpochMs);
         sendBroadcast(st);
     }
@@ -330,13 +301,11 @@ public class SensorLoggerService extends Service implements SensorEventListener 
 
     private Notification buildNotification(String text) {
         NotificationManager nm = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             NotificationChannel ch = new NotificationChannel(
                     NOTIF_CH_ID, "Motion Logger", NotificationManager.IMPORTANCE_LOW);
             nm.createNotificationChannel(ch);
         }
-
         return new NotificationCompat.Builder(this, NOTIF_CH_ID)
                 .setContentTitle("Motion Logger")
                 .setContentText(text)
