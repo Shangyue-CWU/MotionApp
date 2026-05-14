@@ -48,6 +48,11 @@ class AnalyticsFragment : Fragment() {
     private var sessionFilePath = ""
     private val labelCounts     = mutableMapOf<String, Int>()
 
+    // ── Motion classifier ─────────────────────────────────────────────────────
+    // Null until first classifyWindow() call so the fragment inflates instantly.
+    // Switch modelFileName to "best_cnn_lstm.ptl" to use the LSTM model.
+    private var classifier: MotionClassifier? = null
+
     // ── Prediction window ─────────────────────────────────────────────────────
 
     private val predWindow       = ArrayDeque<FloatArray>()
@@ -231,6 +236,7 @@ class AnalyticsFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         durationHandler.removeCallbacks(durationRunnable)
+        classifier?.release(); classifier = null
     }
 
     // ── View binding ──────────────────────────────────────────────────────────
@@ -488,8 +494,18 @@ class AnalyticsFragment : Fragment() {
 
     private fun classifyWindow(): PredictionResult {
         if (predWindow.size < PRED_WINDOW_SIZE) return PredictionResult(LABEL_UNKNOWN, 0f)
-        // Replace with TFLite inference — see Phase1_Modelling_Roadmap §6
-        return PredictionResult(LABEL_UNKNOWN, 0f)
+
+        // Snapshot the window into a plain [128][6] array for the classifier.
+        // predWindow is an ArrayDeque of FloatArray([ax,ay,az,gx,gy,gz]).
+        val window = Array(PRED_WINDOW_SIZE) { i ->
+            predWindow.elementAt(predWindow.size - PRED_WINDOW_SIZE + i)
+        }
+
+        if (classifier == null) {
+            classifier = MotionClassifier(requireContext(), modelFileName = "best_cnn_baseline.ptl")
+        }
+        val result = classifier!!.classify(window)
+        return PredictionResult(result.label, result.confidence)
     }
 
     // ── CSV export ────────────────────────────────────────────────────────────

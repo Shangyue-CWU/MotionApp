@@ -16,6 +16,9 @@ composeFoundation = "1.2.1"
 activityCompose = "1.7.2"
 coreSplashscreen = "1.0.1"
 playServicesWearableVersion = "18.0.0"
+pytorch_android_torchvision = "2.1.0"
+pytorch_android_lite = "2.1.0"
+pytorch_android_torchvision_lite = "2.1.0"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -38,6 +41,9 @@ androidx-compose-foundation = { group = "androidx.wear.compose", name = "compose
 androidx-activity-compose = { group = "androidx.activity", name = "activity-compose", version.ref = "activityCompose" }
 androidx-core-splashscreen = { group = "androidx.core", name = "core-splashscreen", version.ref = "coreSplashscreen" }
 gms-play-services-wearable = { group = "com.google.android.gms", name = "play-services-wearable", version.ref = "playServicesWearableVersion" }
+pytorch_android_torchvision = { group = "org.pytorch", name = "pytorch_android_torchvision", version.ref = "pytorch_android_torchvision" }
+pytorch_android_lite = { group = "org.pytorch", name = "pytorch_android_lite", version.ref = "pytorch_android_lite" }
+pytorch_android_torchvision_lite = { group = "org.pytorch", name = "pytorch_android_torchvision_lite", version.ref = "pytorch_android_torchvision_lite" }
 
 [plugins]
 googleServices = { id = "com.google.gms.google-services", version = "4.4.1" }
