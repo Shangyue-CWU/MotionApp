@@ -64,6 +64,12 @@ To install and test this application, you will need:
 - Phone and smartwatch paired through Bluetooth or Wi-Fi if testing wearable features
 - Sufficient local storage for generated CSV session files
 
+  ## Installation
+  
+The first step to downloading the “Heartland Health” application is opening Android Studios and clicking Get from VSC on the welcome screen. Paste the GitHub repository URL at this link. Choose where to save the application on to your computer and Click Clone. Once the project opens, let Android Studios sync Gradle.  Next, make sure your watch is connected to the phone using Bluetooth by going to the watch’s Bluetooth Connectivity under settings and confirming it says connected to phone. Once the Gradle has finished syncing, connect your Android phone with a USB debugging on and open device manager to make sure both the phone and watch come up. Then press the Run button   and Android Studios will then build and install the newest version of the application.  
+
+Once installation is completed and both devices are connected, they will be linked together. Open the application and create an account (if you already have an account, click “sign in” and enter your credentials). Creating an account is not required but strongly recommended as it will allow your session to be saved in the database. Now you should be able to start a section on both the phone and watch and have them sync with each other. 
+
 ## Repository Structure
 
 ```text
