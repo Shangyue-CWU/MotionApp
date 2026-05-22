@@ -33,35 +33,20 @@ import java.util.Calendar
 import java.util.Date
 import java.util.Locale
 
-/**
- * HistoryPageFragment: Displays a list of recorded sensor data logs (CSV files).
- * This fragment supports:
- * - Viewing logs in a modern card-based layout.
- * - Filtering logs by source (Phone/Watch) and month.
- * - Previewing file content.
- * - Sharing files (which also allows downloading/saving).
- * - Renaming and deleting files.
- */
 class HistoryPageFragment : Fragment(R.layout.fragment_history_page) {
 
-    // UI Components
     private lateinit var listView: ListView
     private lateinit var tvHint: TextView
     private lateinit var btnFilter: ImageButton
     private lateinit var tvActiveFilters: TextView
     private lateinit var btnBack: ImageButton
 
-    // Data Management
     private lateinit var adapter: HistoryCardAdapter
     private val files = mutableListOf<File>()
 
-    // Filter State
-    private var filterSource = "ALL" // Options: ALL, WATCH, PHONE
-    private var filterMonth = -1      // -1 means all months, 0-11 for specific months
+    private var filterSource = "ALL"
+    private var filterMonth = -1
 
-    /**
-     * Receiver that triggers a list refresh whenever a new file is received (e.g., from the watch).
-     */
     private val fileReceivedReceiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context?, intent: Intent?) {
             loadLogs()
@@ -69,27 +54,22 @@ class HistoryPageFragment : Fragment(R.layout.fragment_history_page) {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        // Initialize UI hooks
         listView = view.findViewById(R.id.list_logs)
         tvHint = view.findViewById(R.id.tv_hint)
         btnFilter = view.findViewById(R.id.btn_filter)
         tvActiveFilters = view.findViewById(R.id.tv_active_filters)
         btnBack = view.findViewById(R.id.btnBack)
 
-        // Handle back navigation
         btnBack.setOnClickListener {
             parentFragmentManager.popBackStack()
         }
 
-        // Setup the custom adapter for the card layout
         adapter = HistoryCardAdapter(requireContext(), files)
         listView.adapter = adapter
         
-        // Enable multi-selection for batch actions (Share/Delete/etc)
         listView.choiceMode = ListView.CHOICE_MODE_MULTIPLE_MODAL
         listView.setMultiChoiceModeListener(historyMultiChoiceListener)
 
-        // Single click logic: Open the preview dialog
         listView.setOnItemClickListener { _, _, position, _ ->
             if (listView.checkedItemCount == 0) {
                 val f = files.getOrNull(position) ?: return@setOnItemClickListener
@@ -97,51 +77,41 @@ class HistoryPageFragment : Fragment(R.layout.fragment_history_page) {
             }
         }
 
-        // Setup filter dialog trigger
         btnFilter.setOnClickListener {
             showFilterDialog()
         }
 
-        // Initial load of logs
         loadLogs()
     }
 
     override fun onStart() {
         super.onStart()
-        // Register the file update receiver based on Android version requirements
         val filter = IntentFilter(FileReceiverService.ACTION_FILE_RECEIVED)
-        if (Build.VERSION.SDK_INT >= 33) {
-            requireContext().registerReceiver(fileReceivedReceiver, filter, Context.RECEIVER_NOT_EXPORTED)
-        } else {
-            @Suppress("DEPRECATION")
-            requireContext().registerReceiver(fileReceivedReceiver, filter)
-        }
+        ContextCompat.registerReceiver(
+            requireContext(),
+            fileReceivedReceiver,
+            filter,
+            ContextCompat.RECEIVER_NOT_EXPORTED
+        )
     }
 
     override fun onStop() {
         super.onStop()
-        // Unregister to prevent memory leaks
         try {
             requireContext().unregisterReceiver(fileReceivedReceiver)
         } catch (_: Exception) { }
     }
 
-    /**
-     * loadLogs: Scans both Phone and Watch log directories.
-     * Filters files based on the user's selection and sorts them by most recent.
-     */
     private fun loadLogs() {
         files.clear()
         val base = requireContext().getExternalFilesDir(null) ?: requireContext().filesDir
         val phoneDir = File(base, "logs")
         val watchDir = File(base, "logs/watch")
 
-        // Collect files from both sources
         val all = mutableListOf<File>()
         if (phoneDir.exists()) all += phoneDir.listFiles()?.toList().orEmpty()
         if (watchDir.exists()) all += watchDir.listFiles()?.toList().orEmpty()
 
-        // Apply filters (Extension, Source, Month)
         val filtered = all.filter { file ->
             if (!file.isFile || !file.name.lowercase(Locale.US).endsWith(".csv")) return@filter false
             val isWatch = file.absolutePath.contains("${File.separator}watch${File.separator}")
@@ -159,7 +129,6 @@ class HistoryPageFragment : Fragment(R.layout.fragment_history_page) {
         updateFilterLabel()
         adapter.notifyDataSetChanged()
         
-        // Update helper text based on results
         tvHint.text = if (files.isEmpty()) {
             if (filterSource != "ALL" || filterMonth != -1) "No logs match the current filters."
             else "No logs yet."
@@ -168,9 +137,6 @@ class HistoryPageFragment : Fragment(R.layout.fragment_history_page) {
         }
     }
 
-    /**
-     * updateFilterLabel: Dynamically updates the subtitle text to show active filters.
-     */
     private fun updateFilterLabel() {
         val monthName = if (filterMonth == -1) "All Months" 
                         else SimpleDateFormat("MMMM", Locale.US).format(Calendar.getInstance().apply { set(Calendar.MONTH, filterMonth) }.time)
@@ -182,9 +148,6 @@ class HistoryPageFragment : Fragment(R.layout.fragment_history_page) {
         tvActiveFilters.text = "Filtering: $sourceName • $monthName"
     }
 
-    /**
-     * showFilterDialog: Displays a dialog to choose Source or Month filters.
-     */
     private fun showFilterDialog() {
         val months = arrayOf("All Months", "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec")
         val sources = arrayOf("All Sources", "Watch Only", "Phone Only")
@@ -208,10 +171,6 @@ class HistoryPageFragment : Fragment(R.layout.fragment_history_page) {
         builder.show()
     }
 
-    /**
-     * MultiChoiceModeListener: Handles the Contextual Action Bar (CAB) when multiple items are selected.
-     * Supports batch select-all, share, rename, and delete.
-     */
     private val historyMultiChoiceListener = object : AbsListView.MultiChoiceModeListener {
         override fun onCreateActionMode(mode: android.view.ActionMode, menu: Menu): Boolean {
             menu.add(0, MENU_SELECT_ALL, 0, "Select All")
@@ -225,7 +184,7 @@ class HistoryPageFragment : Fragment(R.layout.fragment_history_page) {
 
         override fun onPrepareActionMode(mode: android.view.ActionMode, menu: Menu): Boolean {
             val renameItem = menu.findItem(MENU_RENAME)
-            renameItem?.isVisible = listView.checkedItemCount == 1 // Only allow rename for single selection
+            renameItem?.isVisible = listView.checkedItemCount == 1
             return true
         }
 
@@ -262,9 +221,6 @@ class HistoryPageFragment : Fragment(R.layout.fragment_history_page) {
         }
     }
 
-    /**
-     * Helper to retrieve currently checked files from the ListView.
-     */
     private fun getSelectedFiles(): List<File> {
         val selected = mutableListOf<File>()
         val checked = listView.checkedItemPositions
@@ -275,9 +231,6 @@ class HistoryPageFragment : Fragment(R.layout.fragment_history_page) {
         return selected
     }
 
-    /**
-     * showRenameDialog: Displays an input field to rename a specific file.
-     */
     private fun showRenameDialog(file: File, onDone: () -> Unit) {
         val input = EditText(requireContext())
         input.setText(file.name)
@@ -302,9 +255,6 @@ class HistoryPageFragment : Fragment(R.layout.fragment_history_page) {
             .show()
     }
 
-    /**
-     * confirmDelete: Standard confirmation dialog before permanent file deletion.
-     */
     private fun confirmDelete(selected: List<File>, onDone: () -> Unit) {
         AlertDialog.Builder(requireContext())
             .setTitle("Delete files")
@@ -317,30 +267,21 @@ class HistoryPageFragment : Fragment(R.layout.fragment_history_page) {
             .show()
     }
 
-    /**
-     * showPreviewDialog: Opens a dialog showing the first few lines of the CSV.
-     * Includes direct "Share" and "Delete" actions for ease of use.
-     */
     private fun showPreviewDialog(file: File) {
         val text = readFirstLines(file, 50)
         AlertDialog.Builder(requireContext())
             .setTitle(file.name)
             .setMessage(text)
-            .setPositiveButton("Share") { _, _ -> shareCsvFiles(listOf(file)) } // Share also serves as Download
+            .setPositiveButton("Share") { _, _ -> shareCsvFiles(listOf(file)) }
             .setNegativeButton("Delete") { _, _ -> confirmDelete(listOf(file)) { loadLogs() } }
             .setNeutralButton("Cancel", null)
             .show()
     }
 
-    /**
-     * shareCsvFiles: Uses Android's Intent.ACTION_SEND to share CSV files via FileProvider.
-     * This allows users to email files, upload to cloud storage, or "Download" to their local device.
-     */
     private fun shareCsvFiles(filesToShare: List<File>) {
         try {
             val uris = ArrayList<Uri>()
             filesToShare.forEach { file ->
-                // Generate secure URIs using FileProvider
                 uris.add(FileProvider.getUriForFile(requireContext(), "${requireContext().packageName}.provider", file))
             }
             val share = Intent().apply {
@@ -354,9 +295,6 @@ class HistoryPageFragment : Fragment(R.layout.fragment_history_page) {
         } catch (e: Exception) { Toast.makeText(requireContext(), "Share failed", Toast.LENGTH_SHORT).show() }
     }
 
-    /**
-     * readFirstLines: Utility to read the beginning of a file without loading the entire thing into memory.
-     */
     private fun readFirstLines(file: File, maxLines: Int): String {
         val sb = StringBuilder()
         try {
@@ -372,10 +310,6 @@ class HistoryPageFragment : Fragment(R.layout.fragment_history_page) {
         return sb.toString()
     }
 
-    /**
-     * HistoryCardAdapter: Binds file metadata to the item_history_card layout.
-     * Handles source badge styling and activity label extraction.
-     */
     private inner class HistoryCardAdapter(context: Context, private val data: List<File>) : BaseAdapter() {
         private val inflater = LayoutInflater.from(context)
 
@@ -395,11 +329,9 @@ class HistoryPageFragment : Fragment(R.layout.fragment_history_page) {
 
             val isWatch = file.absolutePath.contains("${File.separator}watch${File.separator}")
             
-            // Format Date and Time using file metadata
             tvDate.text = SimpleDateFormat("MMM d, yyyy", Locale.getDefault()).format(Date(file.lastModified()))
             tvTime.text = SimpleDateFormat("h:mm a", Locale.getDefault()).format(Date(file.lastModified()))
 
-            // Dynamic Source Badge Styling
             if (isWatch) {
                 tvSource.text = "WATCH"
                 tvSource.setBackgroundResource(R.drawable.bg_badge_watch)
@@ -408,20 +340,26 @@ class HistoryPageFragment : Fragment(R.layout.fragment_history_page) {
                 tvSource.setBackgroundResource(R.drawable.bg_badge_phone)
             }
 
-            // Extract activity label from filename (e.g., RUN, WALK, etc.)
-            val label = extractLabel(file.name)
-            tvLabel.text = label.uppercase(Locale.getDefault())
+            val label = extractLabel(file.name).uppercase(Locale.getDefault())
+            tvLabel.text = label
 
-            // Color the history clock icon based on the app's primary theme color
+            val iconRes = when (label) {
+                "WALKING" -> R.drawable.ic_walk
+                "RUNNING" -> R.drawable.ic_running
+                "SITTING" -> R.drawable.ic_sitting
+                "STANDING" -> R.drawable.ic_standing
+                "FALLS" -> R.drawable.ic_falling
+                "TREMOR" -> R.drawable.ic_tremor
+                "JERKING" -> R.drawable.ic_jerking
+                "TONIC" -> R.drawable.ic_tonic
+                else -> R.drawable.ic_history_clock
+            }
+            ivIcon.setImageResource(iconRes)
             ivIcon.setColorFilter(ContextCompat.getColor(requireContext(), R.color.primary))
 
             return view
         }
 
-        /**
-         * extractLabel: Parses the standardized filename to find the activity type.
-         * Expected format: SESSION_{ID}_{SOURCE}_{LABEL}_{TIMESTAMP}.csv
-         */
         private fun extractLabel(filename: String): String {
             val parts = filename.split("_")
             return if (parts.size >= 5) parts[3] else "ACTIVITY"
@@ -429,7 +367,6 @@ class HistoryPageFragment : Fragment(R.layout.fragment_history_page) {
     }
 
     companion object {
-        // Unique IDs for contextual menu items
         private const val MENU_SELECT_ALL = 1001
         private const val MENU_CLEAR = 1002
         private const val MENU_SHARE = 1003

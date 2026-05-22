@@ -27,7 +27,7 @@
                 android:id="@+id/tvDate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="WEDNESDAY, FEB 4"
+                android:text="DATE"
                 android:textAllCaps="true"
                 android:textSize="10sp"
                 android:textStyle="bold"
@@ -54,7 +54,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="6dp"
-                    android:text="Alex"
+                    android:text="User"
                     android:visibility="gone"
                     android:textColor="#10B981"
                     android:textSize="20sp"
@@ -155,7 +155,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="2dp"
-                            android:text="2"
+                            android:text="0"
                             android:textSize="18sp"
                             android:textStyle="bold"
                             android:textColor="#111827" />
@@ -191,7 +191,7 @@
                         <ImageView
                             android:layout_width="18dp"
                             android:layout_height="18dp"
-                            android:src="@drawable/ic_sessions"
+                            android:src="@drawable/ic_tremor"
                             app:tint="#FB923C" />
 
                         <TextView
@@ -199,7 +199,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="2dp"
-                            android:text="8"
+                            android:text="0"
                             android:textSize="18sp"
                             android:textStyle="bold"
                             android:textColor="#111827" />
@@ -234,7 +234,7 @@
                         <ImageView
                             android:layout_width="18dp"
                             android:layout_height="18dp"
-                            android:src="@drawable/ic_analytics"
+                            android:src="@drawable/ic_tonic"
                             app:tint="#60A5FA" />
 
                         <TextView
@@ -242,7 +242,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="2dp"
-                            android:text="14"
+                            android:text="0"
                             android:textSize="18sp"
                             android:textStyle="bold"
                             android:textColor="#111827" />

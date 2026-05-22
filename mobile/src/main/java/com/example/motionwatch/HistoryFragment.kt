@@ -16,6 +16,7 @@ import android.widget.ListView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
 import androidx.fragment.app.Fragment
 import java.io.BufferedReader
@@ -96,12 +97,12 @@ class HistoryFragment : Fragment(R.layout.fragment_history) {
         super.onStart()
         // Register receiver for new data notifications
         val filter = IntentFilter(FileReceiverService.ACTION_FILE_RECEIVED)
-        if (Build.VERSION.SDK_INT >= 33) {
-            requireContext().registerReceiver(fileReceivedReceiver, filter, Context.RECEIVER_NOT_EXPORTED)
-        } else {
-            @Suppress("DEPRECATION")
-            requireContext().registerReceiver(fileReceivedReceiver, filter)
-        }
+        ContextCompat.registerReceiver(
+            requireContext(),
+            fileReceivedReceiver,
+            filter,
+            ContextCompat.RECEIVER_NOT_EXPORTED
+        )
     }
 
     override fun onStop() {
