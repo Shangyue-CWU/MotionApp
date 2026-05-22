@@ -19,29 +19,32 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.google.android.material.button.MaterialButton
 import java.io.File
+import java.text.SimpleDateFormat
+import java.util.Calendar
 import java.util.Locale
 
 class HomeFragment : Fragment() {
 
-    // Live sensor UI
+    private var tvDate: TextView? = null
     private var tvAccX: TextView? = null
     private var tvAccY: TextView? = null
     private var tvAccZ: TextView? = null
-
     private var tvGyroPitch: TextView? = null
     private var tvGyroRoll: TextView? = null
     private var tvGyroYaw: TextView? = null
-
-    // Top motion card
     private var tvLastMotion: TextView? = null
     private var imgTopMotion: ImageView? = null
 
-    // Dashboard totals
+    // Individual detection totals
     private var tvFallsCount: TextView? = null
     private var tvTremorsCount: TextView? = null
-    private var tvAbnormalCount: TextView? = null
+    private var tvJerkingCount: TextView? = null
+    private var tvTonicCount: TextView? = null
+    private var tvWalkingCount: TextView? = null
+    private var tvRunningCount: TextView? = null
+    private var tvSittingCount: TextView? = null
+    private var tvStandingCount: TextView? = null
 
-    // Controls
     private var spinnerLabel: Spinner? = null
     private var btnStart: MaterialButton? = null
 
@@ -49,217 +52,143 @@ class HomeFragment : Fragment() {
     private var currentSessionId: String = ""
     private var selectedLabel: String = "TREMOR"
 
-    private val labels = listOf(
-        "JERKING",
-        "TONIC",
-        "FALLS",
-        "TREMOR",
-        "RUNNING",
-        "WALKING",
-        "SITTING",
-        "STANDING"
-    )
+    private val labels = listOf("JERKING", "TONIC", "FALLS", "TREMOR", "RUNNING", "WALKING", "SITTING", "STANDING")
 
     private val logReceiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context?, intent: Intent?) {
             if (intent == null) return
-
             when (intent.action) {
                 WearCommandService.ACTION_UI_CMD -> {
                     val cmd = intent.getStringExtra("cmd") ?: return
-
-                    when (cmd.lowercase(Locale.US)) {
-                        "start" -> {
-                            val label = intent.getStringExtra("label") ?: "UNKNOWN"
-                            val sessionId = intent.getStringExtra("sessionId") ?: "unknown"
-
-                            currentSessionId = sessionId
-                            isLogging = true
-                            btnStart?.text = "STOP"
-
-                            applyReceivedLabel(label)
-                        }
-
-                        "stop" -> {
-                            isLogging = false
-                            btnStart?.text = "START"
-                            tvLastMotion?.text = "Idle"
-                            updateTopIconForLabel("Idle")
-                        }
+                    if (cmd.equals("start", ignoreCase = true)) {
+                        currentSessionId = intent.getStringExtra("sessionId") ?: "unknown"
+                        isLogging = true
+                        btnStart?.text = "STOP"
+                        applyReceivedLabel(intent.getStringExtra("label") ?: "UNKNOWN")
+                    } else if (cmd.equals("stop", ignoreCase = true)) {
+                        isLogging = false
+                        btnStart?.text = "START"
+                        setIdleUI()
                     }
                 }
-
                 SensorLoggerService.ACTION_LOG_STATE -> {
                     val started = intent.getBooleanExtra("started", false)
-                    val label = intent.getStringExtra("label")
-                    val sessionId = intent.getStringExtra("sessionId")
-
                     isLogging = started
                     btnStart?.text = if (started) "STOP" else "START"
-
-                    if (!sessionId.isNullOrBlank()) {
-                        currentSessionId = sessionId
-                    }
-
-                    if (started && !label.isNullOrBlank()) {
-                        applyReceivedLabel(label)
-                    }
-
-                    if (!started) {
-                        tvLastMotion?.text = "Idle"
-                        updateTopIconForLabel("Idle")
+                    if (started) {
+                        currentSessionId = intent.getStringExtra("sessionId") ?: ""
+                        applyReceivedLabel(intent.getStringExtra("label") ?: "")
+                    } else {
+                        setIdleUI()
                     }
                 }
-
                 SensorLoggerService.ACTION_LIVE_SAMPLE -> {
-                    val ax = intent.getFloatExtra("ax", Float.NaN)
-                    val ay = intent.getFloatExtra("ay", Float.NaN)
-                    val az = intent.getFloatExtra("az", Float.NaN)
-
-                    val gx = intent.getFloatExtra("gx", Float.NaN)
-                    val gy = intent.getFloatExtra("gy", Float.NaN)
-                    val gz = intent.getFloatExtra("gz", Float.NaN)
-
-                    tvAccX?.text = "X-Axis: ${fmt(ax)}"
-                    tvAccY?.text = "Y-Axis: ${fmt(ay)}"
-                    tvAccZ?.text = "Z-Axis: ${fmt(az)}"
-
-                    tvGyroPitch?.text = "Pitch: ${fmt(gx)}"
-                    tvGyroRoll?.text = "Roll: ${fmt(gy)}"
-                    tvGyroYaw?.text = "Yaw: ${fmt(gz)}"
-
+                    tvAccX?.text = "X-Axis: ${fmt(intent.getFloatExtra("ax", Float.NaN))}"
+                    tvAccY?.text = "Y-Axis: ${fmt(intent.getFloatExtra("ay", Float.NaN))}"
+                    tvAccZ?.text = "Z-Axis: ${fmt(intent.getFloatExtra("az", Float.NaN))}"
+                    tvGyroPitch?.text = "Pitch: ${fmt(intent.getFloatExtra("gx", Float.NaN))}"
+                    tvGyroRoll?.text = "Roll: ${fmt(intent.getFloatExtra("gy", Float.NaN))}"
+                    tvGyroYaw?.text = "Yaw: ${fmt(intent.getFloatExtra("gz", Float.NaN))}"
                     tvLastMotion?.text = selectedLabel
                     updateTopIconForLabel(selectedLabel)
                 }
-
                 SensorLoggerService.ACTION_LOG_DONE -> {
                     updateDashboardTotals()
-                    tvLastMotion?.text = "Idle"
-                    updateTopIconForLabel("Idle")
+                    setIdleUI()
                 }
             }
         }
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         val view = inflater.inflate(R.layout.fragment_home, container, false)
-
-        // Sensor text
-        tvAccX = view.findViewById(R.id.tvAccX)
-        tvAccY = view.findViewById(R.id.tvAccY)
-        tvAccZ = view.findViewById(R.id.tvAccZ)
-
-        tvGyroPitch = view.findViewById(R.id.tvGyroPitch)
-        tvGyroRoll = view.findViewById(R.id.tvGyroRoll)
-        tvGyroYaw = view.findViewById(R.id.tvGyroYaw)
-
-        // Top motion card
-        tvLastMotion = view.findViewById(R.id.tvLastMotion)
-        imgTopMotion = view.findViewById(R.id.imgTopMotion)
+        tvDate = view.findViewById(R.id.tvDate)
+        tvAccX = view.findViewById(R.id.tvAccX); tvAccY = view.findViewById(R.id.tvAccY); tvAccZ = view.findViewById(R.id.tvAccZ)
+        tvGyroPitch = view.findViewById(R.id.tvGyroPitch); tvGyroRoll = view.findViewById(R.id.tvGyroRoll); tvGyroYaw = view.findViewById(R.id.tvGyroYaw)
+        tvLastMotion = view.findViewById(R.id.tvLastMotion); imgTopMotion = view.findViewById(R.id.imgTopMotion)
 
         // Totals
         tvFallsCount = view.findViewById(R.id.tvFallsCount)
         tvTremorsCount = view.findViewById(R.id.tvTremorsCount)
-        tvAbnormalCount = view.findViewById(R.id.tvAbnormalCount)
+        tvJerkingCount = view.findViewById(R.id.tvJerkingCount)
+        tvTonicCount = view.findViewById(R.id.tvTonicCount)
+        tvWalkingCount = view.findViewById(R.id.tvWalkingCount)
+        tvRunningCount = view.findViewById(R.id.tvRunningCount)
+        tvSittingCount = view.findViewById(R.id.tvSittingCount)
+        tvStandingCount = view.findViewById(R.id.tvStandingCount)
 
-        // Controls
-        spinnerLabel = view.findViewById(R.id.spinnerLabel)
-        btnStart = view.findViewById(R.id.btnStart)
+        spinnerLabel = view.findViewById(R.id.spinnerLabel); btnStart = view.findViewById(R.id.btnStart)
 
-        setIdleText()
+        setCurrentDate()
+        setIdleUI()
         updateDashboardTotals()
         setupLabelDropdown()
 
         btnStart?.setOnClickListener {
             if (!isLogging) {
                 currentSessionId = System.currentTimeMillis().toString()
-                startPhoneLogging(
-                    sessionId = currentSessionId,
-                    label = selectedLabel
-                )
+                startPhoneLogging(currentSessionId, selectedLabel)
             } else {
                 stopPhoneLogging()
             }
         }
-
         return view
     }
 
+    private fun setCurrentDate() {
+        val dateFormat = SimpleDateFormat("EEEE, MMM d", Locale.US)
+        tvDate?.text = dateFormat.format(Calendar.getInstance().time).uppercase(Locale.US)
+    }
+
     private fun setupLabelDropdown() {
-        val adapter = ArrayAdapter(
-            requireContext(),
-            android.R.layout.simple_spinner_item,
-            labels
-        )
+        val adapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, labels)
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         spinnerLabel?.adapter = adapter
-        spinnerLabel?.setSelection(labels.indexOf(selectedLabel).coerceAtLeast(0), false)
-
         spinnerLabel?.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>, view: View?, position: Int, id: Long) {
-                if (isLogging) {
-                    // silently revert selection
-                    val currentIndex = labels.indexOf(selectedLabel).coerceAtLeast(0)
-                    if (spinnerLabel?.selectedItemPosition != currentIndex) {
-                        spinnerLabel?.setSelection(currentIndex, false)
-                    }
-                    return
+                if (!isLogging) {
+                    selectedLabel = labels[position]
+                    tvLastMotion?.text = selectedLabel
+                    updateTopIconForLabel(selectedLabel)
                 }
-
-                selectedLabel = labels[position]
-                tvLastMotion?.text = selectedLabel
-                updateTopIconForLabel(selectedLabel)
             }
-
             override fun onNothingSelected(parent: AdapterView<*>) {}
         }
     }
 
     private fun applyReceivedLabel(label: String) {
         val normalized = label.uppercase(Locale.US)
+        if (normalized.isEmpty()) return
         selectedLabel = normalized
-
         val index = labels.indexOf(normalized)
-        if (index >= 0 && spinnerLabel?.selectedItemPosition != index) {
-            spinnerLabel?.setSelection(index, false)
-        }
-
+        if (index >= 0) spinnerLabel?.setSelection(index, false)
         tvLastMotion?.text = normalized
         updateTopIconForLabel(normalized)
     }
 
     private fun updateDashboardTotals() {
-        val context = context ?: return
-        val base = context.getExternalFilesDir(null) ?: context.filesDir
-        val phoneDir = File(base, "logs")
-        val watchDir = File(base, "logs/watch")
+        val base = context?.getExternalFilesDir(null) ?: context?.filesDir ?: return
+        val allFiles = (File(base, "logs").listFiles()?.toList().orEmpty() + File(base, "logs/watch").listFiles()?.toList().orEmpty())
+        
+        val counts = mutableMapOf<String, Int>().apply {
+            labels.forEach { put(it, 0) }
+        }
 
-        val allFiles = mutableListOf<File>()
-        if (phoneDir.exists()) allFiles += phoneDir.listFiles()?.toList().orEmpty()
-        if (watchDir.exists()) allFiles += watchDir.listFiles()?.toList().orEmpty()
-
-        var falls = 0
-        var tremors = 0
-        var abnormal = 0
-
-        allFiles
-            .filter { it.isFile && it.name.lowercase(Locale.US).endsWith(".csv") }
-            .forEach { file ->
-                val label = extractLabel(file.name).uppercase(Locale.US)
-                when (label) {
-                    "FALLS" -> falls++
-                    "TREMOR" -> tremors++
-                    "JERKING", "TONIC" -> abnormal++
-                }
+        allFiles.filter { it.isFile && it.name.endsWith(".csv", true) }.forEach { file ->
+            val label = extractLabel(file.name).uppercase(Locale.US)
+            if (counts.containsKey(label)) {
+                counts[label] = (counts[label] ?: 0) + 1
             }
+        }
 
-        tvFallsCount?.text = falls.toString()
-        tvTremorsCount?.text = tremors.toString()
-        tvAbnormalCount?.text = abnormal.toString()
+        tvFallsCount?.text = (counts["FALLS"] ?: 0).toString()
+        tvTremorsCount?.text = (counts["TREMOR"] ?: 0).toString()
+        tvJerkingCount?.text = (counts["JERKING"] ?: 0).toString()
+        tvTonicCount?.text = (counts["TONIC"] ?: 0).toString()
+        tvWalkingCount?.text = (counts["WALKING"] ?: 0).toString()
+        tvRunningCount?.text = (counts["RUNNING"] ?: 0).toString()
+        tvSittingCount?.text = (counts["SITTING"] ?: 0).toString()
+        tvStandingCount?.text = (counts["STANDING"] ?: 0).toString()
     }
 
     private fun extractLabel(filename: String): String {
@@ -275,51 +204,27 @@ class HomeFragment : Fragment() {
             addAction(SensorLoggerService.ACTION_LOG_DONE)
             addAction(WearCommandService.ACTION_UI_CMD)
         }
-        ContextCompat.registerReceiver(
-            requireContext(),
-            logReceiver,
-            filter,
-            ContextCompat.RECEIVER_NOT_EXPORTED
-        )
+        ContextCompat.registerReceiver(requireContext(), logReceiver, filter, ContextCompat.RECEIVER_NOT_EXPORTED)
     }
 
     override fun onStop() {
         super.onStop()
-        try {
-            requireContext().unregisterReceiver(logReceiver)
-        } catch (_: Exception) {
-        }
+        try { requireContext().unregisterReceiver(logReceiver) } catch (_: Exception) {}
     }
 
     private fun startPhoneLogging(sessionId: String, label: String) {
-        val normalized = label.uppercase(Locale.US)
-
-        val startIntent = Intent(requireContext(), SensorLoggerService::class.java).apply {
+        val intent = Intent(requireContext(), SensorLoggerService::class.java).apply {
             action = SensorLoggerService.ACTION_START
             putExtra("sessionId", sessionId)
-            putExtra("label", normalized)
+            putExtra("label", label.uppercase(Locale.US))
             putExtra("startEpochMs", System.currentTimeMillis())
         }
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            requireContext().startForegroundService(startIntent)
-        } else {
-            requireContext().startService(startIntent)
-        }
-
-        btnStart?.text = "STOP"
-        applyReceivedLabel(normalized)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) requireContext().startForegroundService(intent)
+        else requireContext().startService(intent)
     }
 
     private fun stopPhoneLogging() {
-        val stopIntent = Intent(requireContext(), SensorLoggerService::class.java).apply {
-            action = SensorLoggerService.ACTION_STOP
-        }
-        requireContext().startService(stopIntent)
-
-        btnStart?.text = "START"
-        tvLastMotion?.text = "Idle"
-        updateTopIconForLabel("Idle")
+        requireContext().startService(Intent(requireContext(), SensorLoggerService::class.java).apply { action = SensorLoggerService.ACTION_STOP })
     }
 
     private fun updateTopIconForLabel(label: String) {
@@ -327,30 +232,23 @@ class HomeFragment : Fragment() {
             "WALKING" -> R.drawable.ic_walk
             "RUNNING" -> R.drawable.ic_running
             "SITTING" -> R.drawable.ic_sitting
-            "STANDING" -> R.drawable.ic_sitting
+            "STANDING" -> R.drawable.ic_standing
             "FALLS" -> R.drawable.ic_falling
-            "TREMOR" -> R.drawable.ic_falling
-            "JERKING" -> R.drawable.ic_falling
-            "TONIC" -> R.drawable.ic_falling
-            "IDLE" -> R.drawable.ic_idle
+            "TREMOR" -> R.drawable.ic_tremor
+            "JERKING" -> R.drawable.ic_jerking
+            "TONIC" -> R.drawable.ic_tonic
             else -> R.drawable.ic_idle
         }
         imgTopMotion?.setImageResource(iconRes)
     }
 
-    private fun setIdleText() {
-        tvAccX?.text = "X-Axis: --"
-        tvAccY?.text = "Y-Axis: --"
-        tvAccZ?.text = "Z-Axis: --"
-        tvGyroPitch?.text = "Pitch: --"
-        tvGyroRoll?.text = "Roll: --"
-        tvGyroYaw?.text = "Yaw: --"
+    private fun setIdleUI() {
+        tvAccX?.text = "X-Axis: --"; tvAccY?.text = "Y-Axis: --"; tvAccZ?.text = "Z-Axis: --"
+        tvGyroPitch?.text = "Pitch: --"; tvGyroRoll?.text = "Roll: --"; tvGyroYaw?.text = "Yaw: --"
         tvLastMotion?.text = "Idle"
-        updateTopIconForLabel("Idle")
+        updateTopIconForLabel("IDLE")
         btnStart?.text = "START"
     }
 
-    private fun fmt(v: Float): String {
-        return if (v.isNaN()) "--" else String.format(Locale.US, "%.2f", v)
-    }
+    private fun fmt(v: Float) = if (v.isNaN()) "--" else String.format(Locale.US, "%.2f", v)
 }

@@ -116,13 +116,13 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             // Bottom navigation IDs
             R.id.nav_home -> HomeFragment()
             R.id.nav_sessions -> SessionsFragment()
-            R.id.nav_analytics -> AnalyticsFragment()
+            R.id.nav_analytics -> AnalyticsFragment() // Live Monitor
             R.id.nav_settings -> SettingsFragment()
 
             // Drawer IDs
             R.id.nav_dashboard -> HomeFragment()
             R.id.nav_session -> SessionsFragment()
-            R.id.nav_analysis -> HistoryFragment()
+            R.id.nav_analysis -> AnalyticsFragment() // Corrected: Now points to Live Monitor
 
             else -> null
         }
