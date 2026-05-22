@@ -34,9 +34,17 @@ class HomeFragment : Fragment() {
     private var tvGyroYaw: TextView? = null
     private var tvLastMotion: TextView? = null
     private var imgTopMotion: ImageView? = null
+
+    // Individual detection totals
     private var tvFallsCount: TextView? = null
     private var tvTremorsCount: TextView? = null
-    private var tvAbnormalCount: TextView? = null
+    private var tvJerkingCount: TextView? = null
+    private var tvTonicCount: TextView? = null
+    private var tvWalkingCount: TextView? = null
+    private var tvRunningCount: TextView? = null
+    private var tvSittingCount: TextView? = null
+    private var tvStandingCount: TextView? = null
+
     private var spinnerLabel: Spinner? = null
     private var btnStart: MaterialButton? = null
 
@@ -98,7 +106,17 @@ class HomeFragment : Fragment() {
         tvAccX = view.findViewById(R.id.tvAccX); tvAccY = view.findViewById(R.id.tvAccY); tvAccZ = view.findViewById(R.id.tvAccZ)
         tvGyroPitch = view.findViewById(R.id.tvGyroPitch); tvGyroRoll = view.findViewById(R.id.tvGyroRoll); tvGyroYaw = view.findViewById(R.id.tvGyroYaw)
         tvLastMotion = view.findViewById(R.id.tvLastMotion); imgTopMotion = view.findViewById(R.id.imgTopMotion)
-        tvFallsCount = view.findViewById(R.id.tvFallsCount); tvTremorsCount = view.findViewById(R.id.tvTremorsCount); tvAbnormalCount = view.findViewById(R.id.tvAbnormalCount)
+
+        // Totals
+        tvFallsCount = view.findViewById(R.id.tvFallsCount)
+        tvTremorsCount = view.findViewById(R.id.tvTremorsCount)
+        tvJerkingCount = view.findViewById(R.id.tvJerkingCount)
+        tvTonicCount = view.findViewById(R.id.tvTonicCount)
+        tvWalkingCount = view.findViewById(R.id.tvWalkingCount)
+        tvRunningCount = view.findViewById(R.id.tvRunningCount)
+        tvSittingCount = view.findViewById(R.id.tvSittingCount)
+        tvStandingCount = view.findViewById(R.id.tvStandingCount)
+
         spinnerLabel = view.findViewById(R.id.spinnerLabel); btnStart = view.findViewById(R.id.btnStart)
 
         setCurrentDate()
@@ -151,17 +169,26 @@ class HomeFragment : Fragment() {
     private fun updateDashboardTotals() {
         val base = context?.getExternalFilesDir(null) ?: context?.filesDir ?: return
         val allFiles = (File(base, "logs").listFiles()?.toList().orEmpty() + File(base, "logs/watch").listFiles()?.toList().orEmpty())
-        var falls = 0; var tremors = 0; var abnormal = 0
+        
+        val counts = mutableMapOf<String, Int>().apply {
+            labels.forEach { put(it, 0) }
+        }
+
         allFiles.filter { it.isFile && it.name.endsWith(".csv", true) }.forEach { file ->
-            when (extractLabel(file.name).uppercase(Locale.US)) {
-                "FALLS" -> falls++
-                "TREMOR" -> tremors++
-                "JERKING", "TONIC" -> abnormal++
+            val label = extractLabel(file.name).uppercase(Locale.US)
+            if (counts.containsKey(label)) {
+                counts[label] = (counts[label] ?: 0) + 1
             }
         }
-        tvFallsCount?.text = falls.toString()
-        tvTremorsCount?.text = tremors.toString()
-        tvAbnormalCount?.text = abnormal.toString()
+
+        tvFallsCount?.text = (counts["FALLS"] ?: 0).toString()
+        tvTremorsCount?.text = (counts["TREMOR"] ?: 0).toString()
+        tvJerkingCount?.text = (counts["JERKING"] ?: 0).toString()
+        tvTonicCount?.text = (counts["TONIC"] ?: 0).toString()
+        tvWalkingCount?.text = (counts["WALKING"] ?: 0).toString()
+        tvRunningCount?.text = (counts["RUNNING"] ?: 0).toString()
+        tvSittingCount?.text = (counts["SITTING"] ?: 0).toString()
+        tvStandingCount?.text = (counts["STANDING"] ?: 0).toString()
     }
 
     private fun extractLabel(filename: String): String {
