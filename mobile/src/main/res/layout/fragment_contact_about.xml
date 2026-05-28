@@ -13,33 +13,151 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Contact &amp; About"
-            android:textSize="24sp"
+            android:text="About"
+            android:textSize="30sp"
             android:textStyle="bold"
-            android:textColor="#111827"/>
+            android:textColor="#101828" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="14dp"
-            android:text="Company: Central Solutions\nProduct: MotionWatch Fitness App\nPurpose: Track activity sessions between Android phone and watch."
-            android:textColor="#374151"
-            android:textSize="14sp"/>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="14dp"
-            android:text="Contact:\nEmail: support@centralsolutions.com\nPhone: (000) 000-0000\nLocation: Seattle, WA (placeholder)"
-            android:textColor="#374151"
-            android:textSize="14sp"/>
+            android:layout_marginTop="18dp"
+            android:text="MotionWatch is an Android-based fitness and motion tracking app that records activity sessions using a phone and wearable device. The app helps users start sessions, collect movement data, and review past activity information."
+            android:textColor="#344054"
+            android:textSize="18sp" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="18dp"
-            android:text="Version: 1.0"
-            android:textColor="#9CA3AF"
-            android:textSize="12sp"/>
+            android:text="Development Team"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            android:textColor="#101828"
+            android:layout_marginTop="30dp"
+            android:layout_marginBottom="20dp" />
+
+        <LinearLayout
+            android:id="@+id/aliMember"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:paddingBottom="22dp">
+
+            <ImageView
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:src="@drawable/ali_photo"
+                android:scaleType="centerCrop" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Ali Nizar"
+                android:textSize="20sp"
+                android:textColor="#344054"
+                android:layout_marginStart="22dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/kobeMember"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:paddingBottom="22dp">
+
+            <TextView
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:gravity="center"
+                android:text="K"
+                android:textSize="22sp"
+                android:textStyle="bold"
+                android:textColor="#FFFFFF"
+                android:background="#A9A9A9" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Kobe Takemura"
+                android:textSize="20sp"
+                android:textColor="#344054"
+                android:layout_marginStart="22dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/calvinMember"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:paddingBottom="22dp">
+
+            <TextView
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:gravity="center"
+                android:text="C"
+                android:textSize="22sp"
+                android:textStyle="bold"
+                android:textColor="#FFFFFF"
+                android:background="#A9A9A9" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Calvin Giles"
+                android:textSize="20sp"
+                android:textColor="#344054"
+                android:layout_marginStart="22dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/tashaMember"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:paddingBottom="22dp">
+
+            <ImageView
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:src="@drawable/tasha_photo"
+                android:scaleType="centerCrop" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Tasha Peterson"
+                android:textSize="20sp"
+                android:textColor="#344054"
+                android:layout_marginStart="22dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/cindyMember"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:paddingBottom="22dp">
+
+            <ImageView
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:src="@drawable/cindy_photo"
+                android:scaleType="centerCrop" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Cindy Chitsuwa"
+                android:textSize="20sp"
+                android:textColor="#344054"
+                android:layout_marginStart="22dp" />
+        </LinearLayout>
+
     </LinearLayout>
 </ScrollView>
